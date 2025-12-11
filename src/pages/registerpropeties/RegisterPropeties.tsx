@@ -209,9 +209,16 @@ function RegisterPropeties() {
       <div>
         <h4>Fotos de la Propiedad</h4>
         <p>Sube hasta 15 imagenes de la propiedad</p>
-        <input type="file" multiple accept="image/*" />
+        <input type="file"
+         multiple accept="image/*" 
+         />
       </div>
-
+      <br />
+      <div>
+        <button>cancelar</button>
+        <button>Publicar Propiedad</button>
+      </div>
+    {/* FALTAN DESCARGAR Y PONER LOS ICONOS CORRESPONDIENTES */}
       <Footer></Footer>
     </>
   );
