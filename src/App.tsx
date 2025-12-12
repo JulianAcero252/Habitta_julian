@@ -4,6 +4,7 @@ import Layout from "./components/layout/Layout";
 import Home from "./pages/home/Home";
 import Properties from "./pages/properties/Properties";
 import RegisterPropeties from "./pages/registerpropeties/RegisterPropeties";
+import "./pages/registerpropeties/StyleRegisterP.css";
 
 function App() {
   return (
