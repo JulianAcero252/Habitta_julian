@@ -105,7 +105,8 @@ function Home() {
         <Link to="/properties" className="">
           <button>Crear cuenta gratis</button>
           <button>Ver propiedades</button>
-        </Link>
+        </Link>stats
+        <div className="stats">
         <div>
           Versión web <br />
           Accede desde cualquier navegador
@@ -113,6 +114,7 @@ function Home() {
         <div>
           App móvil <br />
           Próximamente en App Store y Google Play
+        </div>
         </div>
       </section>
     </>
