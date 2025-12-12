@@ -30,9 +30,7 @@ function RegisterPropeties() {
           </label>
           <br />
           <select id="propertyType" name="propertyType" defaultValue="">
-            <option value="" disabled>
-              Selecciona
-            </option>
+            <option value="" disabled>Selecciona</option>
             <option value="apartment">Apartamento</option>
             <option value="house">Casa</option>
             <option value="lot">Lote</option>
@@ -44,9 +42,7 @@ function RegisterPropeties() {
           <br />
           {/*esta seccion esta de forma provisional  */}
           <select id="operationType" name="operationType" defaultValue="">
-            <option value="" disabled>
-              Selecciona
-            </option>
+            <option value="" disabled>Selecciona</option>
             <option value="sale">Venta</option>
             <option value="rent">Arriendo</option>
           </select>
@@ -88,7 +84,9 @@ function RegisterPropeties() {
           <input type="text" placeholder="1 principal, 2 auxiliares" />
           <p>Baños</p>
           <input type="text" placeholder="3 baños" />
-          <br />
+        </div>
+        <br />
+        <div>
           {/*faltaria agregar la logica para que si es lote no aparezca esta opcion de amoblado*/}
           <label htmlFor="furnished">
             Amoblado <span aria-hidden="true">*</span>
@@ -101,9 +99,6 @@ function RegisterPropeties() {
             <option value="yes">si</option>
             <option value="no">no</option>
           </select>
-        </div>
-        <br />
-        <div>
           <label htmlFor="parkingLot">
             Estacionamiento <span aria-hidden="true">*</span>
           </label>
@@ -115,9 +110,13 @@ function RegisterPropeties() {
             <option value="yes">si</option>
             <option value="no">no</option>
           </select>
-          <br />
+        </div>
+        <br />
+        <div>
           <p>Antiguedad (años)</p>
           <input type="text" placeholder="0" />
+          <p>Estrato</p>
+          <input type="text" placeholder="3" />
         </div>
         <br />
         <div>
