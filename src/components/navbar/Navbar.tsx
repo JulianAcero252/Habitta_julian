@@ -1,6 +1,6 @@
 import "./navbar.css";
 import logoSF from "../../assets/images/logoSF.png";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -14,33 +14,30 @@ function Navbar() {
         <nav className="navbar__links">
           <ul>
             <li>
-              <Link to="/src/pages/home/Home.tsx">Inicio</Link>
+              <Link to="/">Inicio</Link>
             </li>
             <li>
-              <Link to="/src/pages/properties/Properties.tsx">Propiedades</Link>
+              <Link to="/properties">Propiedades</Link>
             </li>
             <li>
-              <Link to="/">Favoritos</Link>
+              <Link to="/favorites">Favoritos</Link>
             </li>
             <li>
-              <Link to="/">Herramientas</Link>
+              <Link to="/tools">Herramientas</Link>
             </li>
           </ul>
         </nav>
 
         {/* Publish and User Icons */}
         <div className="navbar__actions">
-          <button className="navbar__publish-btn">
-            <li>
-              <Link to ="/src/pages/registerpropeties/RegisterPropeties.tsx">+Publicar</Link>
-              </li>
-          </button>
+          <Link to="/registerpropeties" className="navbar__publish-btn">
+            +Publicar
+          </Link>
           <button className="navbar__user-btn">
             <span>👤</span>
           </button>
         </div>
       </div>
-      <Outlet></Outlet>
     </nav>
   );
 }
