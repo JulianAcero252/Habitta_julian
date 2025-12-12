@@ -1,5 +1,6 @@
 import Footer from "../../components/footer/Footer";
 import CardPropetie from "../../components/cardPropetie/Card_propietie";
+import "./home.css"
 
 function Home() {
   return (

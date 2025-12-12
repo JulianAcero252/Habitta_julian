@@ -14,16 +14,16 @@ function Navbar() {
         <nav className="navbar__links">
           <ul>
             <li>
-              <Link to="/">Inicio</Link>
+              <Link to="/" className="navbar__link">Inicio</Link>
             </li>
             <li>
-              <Link to="/properties">Propiedades</Link>
+              <Link to="/properties" className="navbar__link">Propiedades</Link>
             </li>
             <li>
-              <Link to="/favorites">Favoritos</Link>
+              <Link to="/favorites" className="navbar__link">Favoritos</Link>
             </li>
             <li>
-              <Link to="/tools">Herramientas</Link>
+              <Link to="/tools" className="navbar__link">Herramientas</Link>
             </li>
           </ul>
         </nav>
