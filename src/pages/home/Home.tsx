@@ -1,11 +1,10 @@
-import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 import CardPropetie from "../../components/cardPropetie/Card_propietie";
+import "./home.css"
 
 function Home() {
   return (
     <>
-      <Navbar></Navbar>
       {/* hero section */}
       <section className="heroSection">
         <h1>Encuentra tu hogar ideal en Latinoamérica</h1>
