@@ -1,0 +1,168 @@
+/* ============================================================
+   ESTILOS GENERALES
+   ============================================================ */
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  color: #333;
+}
+
+h3, h4 {
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL DE CADA SECCIÓN
+   (Tu TSX usa muchos <div> sueltos, así que los estilizamos
+   por contexto para que parezcan tarjetas organizadas)
+   ============================================================ */
+h4 + div,
+h4 + p,
+h4 + input,
+h4 + fieldset {
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Cada bloque grande de tu formulario */
+div > h4 {
+  width: 90%;
+  max-width: 900px;
+  margin: 25px auto 10px auto;
+}
+
+/* ============================================================
+   INPUTS Y SELECTS — Estilo uniforme
+   ============================================================ */
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* ============================================================
+   DOBLE COLUMNA AUTOMÁTICA
+   (Detecta divs que contienen pares de <p> + <input> o <label> + <select>)
+   ============================================================ */
+div > p + input + p + input,
+div > p + input + label + select,
+div > label + select + p + input {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Para secciones como Ciudad / Departamento, Barrio / Código postal */
+div > p + input + p + input {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ============================================================
+   GRID PARA CARACTERÍSTICAS ADICIONALES
+   ============================================================ */
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.amenities-grid label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ============================================================
+   FIELDSET — Caja de características adicionales
+   ============================================================ */
+fieldset {
+  width: 90%;
+  max-width: 900px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+legend {
+  padding: 0 10px;
+  font-weight: bold;
+}
+
+/* ============================================================
+   SECCIÓN DE FOTOS
+   ============================================================ */
+input[type="file"] {
+  border: none;
+  padding: 0;
+  background: transparent;
+  font-size: 14px;
+}
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+div > button {
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+button:first-of-type {
+  background: #ccc;
+  color: #333;
+}
+
+button:last-of-type {
+  background: #007bff;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  div > p + input + p + input,
+  div > p + input + label + select,
+  div > label + select + p + input {
+    grid-template-columns: 1fr;
+  }
+
+  .amenities-grid {
+    grid-template-columns: 1fr;
+  }
+}
