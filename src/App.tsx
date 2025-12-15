@@ -4,7 +4,7 @@ import Layout from "./components/layout/Layout";
 import Home from "./pages/home/Home";
 import Properties from "./pages/properties/Properties";
 import RegisterPropeties from "./pages/registerpropeties/RegisterPropeties";
-import "./pages/registerpropeties/StyleRegisterP.css";
+import "./pages/registerpropeties/styleRegisterP.css";
 
 function App() {
   return (
@@ -15,8 +15,7 @@ function App() {
           <Route path="properties" element={<Properties />} />
           <Route path="registerpropeties" element={<RegisterPropeties />} />
         </Route>
-      </Routes>
-    </>
+      </Routes>    </>
   );
 }
 
