@@ -20,7 +20,7 @@ body {
 
 /* Wrapper específico para la página de registro: conserva 250px a cada lado */
 .register-page {
-  padding: 0 250px;
+  padding: 0 500px;
 }
 
 h3, h4 {

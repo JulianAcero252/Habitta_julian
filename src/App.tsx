@@ -15,8 +15,7 @@ function App() {
           <Route path="properties" element={<Properties />} />
           <Route path="registerpropeties" element={<RegisterPropeties />} />
         </Route>
-      </Routes>
-    </>
+      </Routes>    </>
   );
 }
 
