@@ -6,9 +6,6 @@ import './styleProperties.css';
 function Properties() {
     return (
         <>
-        <Navbar>
-        </Navbar>
-        
         <h1>Propiedades</h1>
         <p>Encuentra tu hogar ideal entre miles de opciones verificadas</p>
          <div className="properties-page">
@@ -149,8 +146,6 @@ function Properties() {
             </div>
         </div>
 
-        <Footer>
-        </Footer>
         </>
     )
 }
