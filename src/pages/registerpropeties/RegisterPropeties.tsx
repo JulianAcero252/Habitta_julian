@@ -1,11 +1,8 @@
-import Navbar from "../../components/navbar/Navbar";
-import Footer from "../../components/footer/Footer";
 import './styleRegisterP.css';
 
 function RegisterPropeties() {
   return (
     <>
-      <Navbar></Navbar>
       <div className="register-page">
 
       {/* formulario de registro de propiedades */}
