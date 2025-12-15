@@ -1,14 +1,19 @@
+import "./styleRegisterP.css";
+import Navbar from "../../components/navbar/Navbar";
+import Footer from "../../components/footer/Footer";
 
 function RegisterPropeties() {
   return (
     <>
-      
+      <Navbar></Navbar>
+      <div className="register-page">
+
       {/* formulario de registro de propiedades */}
-      <h1>Publicar Propriedades</h1>
-      <h3>Datos Principales de la Propiedad</h3>
+      <h3>Publicar Propriedades</h3>
+      <p>Datos Principales de la Propiedad</p>
 
       <br />
-      <div>
+      <div className="card">
         {/*Aqui va la informacion basica de la propiedad*/}
         <h4>Informacion Basica</h4>
         <p>Titulo del anuncio</p>
@@ -45,42 +50,58 @@ function RegisterPropeties() {
           </select>
         </div>
         <br />
-        <div>
-          <p>Precio (COP)</p>
-          <input type="text" placeholder="00.00" />
-          <p>Àrea (m2)</p>
-          <input type="text" placeholder="0" />
+        <div className="two-col">
+          <div>
+            <p>Precio (COP)</p>
+            <input type="text" placeholder="00.00" />
+          </div>
+          <div>
+            <p>Área (m2)</p>
+            <input type="text" placeholder="0" />
+          </div>
         </div>
       </div>
       <br />
-      <div>
+      <div className="card">
         {/*Aqui va la ubicacion de la propiedad*/}
         <h4>Ubicación</h4>
         <p>Dirección</p>
         <input type="text" placeholder="Calle 00 #00-00" />
-        <div>
-          <p>Ciudad</p>
-          <input type="text" placeholder="Tunja" />
-          <p>Departamento</p>
-          <input type="text" placeholder="Boyaca" />
+        <div className="two-col">
+          <div>
+            <p>Ciudad</p>
+            <input type="text" placeholder="Tunja" />
+          </div>
+          <div>
+            <p>Departamento</p>
+            <input type="text" placeholder="Boyaca" />
+          </div>
         </div>
         <br />
-        <div>
-          <p>Barrio</p>
-          <input type="text" placeholder="Centro" />
-          <p>Codigo postal</p>
-          <input type="text" placeholder="1500001" />
+        <div className="two-col">
+          <div>
+            <p>Barrio</p>
+            <input type="text" placeholder="Centro" />
+          </div>
+          <div>
+            <p>Codigo postal</p>
+            <input type="text" placeholder="1500001" />
+          </div>
         </div>
       </div>
       <br />
-      <div>
+      <div className="card">
         {/*Aqui van las caracteristicas de la propiedad*/}
         <h4>Caracteristicas</h4>
-        <div>
-          <p>Habitaciones</p>
-          <input type="text" placeholder="1 principal, 2 auxiliares" />
-          <p>Baños</p>
-          <input type="text" placeholder="3 baños" />
+        <div className="two-col">
+          <div>
+            <p>Habitaciones</p>
+            <input type="text" placeholder="1 principal, 2 auxiliares" />
+          </div>
+          <div>
+            <p>Baños</p>
+            <input type="text" placeholder="3 baños" />
+          </div>
         </div>
         <br />
         <div>
@@ -109,19 +130,27 @@ function RegisterPropeties() {
           </select>
         </div>
         <br />
-        <div>
-          <p>Antiguedad (años)</p>
-          <input type="text" placeholder="0" />
-          <p>Estrato</p>
-          <input type="text" placeholder="3" />
+        <div className="two-col">
+          <div>
+            <p>Antiguedad (años)</p>
+            <input type="text" placeholder="0" />
+          </div>
+          <div>
+            <p>Estrato</p>
+            <input type="text" placeholder="3" />
+          </div>
         </div>
         <br />
-        <div>
-          {/*estos dos campos son para propiedades tipo casa o edificio*/}
-          <p>Pisos</p>
-          <input type="text" placeholder="2 pisos" />
-          <p>Total Pisos</p>
-          <input type="text" placeholder="5 pisos" />
+        <div className="two-col">
+          <div>
+            {/*estos dos campos son para propiedades tipo casa o edificio*/}
+            <p>Pisos</p>
+            <input type="text" placeholder="2 pisos" />
+          </div>
+          <div>
+            <p>Total Pisos</p>
+            <input type="text" placeholder="5 pisos" />
+          </div>
         </div>
         <br />
         {/*aqui van las caracteristicas adicionales de la propiedad*/}
@@ -188,17 +217,18 @@ function RegisterPropeties() {
         </fieldset>
       </div>
       <br />
-      <div>
+      <div className="card">
         {/*Aqui van las fotos de la propiedad*/}
         <h4>Fotos de la Propiedad</h4>
         <p>Sube hasta 15 imagenes de la propiedad</p>
         <input type="file" multiple accept="image/*" />
       </div>
       <br />
-      <div>
-        <button>cancelar</button>
-        <button>Publicar Propiedad</button>
+      <div className="card actions">
+        <button className="btn-cancel">cancelar</button>
+        <button className="btn-primary">Publicar Propiedad</button>
       </div>
+    </div>
       {/* FALTAN DESCARGAR Y PONER LOS ICONOS CORRESPONDIENTES */}
     </>
   );
