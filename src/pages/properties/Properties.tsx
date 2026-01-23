@@ -11,9 +11,7 @@ function Properties() {
       <div className="properties-page">
         <section className="search-bar">
           <div className="search-input">
-            <button className="search-icon" aria-hidden>
-              🔍
-            </button>
+            <button className="search-icon" aria-hidden></button>
             <input
               type="search"
               placeholder="Buscar por ubicación, tipo de propiedad"
@@ -39,11 +37,11 @@ function Properties() {
           </div>
 
           <div className="actions">
-            <button className="btn-search">🔍 Buscar</button>
+            <button className="btn-search">Buscar</button>
             <div className="view-toggles">
-              <button className="icon">▦</button>
-              <button className="icon">☰</button>
-              <button className="icon">▭</button>
+              <button className="icon"></button>
+              <button className="icon"></button>
+              <button className="icon"></button>
             </div>
           </div>
           <div className="search-bottom">

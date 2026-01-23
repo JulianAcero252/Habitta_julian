@@ -81,3 +81,10 @@
 .submit-button:active {
   transform: translateY(0);
 }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-form {
+    padding: 0 10px;
+  }
+}

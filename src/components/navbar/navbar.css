@@ -21,7 +21,6 @@
   background: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
   padding: 8px 16px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
 }
 
@@ -31,8 +30,8 @@
   align-items: center;
   justify-content: center;
   width: auto;
-  height: 110px;
-  width: 110px;
+  height: 70px;
+  width: 70px;
 }
 
 .navbar__logo-img {
@@ -79,10 +78,10 @@
 
 /* Estilo para los links individuales */
 .navbar_link {
-  font-family: "Inter", sans-serif;
+  font-family: "Bolt", sans-serif;
   font-size: clamp(14px, 1.5vw, 18px);
   font-weight: 500;
-  color: #000000;
+  color: #848fa6;
   text-decoration: none;
   white-space: nowrap;
   padding: 6px 12px;
@@ -93,22 +92,9 @@
 .navbar_link:hover {
   border-radius: 15px;
   border: none;
-  background: linear-gradient(
-    to right,
-    #35d2db 0%,
-    #35c8be 54%,
-    #33bb9d 83%,
-    #35d2db 100%
-  );
-  color: #ffffff;
-  font-family: "Bolt", sans-serif;
-  font-size: clamp(14px, 1.8vw, 18px);
-  font-weight: 600;
+  background: #f6f7f8;
+  color: #000000;
   cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  box-shadow: -5px 3px 6px rgba(0, 0, 0, 0.12);
 }
 
 /*notification button*/

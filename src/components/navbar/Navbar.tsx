@@ -9,7 +9,7 @@ function Navbar() {
         {/* Logo */}
         <div className="navbar__logo">
           <Link to="/">
-            <img src={logoSF} alt="Habitta logo" className="navbar__logo" />
+            <img src={logoSF} alt="Habitta logo" className="navbar__logo-img" />
           </Link>
         </div>
 

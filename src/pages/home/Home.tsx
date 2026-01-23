@@ -1,127 +1,241 @@
 import CardPropetie from "../../components/cardPropetie/Card_propietie";
 import "./home.css";
 import { Link } from "react-router-dom";
+import starIcon from "../../assets/icons/star-alt-4-svgrepo-com.svg";
+import homeIcon from "../../assets/icons/home-1393-svgrepo-com.svg";
+import searchIcon from "../../assets/icons/glass-magnifier-search-zoom-alert-notification-svgrepo-com.svg";
 
 function Home() {
   return (
     <>
-      {/* hero section */}
-      <section className="heroSection">
-        <h1>Encuentra tu hogar ideal en Latinoamérica</h1>
-        <h3>
-          Miles de propiedades esperándote. Compra, vende o alquila con la
-          confianza que mereces.
-        </h3>
-        {/*section de filtro de propiedades */}
-        <div className="filterProperties">
-          <button>comprar</button>
-          <select id="propertyType" name="propertyType" defaultValue="">
-            <option value="" disabled>
-              Selecciona
-            </option>
-            <option value="apartment">Apartamento</option>
-            <option value="house">Casa</option>
-            <option value="lot">Lote</option>
-          </select>
-          <input type="text" placeholder="Ciudad, zona o código" />
-          <button>Buscar</button>
-          <br />
-          <label htmlFor="" id="labelBusquedasP">
-            Búsquedas populares:
-          </label>
-          <button>Apartamentos en Bogotá</button>
-          <button>Casas en Medellín</button>
-        </div>
-        <div></div>
-        {/* informacion de stats */}
-        <div className="stats">
-          <div>
-            25.000+ <br />
-            Propiedades
+      <main className="home-container">
+        {/* HERO SECTION */}
+        <section className="hero-section">
+          <div className="hero-content">
+            <h1>Encuentra tu hogar ideal en Latinoamérica</h1>
+            <h3>
+              Miles de propiedades esperándote. Compra, vende o alquila con la
+              confianza que mereces.
+            </h3>
+
+            {/* SEARCH CARD */}
+            <div className="search-card">
+              <div className="search-tabs">
+                <button className="tab active">Comprar</button>
+                <button className="tab">Alquilar</button>
+                <button className="tab">Vender</button>
+              </div>
+
+              <div className="search-inputs">
+                <div className="input-group">
+                  <label>Tipo de propiedad</label>
+                  <select id="propertyType" name="propertyType" defaultValue="">
+                    <option value="" disabled>
+                      Selecciona
+                    </option>
+                    <option value="apartment">Apartamento</option>
+                    <option value="house">Casa</option>
+                    <option value="lot">Lote</option>
+                  </select>
+                </div>
+
+                <div className="divider"></div>
+
+                <div className="input-group flex-grow">
+                  <label>Ubicación</label>
+                  <input
+                    id="location"
+                    type="text"
+                    placeholder="Ciudad, zona o código"
+                  />
+                </div>
+
+                <button className="search-btn">
+                  <img
+                    src={searchIcon}
+                    alt="Search"
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      filter: "brightness(0) invert(1)",
+                    }}
+                  />
+                  Buscar
+                </button>
+              </div>
+
+              <div className="popular-searches">
+                <span className="label">Búsquedas populares:</span>
+                <div className="tags">
+                  <button>Apartamentos en Bogotá</button>
+                  <button>Casas en Medellín</button>
+                  <button>Oficinas Santiago</button>
+                  <button>Casas Medellín</button>
+                </div>
+              </div>
+            </div>
+
+            {/* HERO STATS */}
+            <div className="hero-stats">
+              <div className="stat-item">
+                <span className="stat-number">25,000+</span>
+                <span className="stat-label">Propiedades</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">150+</span>
+                <span className="stat-label">Ciudades</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">50,000+</span>
+                <span className="stat-label">Usuarios activos</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">12,000+</span>
+                <span className="stat-label">Transacciones exitosas</span>
+              </div>
+            </div>
           </div>
-          <div>
-            150+ <br />
-            Ciudades
+        </section>
+
+        {/* PROMINENT SECTION (Featured Properties) */}
+        <section className="section-container prominent-section">
+          <div className="section-header">
+            <h4>Propiedades destacadas</h4>
+            <h5>
+              Descubre las mejores oportunidades inmobiliarias seleccionadas
+              especialmente para ti
+            </h5>
           </div>
-          <div>
-            50.000+ <br />
-            Usuarios activos
+
+          <CardPropetie />
+
+          <div className="center-btn">
+            <Link to="/properties" className="primary-btn-outline">
+              Ver todas las propiedades
+            </Link>
           </div>
-          <div>
-            12.000+ <br />
-            Transacciones exitosas
+        </section>
+
+        {/* WHY CHOOSE HABITTA */}
+        <section className="section-container features-section">
+          <div className="section-header">
+            <h4>¿Por qué elegir Habitta?</h4>
+            <h5>
+              La plataforma inmobiliaria más confiable de Latinoamérica,
+              respaldada por tecnología y experiencia
+            </h5>
           </div>
-        </div>
-      </section>
-      <div className="prominentSection">
-        <h4>Propiedades destacadas</h4>
-        <h5>
-          Descubre las mejores oportunidades inmobiliarias seleccionadas
-          especialmente para ti
-        </h5>
-      </div>
-      <section className="cardsProperties">
-        <CardPropetie></CardPropetie>
-      </section>
-      <Link to="/properties" className="publishBtn">
-        Ver todas las propiedades
-      </Link>
-      <div className="prominentSection">
-        <h4>¿Por qué elegir Habitta?</h4>
-        <h5>
-          La plataforma inmobiliaria más confiable de Latinoamérica, respaldada
-          por tecnología y experiencia
-        </h5>
-      </div>
-      <section className="stats">
-        <div>
-          Verificación garantizada <br />
-          Todas las propiedades y usuarios pasan por un riguroso proceso de
-          verificación
-        </div>
-        <div>
-          Asesoría especializada <br />
-          Contamos con expertos inmobiliarios en cada país para guiarte en tu
-          decisión
-        </div>
-        <div>
-          Comunidad confiable <br />
-          Miles de usuarios satisfechos que han encontrado su hogar ideal con
-          nosotros
-        </div>
-        <div>
-          Soporte 24/7 <br />
-          Nuestro equipo está disponible las 24 horas para resolver tus dudas
-        </div>
-      </section>
-      <div className="certification">Certificaciones y reconocimientos</div>
-      <section id="certifications">
-        <div>ISO 27001</div>
-        <div>SSL Secured</div>
-        <div>GDPR Compliant</div>
-        <div>Trusted Partner</div>
-      </section>
-      <section className="heroSection">
-        <h1>¿Listo para encontrar tu próximo hogar?</h1>
-        <h3>
-          Únete a miles de personas que ya han encontrado su propiedad ideal.
-          Crear tu cuenta es gratis y solo toma unos minutos.
-        </h3>
-        <Link to="/properties" className="">
-          <button>Crear cuenta gratis</button>
-          <button>Ver propiedades</button>
-        </Link>
-        <div className="stats">
-          <div>
-            Versión web <br />
-            Accede desde cualquier navegador
+
+          <div className="features-grid">
+            <div className="feature-card">
+              <div className="icon-box">
+                <img
+                  src={starIcon}
+                  alt="Verified"
+                  style={{ width: "40px", height: "40px" }}
+                />
+              </div>
+              <h3>Verificación garantizada</h3>
+              <p>
+                Todas las propiedades y usuarios pasan por un riguroso proceso
+                de verificación
+              </p>
+            </div>
+            <div className="feature-card">
+              <div className="icon-box">
+                <img
+                  src={homeIcon}
+                  alt="Expert"
+                  style={{ width: "40px", height: "40px" }}
+                />
+              </div>
+              <h3>Asesoría especializada</h3>
+              <p>
+                Contamos con expertos inmobiliarios en cada país para guiarte en
+                tu decisión
+              </p>
+            </div>
+            <div className="feature-card">
+              <div className="icon-box">
+                <img
+                  src={starIcon}
+                  alt="Community"
+                  style={{ width: "40px", height: "40px" }}
+                />
+              </div>
+              <h3>Comunidad confiable</h3>
+              <p>
+                Miles de usuarios satisfechos que han encontrado su hogar ideal
+                con nosotros
+              </p>
+            </div>
+            <div className="feature-card">
+              <div className="icon-box">
+                <img
+                  src={homeIcon}
+                  alt="Support"
+                  style={{ width: "40px", height: "40px" }}
+                />
+              </div>
+              <h3>Soporte 24/7</h3>
+              <p>
+                Nuestro equipo está disponible las 24 horas para resolver tus
+                dudas
+              </p>
+            </div>
           </div>
-          <div>
-            App móvil <br />
-            Próximamente en App Store y Google Play
+
+          <div className="certifications-bar">
+            <span className="cert-label">
+              Certificaciones y reconocimientos
+            </span>
+            <div className="cert-logos">
+              <span className="cert-item">ISO 27001</span>
+              <span className="cert-item">SSL Secured</span>
+              <span className="cert-item">GDPR Compliant</span>
+              <span className="cert-item">Trusted Partner</span>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* CTA SECTION */}
+        <section className="cta-section">
+          <div className="cta-content">
+            <h1>¿Listo para encontrar tu próximo hogar?</h1>
+            <h3>
+              Únete a miles de personas que ya han encontrado su propiedad
+              ideal. Crear tu cuenta es gratis y solo toma unos minutos.
+            </h3>
+
+            <div className="cta-actions">
+              <Link to="/properties" className="cta-primary-btn">
+                Crear cuenta gratis <span>→</span>
+              </Link>
+              <div className="cta-input-group">
+                {/* Visual placeholder for input if needed, or just white space as in image */}
+                <input type="email" placeholder="Tu correo electrónico" />
+              </div>
+            </div>
+
+            <div className="app-cards-grid">
+              <div className="app-card">
+                <div className="app-icon"></div>
+                <div className="app-info">
+                  <strong>Versión Web</strong>
+                  <span>Accede desde cualquier navegador</span>
+                </div>
+              </div>
+              <div className="app-card">
+                <div className="app-icon"></div>
+                <div className="app-info">
+                  <strong>App Móvil</strong>
+                  <span>Próximamente en App Store y Google Play</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </>
   );
 }

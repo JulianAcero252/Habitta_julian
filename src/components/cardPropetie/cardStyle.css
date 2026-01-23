@@ -1,5 +1,5 @@
-/* Grid contenedor */
-.cards-grid {
+/* Grid container */
+.property-cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
@@ -8,177 +8,201 @@
   padding: 20px;
 }
 
-/* Tarjeta */
+/* Card */
 .property-card {
   background: #ffffff;
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
-  border: 1px solid rgba(16, 24, 40, 0.06);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
-/* Contenedor de imagen (deja espacio para tu ruta local) */
+.property-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Image Container */
+/* Image Container */
 .property-card__image-container {
   position: relative;
   width: 100%;
-  height: 170px; /* altura similar a la imagen enviada */
-  background: linear-gradient(180deg, #e9f7f6 0%, #f6fbfb 100%); /* fallback visual */
-  background-size: cover;
-  background-position: center;
+  height: 240px;
+  background-color: #e5e7eb;
+  overflow: hidden; /* Ensure image doesn't overflow rounded corners if any */
 }
 
-/* Aquí puedes descomentar y cambiar la ruta por tu imagen local */
-/* .property-card__image-container {
-     background-image: url('../../assets/images/tu-imagen.jpg');
-     background-size: cover;
-     background-position: center;
-} */
-
-/* Badges (estado) */
-.property-card__status {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #fff;
-  text-transform: lowercase;
-  letter-spacing: 0.2px;
+.property-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
 }
 
-/* estados específicos */
-.property-card__status--disponible { background: #2ad1be; }
-.property-card__status--vendida { background: #ff6b6b; }
-.property-card__status--alquilada { background: #ffb86b; }
+.property-card:hover .property-card__img {
+  transform: scale(1.05); /* Subtle zoom effect on hover */
+}
 
-/* Botones de acción sobre la imagen */
-.property-card__actions {
+/* BADGES */
+.property-card__badges {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 16px;
+  left: 16px;
   display: flex;
   gap: 8px;
-  align-items: center;
+  z-index: 2;
 }
 
-.property-card__action-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 2px 6px rgba(16,24,40,0.08);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  transition: transform 0.15s ease, background 0.15s ease;
+.badge {
+  padding: 6px 12px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.property-card__action-btn:hover {
-  transform: translateY(-2px);
+.badge--featured {
+  background: #2dd4bf; /* Teal */
+  color: #fff;
+}
+
+.badge--type {
   background: #fff;
+  color: #111827;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Cuerpo de la tarjeta */
-.property-card__body {
+/* ACTIONS (Heart/Eye) */
+.property-card__actions {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   padding: 16px;
   display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+}
+
+/* Override: Image design shows these at bottom left/right overlaid */
+.property-card__actions .action-btn {
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+}
+
+.icon-svg {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* CARD BODY */
+.property-card__body {
+  padding: 20px;
+  display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   flex: 1;
 }
 
-/* Titulo */
 .property-card__title {
-  margin: 0;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 700;
-  color: #111827;
-  line-height: 1.2;
+  color: #1f2937;
+  color: #2dd4bf; /* Teal title as in image */
+  margin: 0;
 }
 
-/* Ubicación */
 .property-card__location {
-  margin: 0;
-  font-size: 13px;
+  font-size: 0.9rem;
   color: #6b7280;
+  margin-bottom: 8px;
 }
 
-/* Precio */
 .property-card__price {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 700;
-  color: #0fb6a9; /* teal similar a la imagen */
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #2dd4bf; /* Main Brand color */
+  margin-bottom: 12px;
 }
 
-/* Características (iconos + texto) */
+/* FEATURES */
 .property-card__features {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   align-items: center;
   color: #6b7280;
-  font-size: 13px;
-  margin-top: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
 }
 
-.property-card__feature {
-  display: inline-flex;
+.feature-item {
+  display: flex;
+  align-items: center;
   gap: 6px;
-  align-items: center;
-  background: transparent;
 }
 
-/* Iconos dentro de features */
-.property-card__feature-icon {
-  display: inline-flex;
-  width: 18px;
-  height: 18px;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: #374151;
+.feature-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
 }
 
-/* Botón "Ver detalles" */
+/* BUTTON */
 .property-card__btn-details {
-  margin-top: auto; /* empuja al fondo */
-  width: 100%;
-  padding: 10px 14px;
+  background: #2dd4bf;
+  color: white;
   border: none;
+  padding: 12px;
   border-radius: 12px;
-  cursor: pointer;
-  color: #ffffff;
   font-weight: 700;
-  background: linear-gradient(90deg, #35d2db 0%, #35c8be 54%, #33bb9d 100%);
-  box-shadow: 0 6px 12px rgba(51, 187, 157, 0.14);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: auto;
+  transition: background 0.2s;
 }
 
-/* Ajustes hover botón */
 .property-card__btn-details:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(51, 187, 157, 0.18);
+  background: #14b8a6;
 }
 
-/* Responsive */
-@media (max-width: 1100px) {
-  .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; padding: 16px; }
-  .property-card__image-container { height: 160px; }
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .property-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-@media (max-width: 700px) {
-  .cards-grid { grid-template-columns: 1fr; gap: 14px; padding: 12px; }
-  .property-card__image-container { height: 180px; } /* más alto para imagen móvil */
-  .property-card { border-radius: 10px; }
-  .property-card__title { font-size: 16px; }
-  .property-card__price { font-size: 15px; }
-  .property-card__btn-details { padding: 10px; border-radius: 10px; }
+@media (max-width: 640px) {
+  .property-cards-grid {
+    grid-template-columns: 1fr;
+    padding: 10px 0; /* Remove side padding to maximize width */
+    gap: 20px;
+  }
+
+  .property-card__image-container {
+    height: 240px; /* Taller image on mobile */
+  }
 }
