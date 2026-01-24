@@ -1,9 +1,6 @@
 import CardPropetie from "../../components/cardPropetie/Card_propietie";
 import "./home.css";
 import { Link } from "react-router-dom";
-import starIcon from "../../assets/icons/star-alt-4-svgrepo-com.svg";
-import homeIcon from "../../assets/icons/home-1393-svgrepo-com.svg";
-import searchIcon from "../../assets/icons/glass-magnifier-search-zoom-alert-notification-svgrepo-com.svg";
 
 function Home() {
   return (
@@ -52,7 +49,7 @@ function Home() {
 
                 <button className="search-btn">
                   <img
-                    src={searchIcon}
+                    src="/icons/glass-magnifier-search-zoom-alert-notification-svgrepo-com.svg"
                     alt="Search"
                     style={{
                       width: "20px",
@@ -130,7 +127,7 @@ function Home() {
             <div className="feature-card">
               <div className="icon-box">
                 <img
-                  src={starIcon}
+                  src="/icons/star-alt-4-svgrepo-com.svg"
                   alt="Verified"
                   style={{ width: "40px", height: "40px" }}
                 />
@@ -144,7 +141,7 @@ function Home() {
             <div className="feature-card">
               <div className="icon-box">
                 <img
-                  src={homeIcon}
+                  src="/icons/home-1393-svgrepo-com.svg"
                   alt="Expert"
                   style={{ width: "40px", height: "40px" }}
                 />
@@ -158,7 +155,7 @@ function Home() {
             <div className="feature-card">
               <div className="icon-box">
                 <img
-                  src={starIcon}
+                  src="/icons/star-alt-4-svgrepo-com.svg"
                   alt="Community"
                   style={{ width: "40px", height: "40px" }}
                 />
@@ -172,7 +169,7 @@ function Home() {
             <div className="feature-card">
               <div className="icon-box">
                 <img
-                  src={homeIcon}
+                  src="/icons/home-1393-svgrepo-com.svg"
                   alt="Support"
                   style={{ width: "40px", height: "40px" }}
                 />

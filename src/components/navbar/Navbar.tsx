@@ -1,5 +1,4 @@
 import "./navbar.css";
-import logoSF from "../../assets/images/logoSF.png";
 import { Link } from "react-router-dom";
 
 function Navbar() {
@@ -9,7 +8,11 @@ function Navbar() {
         {/* Logo */}
         <div className="navbar__logo">
           <Link to="/">
-            <img src={logoSF} alt="Habitta logo" className="navbar__logo-img" />
+            <img
+              src="/images/logoSF.png"
+              alt="Habitta logo"
+              className="navbar__logo-img"
+            />
           </Link>
         </div>
 
@@ -20,7 +23,7 @@ function Navbar() {
               <Link className="navbar_link" to="/">
                 <img
                   className="navbar_icon"
-                  src="/src/assets/icons/home-1393-svgrepo-com.svg"
+                  src="/icons/home-1393-svgrepo-com.svg"
                   alt=""
                 />
                 Inicio
@@ -30,7 +33,7 @@ function Navbar() {
               <Link className="navbar_link" to="/properties">
                 <img
                   className="navbar_icon"
-                  src="/src/assets/icons/glass-magnifier-search-zoom-alert-notification-svgrepo-com.svg"
+                  src="/icons/glass-magnifier-search-zoom-alert-notification-svgrepo-com.svg"
                   alt=""
                 />
                 Propiedades
@@ -40,7 +43,7 @@ function Navbar() {
               <Link className="navbar_link" to="/favorites">
                 <img
                   className="navbar_icon"
-                  src="/src/assets/icons/hearth-svgrepo-com.svg"
+                  src="/icons/hearth-svgrepo-com.svg"
                   alt=""
                 />
                 Favoritos
@@ -50,7 +53,7 @@ function Navbar() {
               <Link className="navbar_link" to="/tools">
                 <img
                   className="navbar_icon"
-                  src="/src/assets/icons/calculator-svgrepo-com.svg"
+                  src="/icons/calculator-svgrepo-com.svg"
                   alt=""
                 />
                 Herramientas
@@ -60,7 +63,7 @@ function Navbar() {
               <Link className="navbar_link" to="/promotion">
                 <img
                   className="navbar_icon"
-                  src="/src/assets/icons/star-alt-4-svgrepo-com.svg"
+                  src="/icons/star-alt-4-svgrepo-com.svg"
                   alt=""
                 />
                 Promociones
@@ -73,7 +76,7 @@ function Navbar() {
         <li id="notificationButton">
           <img
             id="notificationIcon"
-            src="/src/assets/icons/notification-9-svgrepo-com.svg"
+            src="/icons/notification-9-svgrepo-com.svg"
             alt=""
           />
         </li>

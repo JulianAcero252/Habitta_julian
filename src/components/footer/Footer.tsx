@@ -5,7 +5,6 @@ import {
   socialMedia,
   contactInfo,
 } from "./footerData";
-import logoHabitta from "../../assets/images/logoCF.png";
 
 function Footer() {
   return (
@@ -15,7 +14,7 @@ function Footer() {
         <div className="footer__left">
           <div className="footer__logo-section">
             <img
-              src={logoHabitta}
+              src="/images/logoCF.png"
               alt="Habitta logo"
               className="footer__logo"
             />
