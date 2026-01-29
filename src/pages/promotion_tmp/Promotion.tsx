@@ -1,4 +1,5 @@
 import "./promotion.css";
+
 function Promotion() {
   return (
     <div className="promotion-container">

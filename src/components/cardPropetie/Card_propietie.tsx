@@ -1,8 +1,8 @@
 import "./cardStyle.css";
 // Importing available icons
-import heartIcon from "../../assets/icons/hearth-svgrepo-com.svg";
+import heartIcon from "../../assets/icons/UI/navbaricons/hearth-svgrepo-com.svg";
 // import shareIcon from "../../assets/icons/share.svg"; // Assuming we might have one or need a placeholder, using generic for now
-import homeIcon from "../../assets/icons/house-01-svgrepo-com.svg";
+import homeIcon from "../../assets/icons/UI/navbaricons/house-01-svgrepo-com.svg";
 import house1 from "../../assets/images/auth/dream_home_1.png";
 import house2 from "../../assets/images/auth/dream_home_2.png";
 import house3 from "../../assets/images/auth/dream_home_3.png";

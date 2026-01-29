@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import CardPropetie from "../../components/cardPropetie/Card_propietie";
 import "./home.css";
 import { Link } from "react-router-dom";
-import starIcon from "../../assets/icons/star-alt-4-svgrepo-com.svg";
-import homeIcon from "../../assets/icons/house-01-svgrepo-com.svg";
-import searchIcon from "../../assets/icons/glass-magnifier-search-zoom-alert-notification-svgrepo-com.svg";
+import shieldIcon from "../../assets/icons/UI/shield-alt-1-svgrepo-com.svg";
+import medallIcon from "../../assets/icons/UI/medal-ribbon-svgrepo-com.svg";
+import peopleIcon from "../../assets/icons/UI/peoples-svgrepo-com.svg";
+import timerIcon from "../../assets/icons/UI/timer-svgrepo-com.svg";
+import searchIcon from "../../assets/icons/UI/navbaricons/glass-magnifier-search-zoom-alert-notification-svgrepo-com.svg";
 
 // Imágenes de fondo para el slideshow (las mismas del Auth)
 import img1 from "../../assets/images/auth/dream_home_1.png";
@@ -168,9 +170,9 @@ function Home() {
             <div className="feature-card">
               <div className="icon-box">
                 <img
-                  src={starIcon}
+                  src={shieldIcon}
                   alt="Verified"
-                  style={{ width: "40px", height: "40px" }}
+                  style={{ width: "30px", height: "30px" }}
                 />
               </div>
               <h3>Verificación garantizada</h3>
@@ -182,9 +184,9 @@ function Home() {
             <div className="feature-card">
               <div className="icon-box">
                 <img
-                  src={homeIcon}
+                  src={medallIcon}
                   alt="Expert"
-                  style={{ width: "40px", height: "40px" }}
+                  style={{ width: "30px", height: "30px" }}
                 />
               </div>
               <h3>Asesoría especializada</h3>
@@ -196,9 +198,9 @@ function Home() {
             <div className="feature-card">
               <div className="icon-box">
                 <img
-                  src={starIcon}
+                  src={peopleIcon}
                   alt="Community"
-                  style={{ width: "40px", height: "40px" }}
+                  style={{ width: "30px", height: "30px" }}
                 />
               </div>
               <h3>Comunidad confiable</h3>
@@ -210,9 +212,9 @@ function Home() {
             <div className="feature-card">
               <div className="icon-box">
                 <img
-                  src={homeIcon}
+                  src={timerIcon}
                   alt="Support"
-                  style={{ width: "40px", height: "40px" }}
+                  style={{ width: "60px", height: "60px" }}
                 />
               </div>
               <h3>Soporte 24/7</h3>

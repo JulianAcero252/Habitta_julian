@@ -25,7 +25,7 @@ function Navbar() {
               >
                 <img
                   className="navbar_icon"
-                  src="/src/assets/icons/house-01-svgrepo-com.svg"
+                  src="/src/assets/icons/UI/navbaricons/house-01-svgrepo-com.svg"
                   alt=""
                 />
                 Inicio
@@ -38,7 +38,7 @@ function Navbar() {
               >
                 <img
                   className="navbar_icon"
-                  src="/src/assets/icons/glass-magnifier-search-zoom-alert-notification-svgrepo-com.svg"
+                  src="/src/assets/icons/UI/navbaricons/glass-magnifier-search-zoom-alert-notification-svgrepo-com.svg"
                   alt=""
                 />
                 Propiedades
@@ -51,7 +51,7 @@ function Navbar() {
               >
                 <img
                   className="navbar_icon"
-                  src="/src/assets/icons/hearth-svgrepo-com.svg"
+                  src="/src/assets/icons/UI/navbaricons/hearth-svgrepo-com.svg"
                   alt=""
                 />
                 Favoritos
@@ -64,7 +64,7 @@ function Navbar() {
               >
                 <img
                   className="navbar_icon"
-                  src="/src/assets/icons/calculator-svgrepo-com.svg"
+                  src="/src/assets/icons/UI/navbaricons/calculator-svgrepo-com.svg"
                   alt=""
                 />
                 Herramientas
@@ -77,7 +77,7 @@ function Navbar() {
               >
                 <img
                   className="navbar_icon"
-                  src="/src/assets/icons/star-alt-4-svgrepo-com.svg"
+                  src="/src/assets/icons/UI/navbaricons/star-alt-4-svgrepo-com.svg"
                   alt=""
                 />
                 Promociones
@@ -90,7 +90,7 @@ function Navbar() {
         <div id="notificationButton">
           <img
             id="notificationIcon"
-            src="/src/assets/icons/notification-9-svgrepo-com.svg"
+            src="/public/notification-9-svgrepo-com.svg"
             alt="Notificaciones"
           />
         </div>
