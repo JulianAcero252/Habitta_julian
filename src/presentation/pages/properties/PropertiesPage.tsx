@@ -1,7 +1,7 @@
 import CardPropetie from "../../components/cardPropetie/Card_propietie";
 import "./styleProperties.css";
 
-function Properties() {
+function PropertiesPage() {
   return (
     <>
       <h1>Propiedades</h1>
@@ -172,4 +172,4 @@ function Properties() {
   );
 }
 
-export default Properties;
+export default PropertiesPage;
