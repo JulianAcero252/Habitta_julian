@@ -3,11 +3,15 @@ import Login from "./Login";
 import Register from "./Register";
 import "./Auth.css";
 
+import img1 from "../../assets/images/auth/dream_home_1.png";
+import img2 from "../../assets/images/auth/dream_home_2.png";
+import img3 from "../../assets/images/auth/dream_home_3.png";
+
 // Images generated and placeholders
 const backgroundImages = [
-  "/images/auth/dream_home_1.png",
-  "/images/auth/dream_home_2.png",
-  "/images/auth/dream_home_3.png",
+  img1,
+  img2,
+  img3,
   "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80", // Luxury Penthouse
   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80", // Modern Villa
 ];

@@ -1,5 +1,11 @@
 import "./cardStyle.css";
 // Importing available icons
+import heartIcon from "../../assets/icons/hearth-svgrepo-com.svg";
+// import shareIcon from "../../assets/icons/share.svg"; // Assuming we might have one or need a placeholder, using generic for now
+import homeIcon from "../../assets/icons/home-1393-svgrepo-com.svg";
+import house1 from "../../assets/images/auth/dream_home_1.png";
+import house2 from "../../assets/images/auth/dream_home_2.png";
+import house3 from "../../assets/images/auth/dream_home_3.png";
 
 function CardPropetie() {
   return (
@@ -8,7 +14,7 @@ function CardPropetie() {
       <div className="property-card">
         <div className="property-card__image-container">
           <img
-            src="/images/auth/dream_home_1.png"
+            src={house1}
             alt="Casa en Polanco"
             className="property-card__img"
           />
@@ -21,11 +27,7 @@ function CardPropetie() {
           {/* ACTION BUTTONS */}
           <div className="property-card__actions">
             <button className="action-btn" title="Agregar a favoritos">
-              <img
-                src="/icons/hearth-svgrepo-com.svg"
-                alt="Favorito"
-                className="icon-svg"
-              />
+              <img src={heartIcon} alt="Favorito" className="icon-svg" />
             </button>
           </div>
         </div>
@@ -38,27 +40,14 @@ function CardPropetie() {
 
           <div className="property-card__features">
             <span className="feature-item">
-              <img
-                src="/icons/home-1393-svgrepo-com.svg"
-                alt="Habitaciones"
-                className="feature-icon"
-              />
+              <img src={homeIcon} alt="Habitaciones" className="feature-icon" />
               4
             </span>
             <span className="feature-item">
-              <img
-                src="/icons/home-1393-svgrepo-com.svg"
-                alt="Baños"
-                className="feature-icon"
-              />
-              3
+              <img src={homeIcon} alt="Baños" className="feature-icon" />3
             </span>
             <span className="feature-item">
-              <img
-                src="/icons/home-1393-svgrepo-com.svg"
-                alt="Área"
-                className="feature-icon"
-              />
+              <img src={homeIcon} alt="Área" className="feature-icon" />
               250 m²
             </span>
           </div>
@@ -71,7 +60,7 @@ function CardPropetie() {
       <div className="property-card">
         <div className="property-card__image-container">
           <img
-            src="/images/auth/dream_home_2.png"
+            src={house2}
             alt="Apartamento de lujo"
             className="property-card__img"
           />
@@ -80,11 +69,7 @@ function CardPropetie() {
           </div>
           <div className="property-card__actions">
             <button className="action-btn">
-              <img
-                src="/icons/hearth-svgrepo-com.svg"
-                alt="Favorito"
-                className="icon-svg"
-              />
+              <img src={heartIcon} alt="Favorito" className="icon-svg" />
             </button>
           </div>
         </div>
@@ -94,27 +79,13 @@ function CardPropetie() {
           <p className="property-card__price">$2.500.000.000 COP</p>
           <div className="property-card__features">
             <span className="feature-item">
-              <img
-                src="/icons/home-1393-svgrepo-com.svg"
-                alt="Hab"
-                className="feature-icon"
-              />
-              3
+              <img src={homeIcon} alt="Hab" className="feature-icon" />3
             </span>
             <span className="feature-item">
-              <img
-                src="/icons/home-1393-svgrepo-com.svg"
-                alt="Baños"
-                className="feature-icon"
-              />
-              2
+              <img src={homeIcon} alt="Baños" className="feature-icon" />2
             </span>
             <span className="feature-item">
-              <img
-                src="/icons/home-1393-svgrepo-com.svg"
-                alt="Área"
-                className="feature-icon"
-              />
+              <img src={homeIcon} alt="Área" className="feature-icon" />
               180 m²
             </span>
           </div>
@@ -126,7 +97,7 @@ function CardPropetie() {
       <div className="property-card">
         <div className="property-card__image-container">
           <img
-            src="/images/auth/dream_home_3.png"
+            src={house3}
             alt="Casa Campestre"
             className="property-card__img"
           />
@@ -135,11 +106,7 @@ function CardPropetie() {
           </div>
           <div className="property-card__actions">
             <button className="action-btn">
-              <img
-                src="/icons/hearth-svgrepo-com.svg"
-                alt="Favorito"
-                className="icon-svg"
-              />
+              <img src={heartIcon} alt="Favorito" className="icon-svg" />
             </button>
           </div>
         </div>
@@ -149,27 +116,13 @@ function CardPropetie() {
           <p className="property-card__price">$1.800.000.000 COP</p>
           <div className="property-card__features">
             <span className="feature-item">
-              <img
-                src="/icons/home-1393-svgrepo-com.svg"
-                alt="Hab"
-                className="feature-icon"
-              />
-              5
+              <img src={homeIcon} alt="Hab" className="feature-icon" />5
             </span>
             <span className="feature-item">
-              <img
-                src="/icons/home-1393-svgrepo-com.svg"
-                alt="Baños"
-                className="feature-icon"
-              />
-              4
+              <img src={homeIcon} alt="Baños" className="feature-icon" />4
             </span>
             <span className="feature-item">
-              <img
-                src="/icons/home-1393-svgrepo-com.svg"
-                alt="Área"
-                className="feature-icon"
-              />
+              <img src={homeIcon} alt="Área" className="feature-icon" />
               350 m²
             </span>
           </div>
