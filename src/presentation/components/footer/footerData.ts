@@ -1,8 +1,4 @@
-/**
- * Datos estáticos para el pie de página (Footer)
- * Aquí se definen los enlaces, países, redes sociales e información de contacto.
- * Facilitamos la traducción y modificación sin tocar el componente visual.
- */
+// Footer Static Data
 
 export const footerSections = [
   {

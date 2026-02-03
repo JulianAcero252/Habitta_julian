@@ -1,24 +1,16 @@
-// Importamos los estilos específicos para la página de registro de propiedades.
 import "./styleRegisterP.css";
 
-/**
- * Página de Registro de Propiedades (Publicación)
- * Esta página contiene un formulario detallado para que los usuarios puedan subir
- * y publicar sus propiedades (casas, apartamentos, lotes) en la plataforma.
- */
+// Página de Registro de Propiedades
 function RegisterPropertyPage() {
   return (
     <>
       <div className="register-page">
-        {/* Título y subtítulo principal */}
         <h3>Publicar Propiedades</h3>
         <p>Datos Principales de la Propiedad</p>
 
         <br />
 
-        {/* =========================================
-            SECCIÓN 1: INFORMACIÓN BÁSICA
-           ========================================= */}
+        {/* Información Básica */}
         <div className="card">
           <h4>Información Básica</h4>
 
@@ -35,7 +27,7 @@ function RegisterPropertyPage() {
           />
 
           <div>
-            {/* Selector: Tipo de propiedad */}
+            {/* Tipo de Propiedad */}
             <label htmlFor="propertyType">
               Tipo de propiedad <span aria-hidden="true">*</span>
             </label>
@@ -50,12 +42,11 @@ function RegisterPropertyPage() {
             </select>
             <br />
 
-            {/* Selector: Tipo de operación (Venta/Arriendo) */}
+            {/* Tipo de Operación */}
             <label htmlFor="operationType">
               Tipo de operación <span aria-hidden="true">*</span>
             </label>
             <br />
-            {/* Nota: Esta sección es provisional y podría cambiar en el futuro */}
             <select id="operationType" name="operationType" defaultValue="">
               <option value="" disabled>
                 Selecciona
@@ -67,7 +58,9 @@ function RegisterPropertyPage() {
 
           <br />
 
-          {/* Fila de dos columnas para Precio y Área */}
+          <br />
+
+          {/* Precio y Área */}
           <div className="two-col">
             <div>
               <p>Precio (COP)</p>
@@ -82,9 +75,9 @@ function RegisterPropertyPage() {
 
         <br />
 
-        {/* =========================================
-            SECCIÓN 2: UBICACIÓN
-           ========================================= */}
+        <br />
+
+        {/* Ubicación */}
         <div className="card">
           <h4>Ubicación</h4>
 
@@ -118,9 +111,9 @@ function RegisterPropertyPage() {
 
         <br />
 
-        {/* =========================================
-            SECCIÓN 3: CARACTERÍSTICAS
-           ========================================= */}
+        <br />
+
+        {/* Características */}
         <div className="card">
           <h4>Características</h4>
 
@@ -137,8 +130,9 @@ function RegisterPropertyPage() {
 
           <br />
 
+          <br />
+
           <div>
-            {/* Nota: Faltaría agregar lógica para ocultar la opción 'Amoblado' si es un lote */}
             <label htmlFor="furnished">
               Amoblado <span aria-hidden="true">*</span>
             </label>
@@ -181,7 +175,6 @@ function RegisterPropertyPage() {
 
           <div className="two-col">
             <div>
-              {/* Estos campos son relevantes principalmente para casas o edificios */}
               <p>Pisos (Nivel de la propiedad)</p>
               <input type="text" placeholder="Ej: 2° piso" />
             </div>
@@ -193,7 +186,9 @@ function RegisterPropertyPage() {
 
           <br />
 
-          {/* Checkboxes para características adicionales (Amenities) */}
+          <br />
+
+          {/* Amenidades */}
           <fieldset>
             <legend>Características adicionales</legend>
             <div className="amenities-grid">
@@ -259,9 +254,9 @@ function RegisterPropertyPage() {
 
         <br />
 
-        {/* =========================================
-            SECCIÓN 4: FOTOGRAFÍAS
-           ========================================= */}
+        <br />
+
+        {/* Fotografías */}
         <div className="card">
           <h4>Fotos de la Propiedad</h4>
           <p>
@@ -269,7 +264,7 @@ function RegisterPropertyPage() {
           </p>
           <input
             type="file"
-            // placeholder="Elegir archivos" // Nota: 'placeholder' no funciona en input type="file" estándar
+            // placeholder="Elegir archivos"
             multiple
             accept="image/*"
           />
@@ -277,13 +272,14 @@ function RegisterPropertyPage() {
 
         <br />
 
-        {/* Botones de Acción Final (Cancelar / Publicar) */}
+        <br />
+
+        {/* Botones de Acción */}
         <div className="card actions">
           <button className="btn-cancel">Cancelar</button>
           <button className="btn-primary">Publicar Propiedad</button>
         </div>
       </div>
-      {/* TODO: Faltan descargar y poner iconos correspondientes si se requieren */}
     </>
   );
 }

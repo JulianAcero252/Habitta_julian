@@ -8,7 +8,7 @@ export function useLoginForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Login submitted:", { email, password });
-    // Aquí puedes agregar la lógica de autenticación
+    // Lógica de autenticación aquí
   };
 
   const togglePasswordVisibility = () => {

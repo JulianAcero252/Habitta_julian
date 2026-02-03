@@ -1,8 +1,4 @@
-/* ==========================================================================
-   ESTILOS GENERALES DE LA PÁGINA DE REGISTRO
-   ========================================================================== */
-
-/* Configuración global de tamaño de caja para evitar problemas con bordes y rellenos */
+/* Configuración Global */
 *,
 *::before,
 *::after {
@@ -14,37 +10,35 @@ body {
   height: 100%;
 }
 
-/* Centramos el contenido y definimos estilos base */
+/* Cuerpo */
 body {
   font-family: Arial, sans-serif;
-  background: #f5f5f5; /* Fondo gris claro */
+  background: #f5f5f5;
   margin: 0;
-  padding: 0; /* Sin relleno global para no romper el navbar o footer */
+  padding: 0;
 }
 
-/* Contenedor principal específico para esta página */
+/* Contenedor Principal */
 .register-page {
   width: 100%;
-  max-width: 1000px; /* Ancho máximo centrado */
-  margin: 0 auto; /* Centrado horizontal automático */
+  max-width: 1000px;
+  margin: 0 auto;
   padding: 40px 20px;
 }
 
 h3,
 h4 {
   margin-bottom: 10px;
-  color: #444; /* Texto gris oscuro */
+  color: #444;
 }
 
-/* ==========================================================================
-   TARJETAS SECCIONALES (Cards)
-   ========================================================================== */
+/* Tarjetas de Sección */
 .card {
-  background: #fff; /* Fondo blanco */
-  border: 1px solid #cfe6ff; /* Borde azul muy claro */
+  background: #fff;
+  border: 1px solid #cfe6ff;
   padding: 18px;
-  border-radius: 8px; /* Esquinas redondeadas */
-  margin: 20px 0; /* Separación vertical entre tarjetas */
+  border-radius: 8px;
+  margin: 20px 0;
 }
 
 .card h4 {
@@ -52,71 +46,65 @@ h4 {
   margin: 0 0 12px 0;
 }
 
-/* Estilos para textos y etiquetas dentro de la tarjeta */
+/* Texto y Etiquetas */
 .card p,
 .card label {
-  font-weight: 600; /* Texto en negrita */
+  font-weight: 600;
   margin: 6px 0 6px 0;
 }
 
-/* Hacemos que los inputs ocupen todo el ancho disponible dentro de la tarjeta */
+/* Entradas de Ancho Completo */
 .card input,
 .card select,
 .card textarea {
   width: 100%;
 }
 
-/* ==========================================================================
-   LAYOUT INTERNO (Columnas)
-   ========================================================================== */
+/* Diseño Interno */
 
-/* Contenedor de dos columnas para agrupar campos relacionados */
+/* Dos Columnas */
 .two-col {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
-  gap: 18px; /* Espacio entre columnas */
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
   align-items: start;
 }
 
-/* Contenedor para los botones de acción (alineados a la derecha) */
+/* Contenedor de Botones de Acción */
 .actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
 }
 
-/* ==========================================================================
-   ENTRADAS DE TEXTO (Inputs) Y SELECTORES
-   ========================================================================== */
+/* Entradas y Selectores */
 input,
 select {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
   margin-bottom: 15px;
-  border: 1px solid #ccc; /* Borde gris estándar */
+  border: 1px solid #ccc;
   border-radius: 6px;
   background: #fff;
 }
 
-/* Efecto al seleccionar un campo (Focus) */
+/* Foco */
 input:focus,
 select:focus {
   outline: none;
-  border-color: #007bff; /* Cambia a azul al escribir */
+  border-color: #007bff;
 }
 
-/* ==========================================================================
-   GRID DE CARACTERÍSTICAS ADICIONALES (Amenities)
-   ========================================================================== */
+/* Grilla de Amenidades */
 .amenities-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px 18px;
   margin-top: 12px;
 }
 
-/* Etiquetas de los checkboxes */
+/* Etiquetas de Casillas */
 .amenities-grid label {
   display: flex;
   align-items: center;
@@ -126,20 +114,18 @@ select:focus {
   transition: background 0.2s ease;
 }
 
-/* Efecto hover en las opciones */
+/* Hover */
 .amenities-grid label:hover {
-  background: #f8f8f8; /* Fondo gris muy claro */
+  background: #f8f8f8;
 }
 
 .amenities-grid input[type="checkbox"] {
-  width: auto; /* Ancho automático para la casilla */
+  width: auto;
   margin: 0;
   cursor: pointer;
 }
 
-/* ==========================================================================
-   FIELDSET (Agrupador de opciones)
-   ========================================================================== */
+/* Fieldset */
 fieldset {
   background: transparent;
   border: none;
@@ -154,9 +140,7 @@ legend {
   font-size: 1rem;
 }
 
-/* ==========================================================================
-   SECCIÓN DE FOTOS
-   ========================================================================== */
+/* Sección de Fotos */
 input[type="file"] {
   border: none;
   padding: 0;
@@ -164,9 +148,7 @@ input[type="file"] {
   font-size: 14px;
 }
 
-/* ==========================================================================
-   BOTONES
-   ========================================================================== */
+/* Botones */
 button {
   padding: 12px 20px;
   border: none;
@@ -176,14 +158,13 @@ button {
   margin-right: 10px;
 }
 
-/* Estilos específicos para los botones de acción finales */
+/* Botones de Acción */
 .card.actions .btn-cancel {
-  background: #f68146; /* Naranja */
+  background: #f68146;
   color: white;
 }
 
 .card.actions .btn-primary {
-  /* Gradiente turquesa */
   background: linear-gradient(
     to right,
     #35d2db 0%,
@@ -195,18 +176,16 @@ button {
 }
 
 button:hover {
-  opacity: 0.9; /* Ligera transparencia al pasar el mouse */
+  opacity: 0.9;
 }
 
-/* ==========================================================================
-   DISEÑO RESPONSIVO (Móviles y Tablets)
-   ========================================================================== */
+/* Diseño Responsivo */
 @media (max-width: 768px) {
   .register-page {
     padding: 20px 16px;
   }
 
-  /* Las columnas se vuelven una sola fila en móviles */
+  /* Columna Única */
   .two-col {
     grid-template-columns: 1fr;
     gap: 12px;
@@ -216,7 +195,7 @@ button:hover {
     grid-template-columns: 1fr;
   }
 
-  /* Los botones se apilan verticalmente */
+  /* Apilar Botones */
   .actions {
     flex-direction: column-reverse;
   }

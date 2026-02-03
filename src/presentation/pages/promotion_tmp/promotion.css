@@ -1,42 +1,38 @@
-/* ==========================================================================
-   ESTILOS DE LA PÁGINA DE PROMOCIONES
-   ========================================================================== */
-
-/* Contenedor principal centrado */
+/* Contenedor Principal */
 .promotion-container {
   text-align: center;
   padding: 2rem;
   font-family: sans-serif;
 }
 
-/* Título principal */
+/* Título */
 .promotion-title {
   font-size: 2rem;
   margin-bottom: 0.5rem;
 }
 
-/* Subtítulo explicativo */
+/* Subtítulo */
 .promotion-subtitle {
   font-size: 1rem;
-  color: #666; /* Gris medio */
+  color: #666;
   margin-bottom: 2rem;
 }
 
-/* Contenedor de las tarjetas de planes (Flexbox) */
+/* Contenedor de Tarjetas */
 .promotion-cards {
   display: flex;
-  justify-content: center; /* Centrado horizontal */
-  gap: 2rem; /* Espacio entre tarjetas */
-  flex-wrap: wrap; /* Permite que bajen si no caben */
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
-/* Estilo individual de cada tarjeta de plan */
+/* Estilo de Tarjeta */
 .promotion-card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  width: 300px; /* Ancho fijo */
+  width: 300px;
   text-align: left;
 }
 
@@ -45,16 +41,16 @@
   margin-bottom: 0.4rem;
 }
 
-/* Precio del plan destacado */
+/* Precio */
 .price {
   font-weight: bold;
   margin-bottom: 1rem;
   color: #333;
 }
 
-/* Lista de características (Beneficios) */
+/* Lista de Características */
 .feature-list {
-  list-style: none; /* Elimina los puntos por defecto de la lista */
+  list-style: none;
   padding: 0;
   margin: 0 0 1.5rem 0;
 }
@@ -66,13 +62,13 @@
   margin-bottom: 0.6rem;
 }
 
-/* Icono de verificación (Check) */
+/* Icono de Chequeo */
 .check {
   font-weight: bold;
-  color: #87ceeb; /* Azul cielo para todos los chulos */
+  color: #87ceeb;
 }
 
-/* Variantes específicas por plan (opcionales, actualmente usan el mismo color) */
+/* Variantes */
 .check.basic {
   color: #87ceeb;
 }
@@ -81,7 +77,7 @@
   color: #87ceeb;
 }
 
-/* Botones de selección de plan */
+/* Botones de Selección */
 .select-button {
   border: none;
   padding: 0.6rem 1rem;
@@ -90,13 +86,13 @@
   cursor: pointer;
 }
 
-/* Botón naranja (Plan Básico) */
+/* Botón Naranja */
 .select-button.orange {
   background-color: #f57c00;
   color: white;
 }
 
-/* Botón turquesa (Plan Destacado) */
+/* Botón Turquesa */
 .select-button.teal {
   background-color: #009688;
   color: white;

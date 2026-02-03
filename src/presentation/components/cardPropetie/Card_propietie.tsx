@@ -1,7 +1,5 @@
 import "./cardStyle.css";
-// Importing available icons
 import heartIcon from "../../assets/icons/UI/navbaricons/hearth-svgrepo-com.svg";
-// import shareIcon from "../../assets/icons/share.svg"; // Assuming we might have one or need a placeholder, using generic for now
 import homeIcon from "../../assets/icons/UI/navbaricons/house-01-svgrepo-com.svg";
 import house1 from "../../assets/images/auth/dream_home_1.png";
 import house2 from "../../assets/images/auth/dream_home_2.png";
@@ -10,7 +8,7 @@ import house3 from "../../assets/images/auth/dream_home_3.png";
 function CardPropetie() {
   return (
     <div className="property-cards-grid">
-      {/* CARD 1 */}
+      {/* Card 1 */}
       <div className="property-card">
         <div className="property-card__image-container">
           <img
@@ -18,13 +16,13 @@ function CardPropetie() {
             alt="Casa en Polanco"
             className="property-card__img"
           />
-          {/* BADGES */}
+          {/* Badges */}
           <div className="property-card__badges">
             <span className="badge badge--featured">Destacada</span>
             <span className="badge badge--type">Venta</span>
           </div>
 
-          {/* ACTION BUTTONS */}
+          {/* Action Buttons */}
           <div className="property-card__actions">
             <button className="action-btn" title="Agregar a favoritos">
               <img src={heartIcon} alt="Favorito" className="icon-svg" />
@@ -56,7 +54,7 @@ function CardPropetie() {
         </div>
       </div>
 
-      {/* CARD 2 */}
+      {/* Card 2 */}
       <div className="property-card">
         <div className="property-card__image-container">
           <img
@@ -93,7 +91,7 @@ function CardPropetie() {
         </div>
       </div>
 
-      {/* CARD 3 */}
+      {/* Card 3 */}
       <div className="property-card">
         <div className="property-card__image-container">
           <img

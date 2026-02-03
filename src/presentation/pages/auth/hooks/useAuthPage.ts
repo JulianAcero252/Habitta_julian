@@ -3,13 +3,13 @@ import img1 from "@presentation/assets/images/auth/dream_home_1.png";
 import img2 from "@presentation/assets/images/auth/dream_home_2.png";
 import img3 from "@presentation/assets/images/auth/dream_home_3.png";
 
-// Images generated and placeholders
+// Imágenes de Fondo
 const backgroundImages = [
   img1,
   img2,
   img3,
-  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80", // Luxury Penthouse
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80", // Modern Villa
+  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80", // Penthouse de Lujo
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80", // Villa Moderna
 ];
 
 export function useAuthPage() {

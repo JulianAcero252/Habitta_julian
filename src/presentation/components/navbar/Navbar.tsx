@@ -1,30 +1,17 @@
-// Importamos los estilos CSS específicos para la barra de navegación.
 import "./navbar.css";
-// Importamos la imagen del logo desde la carpeta de recursos.
 import logoSF from "../../assets/images/logoSF.png";
-// Importamos herramientas de 'react-router-dom' para manejar la navegación entre páginas.
-// 'Link' nos permite crear enlaces y 'useLocation' nos dice en qué página estamos actualmente.
 import { Link, useLocation } from "react-router-dom";
-// Importamos el icono de notificaciones desde la carpeta pública.
 import notificationIcon from "/public/notification-9-svgrepo-com.svg";
 
-/**
- * Componente Navbar (Barra de Navegación)
- * Este componente muestra la barra superior que permite al usuario navegar por la aplicación.
- * Contiene el logo, los enlaces a las diferentes páginas, notificaciones y acciones de usuario.
- */
+// Navbar Component
 function Navbar() {
-  // Obtenemos la información de la ubicación actual (la URL en la que estamos).
-  // Esto nos sirve para saber qué botón del menú debe estar resaltado como "activo".
   const location = useLocation();
 
   // Renderizamos la estructura visual de la barra de navegación.
   return (
-    // Contenedor principal de la barra de navegación.
     <nav className="navbar">
-      {/* Contenedor interno que centra y organiza el contenido */}
       <div className="navbar__inner">
-        {/* Sección del Logo: Al hacer clic lleva a la página de inicio */}
+        {/* Logo Section */}
         <div className="navbar__logo">
           <Link to="/">
             <img
@@ -35,18 +22,15 @@ function Navbar() {
           </Link>
         </div>
 
-        {/* Sección de Enlaces de Navegación: Lista de páginas disponibles */}
+        {/* Navigation Links */}
         <nav className="navbar__links">
           <ul>
-            {/* Botón de Inicio */}
+            {/* Home */}
             <li>
               <Link
-                // Aplicamos la clase 'active' si la ruta actual es "/" (Inicio).
-                // Esto cambia el estilo para mostrar al usuario dónde está.
                 className={`navbar_link ${location.pathname === "/" ? "active" : ""}`}
                 to="/"
               >
-                {/* Icono de la casa para Inicio */}
                 <img
                   className="navbar_icon"
                   src="/src/presentation/assets/icons/UI/navbaricons/house-01-svgrepo-com.svg"
@@ -56,10 +40,9 @@ function Navbar() {
               </Link>
             </li>
 
-            {/* Botón de Propiedades */}
+            {/* Properties */}
             <li>
               <Link
-                // Si estamos en "/properties", resaltamos este enlace.
                 className={`navbar_link ${location.pathname === "/properties" ? "active" : ""}`}
                 to="/properties"
               >
@@ -72,10 +55,9 @@ function Navbar() {
               </Link>
             </li>
 
-            {/* Botón de Favoritos */}
+            {/* Favorites */}
             <li>
               <Link
-                // Si estamos en "/favorites", resaltamos este enlace.
                 className={`navbar_link ${location.pathname === "/favorites" ? "active" : ""}`}
                 to="/favorites"
               >
@@ -88,10 +70,9 @@ function Navbar() {
               </Link>
             </li>
 
-            {/* Botón de Herramientas */}
+            {/* Tools */}
             <li>
               <Link
-                // Si estamos en "/tools", resaltamos este enlace.
                 className={`navbar_link ${location.pathname === "/tools" ? "active" : ""}`}
                 to="/tools"
               >
@@ -104,10 +85,9 @@ function Navbar() {
               </Link>
             </li>
 
-            {/* Botón de Promociones */}
+            {/* Promotions */}
             <li>
               <Link
-                // Si estamos en "/promotion", resaltamos este enlace.
                 className={`navbar_link ${location.pathname === "/promotion" ? "active" : ""}`}
                 to="/promotion"
               >
@@ -122,7 +102,7 @@ function Navbar() {
           </ul>
         </nav>
 
-        {/* Sección de Notificaciones: Muestra un icono de campana */}
+        {/* Notifications */}
         <div id="notificationButton">
           <img
             id="notificationIcon"
@@ -131,13 +111,12 @@ function Navbar() {
           />
         </div>
 
-        {/* Sección de Acciones: Botón de publicar y perfil de usuario */}
+        {/* Actions */}
         <div className="navbar__actions">
-          {/* Botón para registrar una nueva propiedad */}
           <Link to="/registerpropeties" className="navbar__publish-btn">
             + Publicar
           </Link>
-          {/* Botón del perfil del usuario (icono de persona) */}
+          {/* User Profile */}
           <button className="navbar__user-btn">
             <span>👤</span>
           </button>

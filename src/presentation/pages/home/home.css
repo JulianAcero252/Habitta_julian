@@ -1,37 +1,33 @@
-/* ==========================================================================
-   VARIABLES GLOBALES (Colores y sombras)
-   ========================================================================== */
+/* Variables Globales */
 :root {
-  /* Colores principales en tonos Turquesa (Teal) */
-  --primary: #2dd4bf; /* Turquesa limpio principal */
-  --primary-dark: #14b8a6; /* Turquesa más oscuro para efectos hover y gradientes */
-  --secondary: #0f766e; /* Turquesa profundo */
+  /* Colores */
+  --primary: #2dd4bf;
+  --primary-dark: #14b8a6;
+  --secondary: #0f766e;
 
-  /* Colores de texto */
-  --text-dark: #1f2937; /* Gris carbón oscuro para lectura fácil */
-  --text-gray: #6b7280; /* Gris apagado para textos secundarios */
+  /* Colores de Texto */
+  --text-dark: #1f2937;
+  --text-gray: #6b7280;
 
-  /* Colores de fondo */
-  --bg-light: #f9fafb; /* Gris muy claro, casi blanco */
+  /* Colores de Fondo */
+  --bg-light: #f9fafb;
   --white: #ffffff;
 
-  /* Variables para el redondeo de bordes */
+  /* Radio */
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  /* Sombras para dar profundidad (Elevación) */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* Sombra pequeña */
+  /* Sombras */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Sombra media */
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Sombra grande y difusa */
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* ==========================================================================
-   ESTILOS BASE (Generales para toda la página)
-   ========================================================================== */
+/* Estilos Base */
 * {
-  box-sizing: border-box; /* Asegura que padding y borde no aumenten el tamaño total */
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -41,105 +37,101 @@ body {
     "Inter",
     system-ui,
     -apple-system,
-    sans-serif; /* Fuentes modernas, limpias y legibles */
-  color: var(--text-dark); /* Color de texto predeterminado */
-  background-color: var(--bg-light); /* Color de fondo general */
-  line-height: 1.5; /* Espacio entre líneas para mejor lectura */
+    sans-serif;
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+  line-height: 1.5;
 }
 
-/* Contenedor principal de la página Home */
+/* Contenedor Principal */
 .home-container {
   width: 100%;
-  overflow-x: hidden; /* Evita que aparezca la barra de desplazamiento horizontal */
+  overflow-x: hidden;
 }
 
-/* ==========================================================================
-   SECCIÓN PRINCIPAL (HERO SECTION)
-   Es la parte superior con la imagen grande.
-   ========================================================================== */
+/* Sección Hero */
 .hero-section {
   width: 100%;
-  position: relative; /* Necesario para posicionar elementos absolutos dentro */
-  padding: 140px 20px 80px; /* Espacio superior extra para compensar la barra de navegación fija */
-  color: #ffffff; /* Texto blanco sobre el fondo oscuro/imagen */
-  min-height: 700px; /* Altura mínima garantizada */
-  display: flex; /* Flexbox para centrar contenido */
+  position: relative;
+  padding: 140px 20px 80px;
+  color: #ffffff;
+  min-height: 700px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Recorta cualquier elemento que sobresalga */
+  overflow: hidden;
 }
 
-/* Carrusel de fondo (Slideshow) */
+/* Carrusel de Fondo */
 .hero-slideshow {
-  position: absolute; /* Se sale del flujo normal para ocupar todo el fondo */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Se coloca detrás de todo (capa 0) */
-  background-color: #14b8a6; /* Color de respaldo por si falla la imagen */
+  z-index: 0;
+  background-color: #14b8a6;
 }
 
-/* Cada diapositiva individual */
+/* Diapositiva */
 .hero-slide {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover; /* La imagen cubre todo el espacio sin deformarse */
-  background-position: center; /* Centrada */
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  opacity: 0; /* Invisible por defecto */
-  transition: opacity 1s ease-in-out; /* Transición suave de 1 segundo al aparecer/desaparecer */
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
-/* Clase para mostrar la diapositiva activa */
+/* Diapositiva Activa */
 .hero-slide.active {
-  opacity: 1; /* Totalmente visible */
+  opacity: 1;
 }
 
-/* Capa oscura superpuesta (Overlay) */
+/* Capa Oscura */
 .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* Gradiente semitransparente para mejorar legibilidad del texto */
   background: linear-gradient(
     135deg,
     rgba(45, 212, 191, 0.4) 0%,
     rgba(20, 184, 166, 0.35) 50%,
     rgba(13, 148, 136, 0.4) 100%
   );
-  z-index: 1; /* Encima de las imágenes, debajo del texto */
+  z-index: 1;
 }
 
-/* Contenido (Texto y Tarjetas) */
+/* Contenido */
 .hero-content {
-  max-width: 1100px; /* Ancho máximo de lectura */
+  max-width: 1100px;
   width: 100%;
   text-align: center;
   position: relative;
-  z-index: 2; /* Encima del overlay */
+  z-index: 2;
 }
 
-/* Título principal H1 */
+/* Título H1 */
 .hero-content h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem); /* Tamaño dinámico entre 2.5rem y 4rem */
-  font-weight: 800; /* Extra negrita */
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.1;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para separar del fondo */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Texto destacado con color especial */
+/* Texto Principal */
 span.text-primary {
-  /* Gradiente de texto naranja a dorado */
   background: linear-gradient(to right, #f08248, #f08248, #9d925a);
-  -webkit-background-clip: text; /* Aplica el fondo solo al texto */
-  -webkit-text-fill-color: transparent; /* Hace el texto transparente para ver el fondo */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Subtítulo H3 */
@@ -154,26 +146,24 @@ span.text-primary {
   color: #f8f8f8;
 }
 
-/* ==========================================================================
-   TARJETA DE BÚSQUEDA (El cuadro blanco central)
-   ========================================================================== */
+/* Tarjeta de Búsqueda */
 .search-card {
   background: var(--white);
   border-radius: var(--radius-xl);
   padding: 24px;
-  box-shadow: var(--shadow-lg); /* Sombra pronunciada para efecto flotante */
+  box-shadow: var(--shadow-lg);
   max-width: 900px;
   margin: 0 auto 40px;
-  text-align: left; /* Alineamos el contenido interno a la izquierda */
+  text-align: left;
   color: var(--text-dark);
 }
 
-/* Pestañas (Comprar, Alquilar, Vender) */
+/* Pestañas */
 .search-tabs {
   display: flex;
   gap: 12px;
   margin-bottom: 20px;
-  border-bottom: 1px solid #e5e7eb; /* Línea separadora sutil */
+  border-bottom: 1px solid #e5e7eb;
   padding-bottom: 12px;
 }
 
@@ -189,24 +179,24 @@ span.text-primary {
   transition: all 0.2s;
 }
 
-/* Estado activo y hover de las pestañas */
+/* Pestañas Activas */
 .search-tabs .tab.active,
 .search-tabs .tab:hover {
-  background: #f0fdfa; /* Fondo turquesa muy claro */
-  color: var(--secondary); /* Texto turquesa oscuro */
+  background: #f0fdfa;
+  color: var(--secondary);
 }
 
-/* Fila de Inputs (Campos de entrada) */
+/* Filas de Entrada */
 .search-inputs {
-  display: flex; /* En fila */
+  display: flex;
   align-items: center;
   gap: 16px;
 }
 
-/* Grupos de input (etiqueta + campo) */
+/* Grupos de Entrada */
 .input-group {
   display: flex;
-  flex-direction: column; /* Etiqueta arriba, campo abajo */
+  flex-direction: column;
 }
 
 .input-group label {
@@ -218,8 +208,8 @@ span.text-primary {
 .input-group select,
 .input-group input {
   padding: 10px 0;
-  border: none; /* Sin borde completo */
-  outline: none; /* Sin borde azul al seleccionar */
+  border: none;
+  outline: none;
   font-size: 1rem;
   color: var(--text-dark);
   background: transparent;
@@ -230,38 +220,38 @@ span.text-primary {
   cursor: pointer;
 }
 
-/* Use flex-grow para que el campo de ubicación ocupe el espacio sobrante */
+/* Campo Flexible */
 .input-group.flex-grow {
   flex: 1;
 }
 
-/* Línea divisoria vertical */
+/* Divisor */
 .divider {
   width: 1px;
   height: 40px;
   background: #e5e7eb;
 }
 
-/* Estilo específico para el input de ubicación */
+/* Campo de Ubicación */
 #location {
   border-radius: var(--radius-xl);
   border: solid #e5e7eb;
   padding: 12px;
 }
 
-/* Botón de buscar */
+/* Botón de Búsqueda */
 .search-btn {
   background: var(--primary);
   color: var(--white);
   border: none;
-  border-radius: 99px; /* Borde completamente redondo (píldora) */
+  border-radius: 99px;
   padding: 14px 28px;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px; /* Espacio entre icono y texto */
+  gap: 8px;
   transition:
     transform 0.2s,
     background 0.2s;
@@ -269,20 +259,20 @@ span.text-primary {
 
 .search-btn:hover {
   background: var(--primary-dark);
-  transform: translateY(-1px); /* Se mueve ligeramente hacia arriba */
+  transform: translateY(-1px);
 }
 
 .icon-placeholder {
   font-size: 1.2rem;
 }
 
-/* Búsquedas Populares (Tags) */
+/* Búsquedas Populares */
 .popular-searches {
   margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-wrap: wrap; /* Permite que bajen a la siguiente línea si no caben */
+  flex-wrap: wrap;
 }
 
 .popular-searches .label {
@@ -307,7 +297,7 @@ span.text-primary {
   background: #e5e7eb;
 }
 
-/* Estadísticas del Hero (Hero Stats) */
+/* Estadísticas Hero */
 .hero-stats {
   display: flex;
   justify-content: center;
@@ -331,12 +321,10 @@ span.text-primary {
   opacity: 0.9;
 }
 
-/* ==========================================================================
-   SECCIONES GENERALES (Estilos compartidos)
-   ========================================================================== */
+/* Secciones Generales */
 .section-container {
   max-width: 1100px;
-  margin: 0 auto; /* Centrado automático */
+  margin: 0 auto;
   padding: 80px 20px;
 }
 
@@ -360,9 +348,7 @@ span.text-primary {
   margin: 0 auto;
 }
 
-/* ==========================================================================
-   SECCIÓN DE PROPIEDADES DESTACADAS
-   ========================================================================== */
+/* Sección de Propiedades Destacadas */
 .cards-grid {
   display: flex;
   flex-wrap: wrap;
@@ -374,7 +360,7 @@ span.text-primary {
   text-align: center;
 }
 
-/* Botón delineado (Outline Button) */
+/* Botón Delineado */
 .primary-btn-outline {
   display: inline-block;
   color: var(--primary);
@@ -388,15 +374,12 @@ span.text-primary {
 
 .primary-btn-outline:hover {
   background: var(--primary);
-  color: white; /* Invierte colores al pasar el mouse */
+  color: white;
 }
 
-/* ==========================================================================
-   SECCIÓN DE CARACTERÍSTICAS (¿Por qué elegirnos?)
-   ========================================================================== */
+/* Sección de Características */
 .features-grid {
-  display: grid; /* Usamos Grid Layout */
-  /* Columnas automáticas: Mínimo 220px, máximo lo que sobre (1fr) */
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 30px;
   margin-bottom: 60px;
@@ -412,7 +395,7 @@ span.text-primary {
   background: #f0fdfa;
   width: 80px;
   height: 80px;
-  border-radius: 50%; /* Círculo perfecto */
+  border-radius: 50%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -454,7 +437,7 @@ span.text-primary {
   justify-content: center;
   gap: 30px;
   flex-wrap: wrap;
-  opacity: 0.6; /* Un poco transparentes para no robar atención */
+  opacity: 0.6;
 }
 
 .cert-item {
@@ -465,9 +448,7 @@ span.text-primary {
   gap: 8px;
 }
 
-/* ==========================================================================
-   CTA SECTION (Llamada a la Acción Final)
-   ========================================================================== */
+/* Sección CTA */
 .cta-section {
   position: relative;
   padding: 100px 20px;
@@ -476,7 +457,7 @@ span.text-primary {
   overflow: hidden;
 }
 
-/* Slideshow del CTA (reutiliza lógica similar al Hero) */
+/* Carrusel CTA */
 .cta-slideshow {
   position: absolute;
   top: 0;
@@ -504,7 +485,7 @@ span.text-primary {
   opacity: 1;
 }
 
-/* Overlay del CTA */
+/* Capa CTA */
 .cta-overlay {
   position: absolute;
   top: 0;
@@ -539,7 +520,7 @@ span.text-primary {
   font-weight: 400;
 }
 
-/* Acciones del CTA (Botón + Input) */
+/* Acciones CTA */
 .cta-actions {
   background: var(--white);
   padding: 10px;
@@ -579,7 +560,7 @@ span.text-primary {
   color: var(--text-dark);
 }
 
-/* Tarjetas de Apps */
+/* Tarjetas de App */
 .app-cards-grid {
   display: flex;
   justify-content: center;
@@ -589,9 +570,7 @@ span.text-primary {
 
 .app-card {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(
-    10px
-  ); /* Efecto de desenfoque trasero (Glassmorphism) */
+  backdrop-filter: blur(10px);
   padding: 20px;
   border-radius: 16px;
   display: flex;
@@ -627,12 +606,9 @@ span.text-primary {
   opacity: 0.8;
 }
 
-/* ==========================================================================
-   DISEÑO RESPONSIVO (Media Queries)
-   Ajustes para diferentes tamaños de pantalla.
-   ========================================================================== */
+/* Diseño Responsivo */
 
-/* Tablets y Laptops pequeñas */
+/* Tablets y Laptops Pequeñas */
 @media (max-width: 1024px) {
   .hero-section {
     min-height: auto;
@@ -644,7 +620,7 @@ span.text-primary {
   }
 }
 
-/* Móviles grandes y Tablets en vertical */
+/* Móviles y Tablets Verticales */
 @media (max-width: 768px) {
   .hero-section {
     padding-top: 100px;
@@ -656,13 +632,13 @@ span.text-primary {
   }
 
   .search-inputs {
-    flex-direction: column; /* Cambia a columna para que los inputs se apilen */
+    flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
 
   .divider {
-    display: none; /* Oculta la línea divisoria vertical */
+    display: none;
   }
 
   .search-card {
@@ -690,19 +666,19 @@ span.text-primary {
   }
 
   .stat-item {
-    width: 45%; /* Dos columnas de estadísticas */
+    width: 45%;
     margin-bottom: 12px;
   }
 
   .features-grid {
-    grid-template-columns: 1fr; /* Una sola columna para características */
+    grid-template-columns: 1fr;
   }
 }
 
-/* Móviles pequeños */
+/* Móviles Pequeños */
 @media (max-width: 480px) {
   .stat-item {
-    width: 100%; /* Una sola columna para estadísticas */
+    width: 100%;
   }
 
   .cert-logos {

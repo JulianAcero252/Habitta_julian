@@ -9,7 +9,7 @@ export function useRegisterForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Register submitted:", { fullName, email, password });
-    // Aquí puedes agregar la lógica de registro
+    // Lógica de registro aquí
   };
 
   const togglePasswordVisibility = () => {

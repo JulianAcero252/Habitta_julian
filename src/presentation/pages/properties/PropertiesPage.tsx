@@ -1,13 +1,7 @@
-// Importamos el componente de tarjeta de propiedad, que muestra la información de cada inmueble.
 import CardPropetie from "../../components/cardPropetie/Card_propietie";
-// Importamos los estilos específicos para la página de propiedades.
 import "./styleProperties.css";
 
-/**
- * Página de Propiedades
- * Esta sección muestra el listado completo de inmuebles disponibles, junto con una
- * barra de búsqueda y filtros detallados para refinar los resultados.
- */
+// Componente de Página de Propiedades
 function PropertiesPage() {
   return (
     <>
@@ -16,13 +10,11 @@ function PropertiesPage() {
         Encuentra tu hogar ideal entre miles de opciones verificadas
       </p>
 
-      {/* Contenedor principal de la página */}
+      {/* Contenedor Principal */}
       <div className="properties-page">
-        {/* =========================================
-            BARRA DE BÚSQUEDA Y FILTROS SUPERIORES
-           ========================================= */}
+        {/* Barra de Búsqueda y Filtros */}
         <section className="search-bar">
-          {/* Campo de búsqueda principal (Texto) */}
+          {/* Campo de Búsqueda Principal */}
           <div className="search-input">
             <button className="search-icon" aria-hidden></button>
             <input
@@ -31,9 +23,9 @@ function PropertiesPage() {
             />
           </div>
 
-          {/* Filtros rápidos (Dropdowns) */}
+          {/* Filtros Rápidos */}
           <div className="filters">
-            {/* Filtro Tipo de Propiedad (Ej. Casa, Apartamento) */}
+            {/* Property Type Filter */}
             <div className="filter-dropdown">
               <button className="filter pill">Casa ▼</button>
               <div className="dropdown-menu">
@@ -41,7 +33,7 @@ function PropertiesPage() {
                 <button className="dropdown-item">Apartamento</button>
               </div>
             </div>
-            {/* Filtro Rango de Precio */}
+            {/* Filtro de Rango de Precio */}
             <div className="filter-dropdown">
               <button className="filter pill">$0 - $100k ▼</button>
               <div className="dropdown-menu">
@@ -52,18 +44,18 @@ function PropertiesPage() {
             </div>
           </div>
 
-          {/* Botón de acción para buscar y controles de vista */}
+          {/* Botón de Acción y Alternadores */}
           <div className="actions">
             <button className="btn-search">Buscar</button>
             <div className="view-toggles">
-              {/* Botones para cambiar la vista (Lista, Cuadrícula, Mapa - iconos placeholders) */}
+              {/* Botones de Vista */}
               <button className="icon"></button>
               <button className="icon"></button>
               <button className="icon"></button>
             </div>
           </div>
 
-          {/* Opciones de ordenamiento (Parte inferior de la barra de búsqueda) */}
+          {/* Opciones de Ordenamiento */}
           <div className="search-bottom">
             <div className="sort">
               <span>Ordenar por:</span>
@@ -84,16 +76,14 @@ function PropertiesPage() {
         </section>
 
         <div className="content-wrapper">
-          {/* =========================================
-              BARRA LATERAL DE FILTROS (Sidebar)
-             ========================================= */}
+          {/* Barra Lateral de Filtros */}
           <aside className="filters-sidebar">
             <div className="filters-header">
               <h3>Filtros</h3>
               <button className="clear-filters">Limpiar</button>
             </div>
 
-            {/* Filtro: Tipo de operación (Venta/Arriendo) */}
+            {/* Filtro de Tipo de Operación */}
             <div className="filter-group">
               <label>Tipo de operación</label>
               <select defaultValue="">
@@ -103,7 +93,7 @@ function PropertiesPage() {
               </select>
             </div>
 
-            {/* Filtro: Tipo de propiedad */}
+            {/* Property Type Filter */}
             <div className="filter-group">
               <label>Tipo de propiedad</label>
               <select defaultValue="">
@@ -114,7 +104,7 @@ function PropertiesPage() {
               </select>
             </div>
 
-            {/* Filtro: Rango de precio (Slider) */}
+            {/* Rango de Precio */}
             <div className="filter-group">
               <label>Rango de precio</label>
               <div className="range-container">
@@ -132,7 +122,7 @@ function PropertiesPage() {
               </div>
             </div>
 
-            {/* Filtro: Área en metros cuadrados (Slider) */}
+            {/* Área */}
             <div className="filter-group">
               <label>Área (m²)</label>
               <div className="range-container">
@@ -150,7 +140,7 @@ function PropertiesPage() {
               </div>
             </div>
 
-            {/* Filtro: Habitaciones (Botones de selección) */}
+            {/* Habitaciones */}
             <div className="filter-group">
               <label>Habitaciones</label>
               <div className="button-group">
@@ -161,7 +151,7 @@ function PropertiesPage() {
               </div>
             </div>
 
-            {/* Filtro: Baños (Botones de selección) */}
+            {/* Baños */}
             <div className="filter-group">
               <label>Baños</label>
               <div className="button-group">
@@ -172,19 +162,17 @@ function PropertiesPage() {
               </div>
             </div>
 
-            {/* Botón para aplicar todos los filtros seleccionados */}
+            {/* Botón de Aplicar */}
             <button className="btn-apply-filters">Aplicar filtros</button>
           </aside>
 
-          {/* =========================================
-              GRILLA DE RESULTADOS
-             ========================================= */}
+          {/* Grilla de Resultados */}
           <main className="properties-grid">
-            {/* Aquí se renderizan las tarjetas de las propiedades encontradas */}
+            {/* Tarjetas de Propiedades */}
             <CardPropetie></CardPropetie>
             <br />
 
-            {/* Paginación: Botones para navegar entre páginas de resultados */}
+            {/* Paginación */}
             <div className="button-page">
               <button className="page-btn">« Anterior</button>
               <button className="page-btn">1</button>

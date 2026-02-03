@@ -1,11 +1,6 @@
-// Importamos los estilos de la sección de promociones.
 import "./promotion.css";
 
-/**
- * Componente Promotion (Planes de Publicación)
- * Muestra las diferentes opciones que tienen los usuarios para destacar sus propiedades.
- * Compara los beneficios del plan gratuito vs el plan premium.
- */
+// Componente de Promoción
 function Promotion() {
   return (
     <div className="promotion-container">
@@ -15,9 +10,7 @@ function Promotion() {
       </p>
 
       <div className="promotion-cards">
-        {/* =========================================
-            TARJETA 1: PLAN BÁSICO (Gratuito)
-           ========================================= */}
+        {/* Plan Básico */}
         <div className="promotion-card basic">
           <h2>Publicación Básica</h2>
           <p className="price">$0 por 30 días</p>
@@ -35,9 +28,7 @@ function Promotion() {
           <button className="select-button orange">Seleccionar Plan</button>
         </div>
 
-        {/* =========================================
-            TARJETA 2: PLAN DESTACADO (Pago)
-           ========================================= */}
+        {/* Plan Destacado */}
         <div className="promotion-card featured">
           <h2>Publicación Destacada</h2>
           <p className="price">$199 por 30 días</p>

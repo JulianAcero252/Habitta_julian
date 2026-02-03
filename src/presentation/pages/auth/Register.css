@@ -1,29 +1,26 @@
-/* ==========================================================================
-   ESTILOS DEL FORMULARIO DE REGISTRO
-   ========================================================================== */
+/* Estilos del Formulario de Registro */
 
-/* Estructura principal del formulario */
+/* Estructura del Formulario */
 .register-form {
   display: flex;
-  flex-direction: column; /* Apilado vertical */
-  gap: 20px; /* Separación entre elementos */
+  gap: 20px;
 }
 
-/* Grupo de campo (Label + Input) */
+/* Grupo de Formulario */
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-/* Estilo de las etiquetas */
+/* Etiquetas */
 .form-group label {
   font-size: 14px;
   font-weight: 600;
   color: #1a202c;
 }
 
-/* Estilo de los campos de entrada */
+/* Campos de Entrada */
 .form-group input {
   padding: 14px 16px;
   font-size: 15px;
@@ -34,14 +31,14 @@
   background: #f7fafc;
 }
 
-/* Efecto al hacer clic en un campo (Focus) */
+/* Estado de Foco */
 .form-group input:focus {
-  border-color: #35c8be; /* Borde turquesa */
+  border-color: #35c8be;
   background: white;
-  box-shadow: 0 0 0 3px rgba(53, 200, 190, 0.1); /* Resplandor suave */
+  box-shadow: 0 0 0 3px rgba(53, 200, 190, 0.1);
 }
 
-/* Contenedor relativo para posicionar el botón de ver contraseña */
+/* Contenedor de Contraseña */
 .password-input {
   position: relative;
   display: flex;
@@ -49,11 +46,11 @@
 }
 
 .password-input input {
-  flex: 1; /* Ocupa todo el ancho disponible */
-  padding-right: 48px; /* Deja espacio para el botón del ojo */
+  flex: 1;
+  padding-right: 48px;
 }
 
-/* Botón "ojo" para mostrar/ocultar contraseña */
+/* Botón de Alternar Contraseña */
 .toggle-password {
   position: absolute;
   right: 12px;
@@ -67,23 +64,23 @@
 }
 
 .toggle-password:hover {
-  opacity: 1; /* Totalmente visible al pasar el mouse */
+  opacity: 1;
 }
 
-/* Texto pequeño de ayuda debajo de la contraseña */
+/* Pista de Contraseña */
 .password-hint {
   font-size: 12px;
-  color: #718096; /* Gris medio */
-  margin-top: -4px; /* Un poco más pegado al input */
+  color: #718096;
+  margin-top: -4px;
 }
 
-/* Botón de registro */
+/* Botón de Registro */
 .submit-button {
   padding: 16px;
   font-size: 16px;
   font-weight: 600;
   color: white;
-  background: #00d4d4; /* Turquesa */
+  background: #00d4d4;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -92,12 +89,12 @@
 }
 
 .submit-button:hover {
-  background: #00b8b8; /* Turquesa oscuro */
-  transform: translateY(-2px); /* Efecto levitación */
+  background: #00b8b8;
+  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 212, 212, 0.3);
 }
 
-/* Responsive */
+/* Responsivo */
 @media (max-width: 480px) {
   .register-form {
     padding: 0 10px;

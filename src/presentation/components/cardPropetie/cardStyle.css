@@ -29,13 +29,12 @@
 }
 
 /* Image Container */
-/* Image Container */
 .property-card__image-container {
   position: relative;
   width: 100%;
   height: 240px;
   background-color: #e5e7eb;
-  overflow: hidden; /* Ensure image doesn't overflow rounded corners if any */
+  overflow: hidden;
 }
 
 .property-card__img {
@@ -47,10 +46,10 @@
 }
 
 .property-card:hover .property-card__img {
-  transform: scale(1.05); /* Subtle zoom effect on hover */
+  transform: scale(1.05);
 }
 
-/* BADGES */
+/* Badges */
 .property-card__badges {
   position: absolute;
   top: 16px;
@@ -70,7 +69,7 @@
 }
 
 .badge--featured {
-  background: #2dd4bf; /* Teal */
+  background: #2dd4bf;
   color: #fff;
 }
 
@@ -80,7 +79,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* ACTIONS (Heart/Eye) */
+/* Actions */
 .property-card__actions {
   position: absolute;
   bottom: 0;
@@ -92,7 +91,7 @@
   background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
 }
 
-/* Override: Image design shows these at bottom left/right overlaid */
+/* Action Button */
 .property-card__actions .action-btn {
   background: #fff;
   border: none;
@@ -117,7 +116,7 @@
   object-fit: contain;
 }
 
-/* CARD BODY */
+/* Card Body */
 .property-card__body {
   padding: 20px;
   display: flex;
@@ -130,7 +129,7 @@
   font-size: 1.1rem;
   font-weight: 700;
   color: #1f2937;
-  color: #2dd4bf; /* Teal title as in image */
+  color: #2dd4bf;
   margin: 0;
 }
 
@@ -143,11 +142,11 @@
 .property-card__price {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #2dd4bf; /* Main Brand color */
+  color: #2dd4bf;
   margin-bottom: 12px;
 }
 
-/* FEATURES */
+/* Features */
 .property-card__features {
   display: flex;
   gap: 16px;
@@ -169,7 +168,7 @@
   opacity: 0.6;
 }
 
-/* BUTTON */
+/* Details Button */
 .property-card__btn-details {
   background: #2dd4bf;
   color: white;
@@ -188,7 +187,7 @@
   background: #14b8a6;
 }
 
-/* RESPONSIVE */
+/* Responsive */
 @media (max-width: 1024px) {
   .property-cards-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -198,11 +197,11 @@
 @media (max-width: 640px) {
   .property-cards-grid {
     grid-template-columns: 1fr;
-    padding: 10px 0; /* Remove side padding to maximize width */
+    padding: 10px 0;
     gap: 20px;
   }
 
   .property-card__image-container {
-    height: 240px; /* Taller image on mobile */
+    height: 240px;
   }
 }
