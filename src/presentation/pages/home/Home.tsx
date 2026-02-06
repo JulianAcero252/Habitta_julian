@@ -10,7 +10,6 @@ import searchIcon from "../../assets/icons/UI/navbaricons/glass-magnifier-search
 import img1 from "../../assets/images/auth/dream_home_1.png";
 import img2 from "../../assets/images/auth/dream_home_2.png";
 import img3 from "../../assets/images/auth/dream_home_3.png";
-import { supabase } from "@infrastructure/api/supabase/client";
 
 
 
@@ -25,9 +24,6 @@ const backgroundImages = [
 
 // Componente de Página Principal
 function Home() {
-  useEffect(() => {
-    console.log("supabase listo:", supabase);
-  }, []);
   // Estado de rotación de imágenes
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
