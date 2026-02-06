@@ -4,7 +4,7 @@ import Layout from "@presentation/components/layout/Layout";
 import Home from "@presentation/pages/home/Home";
 import PropertiesPage from "@presentation/pages/properties/PropertiesPage";
 import RegisterPropertyPage from "@presentation/pages/registerpropeties/RegisterPropertyPage";
-import Promotion from "@presentation/pages/promotion_tmp/Promotion";
+import Promotion from "@presentation/pages/promotion/Promotion";
 import Auth from "@presentation/pages/auth/Auth";
 
 // Componente Principal de la Aplicación

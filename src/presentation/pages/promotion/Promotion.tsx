@@ -1,4 +1,4 @@
-import "./promotion.css"
+import "../promotion/promotion.css"
 // Componente de Promoción
 function Promotion() {
   return (
