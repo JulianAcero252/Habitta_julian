@@ -8,7 +8,7 @@ const peopleIcon = "/icons/UI/peoples-svgrepo-com.svg";
 const timerIcon = "/icons/UI/timer-svgrepo-com.svg";
 const searchIcon =
   "/icons/UI/navbaricons/glass-magnifier-search-zoom-alert-notification-svgrepo-com.svg";
-const img1 = "/images/auth/dream_home_1.png";
+const img1  = "/images/auth/dream_home_1.png";
 const img2 = "/images/auth/dream_home_2.png";
 const img3 = "/images/auth/dream_home_3.png";
 
