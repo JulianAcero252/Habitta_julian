@@ -88,7 +88,7 @@
 }
 
 .home-link a:hover {
-  color: #33bb9d; /* Color un poco más oscuro al pasar el mouse */
+  color: #000000; /* Color un poco más oscuro al pasar el mouse */
   text-decoration: underline;
 }
 

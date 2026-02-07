@@ -26,10 +26,7 @@ function Auth() {
       {/* Tarjeta Principal de Autenticación */}
       <div className="auth-card">
         <div className="auth-header">
-          <div className="home-link">
-            <span className="home-icon">🏠</span>
-            <a href="/">Volver al inicio</a>
-          </div>
+          
           <h1>Bienvenido a Habitta</h1>
           <p>Encuentra tu hogar ideal</p>
         </div>
@@ -54,6 +51,9 @@ function Auth() {
         <div className="auth-content">
           {activeTab === "login" ? <Login /> : <Register />}
         </div>
+        <div className="home-link">
+            <a href="/">Volver al inicio</a>
+          </div>
       </div>
     </div>
   );
