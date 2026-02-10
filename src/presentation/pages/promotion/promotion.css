@@ -40,6 +40,7 @@
   font-size: 1.2rem;
   margin-bottom: 0.4rem;
 }
+ 
 
 /* Precio */
 .price {
@@ -63,8 +64,18 @@
 }
 
 /* Icono de Chequeo */
+
 .check {
   font-weight: bold;
+  color: #87ceeb;
+}
+
+/* Variantes */
+.check.basic {
+  color: #87ceeb;
+}
+
+.check.featured {
   color: #87ceeb;
 }
 
@@ -97,3 +108,4 @@
   background-color: #009688;
   color: white;
 }
+ 

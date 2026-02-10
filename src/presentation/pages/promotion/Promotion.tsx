@@ -2,17 +2,39 @@ import "../promotion/promotion.css";
 import { useState } from "react";
 import PublicationBasic from "./modals/publicationBasic/PublicationBasic";
 import PublicationOutstanding from "./modals/publicationOutstanding/PublicationOutstanding";
+import SuccessAlertStack, { type Alert } from "../../components/alerts/successAlert/SuccessAlertStack";
 
 // Componente de Promoción
 function Promotion() {
   const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
   const [isOutstandingModalOpen, setIsOutstandingModalOpen] = useState(false);
+  const [alerts, setAlerts] = useState<Alert[]>([]);
 
   const openBasicModal = () => setIsBasicModalOpen(true);
   const closeBasicModal = () => setIsBasicModalOpen(false);
   
   const openOutstandingModal = () => setIsOutstandingModalOpen(true);
   const closeOutstandingModal = () => setIsOutstandingModalOpen(false);
+
+  const handlePublishSuccess = () => {
+    const newAlert: Alert = {
+      id: Date.now().toString() + Math.random(),
+      message: "Propiedad publicada exitosamente",
+    };
+
+    setAlerts((prevAlerts) => [...prevAlerts, newAlert]);
+    setIsBasicModalOpen(false);
+    setIsOutstandingModalOpen(false);
+
+    // Auto-remove alert after 3 seconds
+    setTimeout(() => {
+      setAlerts((prevAlerts) => prevAlerts.filter((a) => a.id !== newAlert.id));
+    }, 3000);
+  };
+
+  const removeAlert = (id: string) => {
+    setAlerts((prevAlerts) => prevAlerts.filter((a) => a.id !== id));
+  };
 
   return (
     <div className="promotion-container">
@@ -67,10 +89,12 @@ function Promotion() {
         </div>
       </div>
 
-      <PublicationBasic isOpen={isBasicModalOpen} onClose={closeBasicModal} />
-      <PublicationOutstanding isOpen={isOutstandingModalOpen} onClose={closeOutstandingModal} />
+      <PublicationBasic isOpen={isBasicModalOpen} onClose={closeBasicModal} onPublish={handlePublishSuccess} />
+      <PublicationOutstanding isOpen={isOutstandingModalOpen} onClose={closeOutstandingModal} onPublish={handlePublishSuccess} />
+      <SuccessAlertStack alerts={alerts} onRemove={removeAlert} />
     </div>
   );
 }
 
 export default Promotion;
+
