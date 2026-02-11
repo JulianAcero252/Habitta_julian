@@ -1,6 +1,19 @@
-import "../promotion/promotion.css"
+import "../promotion/promotion.css";
+import { useState } from "react";
+import PublicationBasic from "./modals/publicationBasic/PublicationBasic";
+import PublicationOutstanding from "./modals/publicationOutstanding/PublicationOutstanding";
+
 // Componente de Promoción
 function Promotion() {
+  const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
+  const [isOutstandingModalOpen, setIsOutstandingModalOpen] = useState(false);
+
+  const openBasicModal = () => setIsBasicModalOpen(true);
+  const closeBasicModal = () => setIsBasicModalOpen(false);
+  
+  const openOutstandingModal = () => setIsOutstandingModalOpen(true);
+  const closeOutstandingModal = () => setIsOutstandingModalOpen(false);
+
   return (
     <div className="promotion-container">
       <h1 className="promotion-title">Planes de Publicación</h1>
@@ -24,7 +37,9 @@ function Promotion() {
               <span className="check basic">✔</span> Aparece en búsquedas
             </li>
           </ul>
-          <button className="select-button orange">Seleccionar Plan</button>
+          <button className="select-button orange" onClick={openBasicModal}>
+            Seleccionar Plan
+          </button>
         </div>
 
         {/* Plan Destacado */}
@@ -48,9 +63,12 @@ function Promotion() {
               <span className="check featured">✔</span> Etiqueta de destacado
             </li>
           </ul>
-          <button className="select-button teal">Seleccionar Plan</button>
+          <button className="select-button teal" onClick={openOutstandingModal}>Seleccionar Plan</button>
         </div>
       </div>
+
+      <PublicationBasic isOpen={isBasicModalOpen} onClose={closeBasicModal} />
+      <PublicationOutstanding isOpen={isOutstandingModalOpen} onClose={closeOutstandingModal} />
     </div>
   );
 }
