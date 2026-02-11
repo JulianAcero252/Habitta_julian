@@ -21,18 +21,8 @@ function ModalN() {
           <br />
           <p>¡Hola! Queríamos informarte que una nueva propiedad que coincide con tus preferencias ha sido agregada a nuestro catálogo. No pierdas la oportunidad de echarle un vistazo y encontrar tu próximo hogar.</p>
           <br />
-          <p>Hace 29 minutos</p>
-        </div>
-        <br />
-         <div>
-          <br />
-          <h4>Nueva promocion</h4>
-          <br />
-          <p>¡Hola! Queríamos informarte que una nueva propiedad que coincide con tus preferencias ha sido agregada a nuestro catálogo. No pierdas la oportunidad de echarle un vistazo y encontrar tu próximo hogar.</p>
-          <br />
-          <p>Hace 29 minutos</p>
-        </div>
-     
+          <p>Hace 50 minutos</p>
+        </div><object data="" type=""></object>
         
         <Link to="/Notification"><button className="close-button">Cerrar</button></Link>
       </div>
