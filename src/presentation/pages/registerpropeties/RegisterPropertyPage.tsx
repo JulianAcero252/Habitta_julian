@@ -4,9 +4,11 @@ import "./styleRegisterP.css";
 function RegisterPropertyPage() {
   return (
     <>
+    <div className="register-page-container">
+
       <div className="register-page">
         <h3>Publicar Propiedades</h3>
-        <p>Datos Principales de la Propiedad</p>
+        <p id="subtitle">Datos Principales de la Propiedad</p>
 
         <br />
 
@@ -277,13 +279,15 @@ function RegisterPropertyPage() {
         <br />
 
         {/* Botones de Acción */}
-        <div className="card actions">
+        <div className="card-actions">
           <button className="btn-cancel">Cancelar</button>
           <button className="btn-primary">Publicar Propiedad</button>
         </div>
       </div>
+    </div>
     </>
   );
+  
 }
 
 export default RegisterPropertyPage;
