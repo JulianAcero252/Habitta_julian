@@ -132,35 +132,6 @@ function RegisterPropertyPage() {
 
           <br />
 
-          <br />
-
-          <div>
-            <label htmlFor="furnished">
-              Amoblado <span aria-hidden="true">*</span>
-            </label>
-            <br />
-            <select id="furnished" name="furnished" defaultValue="">
-              <option value="" disabled>
-                Selecciona
-              </option>
-              <option value="yes">Sí</option>
-              <option value="no">No</option>
-            </select>
-
-            <label htmlFor="parkingLot">
-              Estacionamiento <span aria-hidden="true">*</span>
-            </label>
-            <br />
-            <select id="parkingLot" name="parkingLot" defaultValue="">
-              <option value="" disabled>
-                Selecciona
-              </option>
-              <option value="yes">Sí</option>
-              <option value="no">No</option>
-            </select>
-          </div>
-
-          <br />
 
           <div className="two-col">
             <div>
@@ -226,6 +197,19 @@ function RegisterPropertyPage() {
                 <input type="checkbox" name="amenities" value="eventroom" />
                 Salón de eventos
               </label>
+              <label>
+                <input type="checkbox" name="amenities" value="elevator" />
+                Ascensor
+              </label>
+              <label>
+                <input type="checkbox" name="amenities" value="parking" />
+                Estacionamiento
+              </label>
+              <label>
+                <input type="checkbox" name="amenities" value="amoblado" />
+                Amoblado
+              </label>
+             
               <label>
                 <input type="checkbox" name="amenities" value="kitchen" />
                 Cocina equipada
