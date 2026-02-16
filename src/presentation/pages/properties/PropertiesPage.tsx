@@ -1,8 +1,15 @@
 import CardPropetie from "../../components/cardPropetie/Card_propietie";
+import { useProperties } from "@application/hooks/useProperties";
 import "./styleProperties.css";
 
-// Componente de Página de Propiedades
+/**
+ * Página de Propiedades.
+ * Carga propiedades reales desde Supabase mediante el hook useProperties.
+ * Muestra estados de carga, error y lista vacía.
+ */
 function PropertiesPage() {
+  const { properties, loading, error } = useProperties();
+
   return (
     <>
       <h1 className="properties-title">Propiedades</h1>
@@ -25,7 +32,7 @@ function PropertiesPage() {
 
           {/* Filtros Rápidos */}
           <div className="filters">
-            {/* Property Type Filter */}
+            {/* Filtro de Tipo de Propiedad */}
             <div className="filter-dropdown">
               <button className="filter pill">Casa ▼</button>
               <div className="dropdown-menu">
@@ -83,24 +90,14 @@ function PropertiesPage() {
               <button className="clear-filters">Limpiar</button>
             </div>
 
-            {/* Filtro de Tipo de Operación */}
-            <div className="filter-group">
-              <label>Tipo de operación</label>
-              <select defaultValue="">
-                <option value="">Seleccionar</option>
-                <option value="sale">Venta</option>
-                <option value="rent">Arriendo</option>
-              </select>
-            </div>
-
-            {/* Property Type Filter */}
+            {/* Filtro de Tipo de Propiedad */}
             <div className="filter-group">
               <label>Tipo de propiedad</label>
               <select defaultValue="">
                 <option value="">Seleccionar</option>
-                <option value="house">Casa</option>
-                <option value="apartment">Apartamento</option>
-                <option value="lot">Lote</option>
+                <option value="casa">Casa</option>
+                <option value="apartamento">Apartamento</option>
+                <option value="lote">Lote</option>
               </select>
             </div>
 
@@ -162,24 +159,71 @@ function PropertiesPage() {
               </div>
             </div>
 
+            {/* Estrato */}
+            <div className="filter-group">
+              <label>Estrato</label>
+              <div className="button-group">
+                <button className="option-btn">1</button>
+                <button className="option-btn">2</button>
+                <button className="option-btn">3</button>
+                <button className="option-btn">4</button>
+                <button className="option-btn">5</button>
+                <button className="option-btn">6</button>
+              </div>
+            </div>
+
             {/* Botón de Aplicar */}
             <button className="btn-apply-filters">Aplicar filtros</button>
           </aside>
 
           {/* Grilla de Resultados */}
           <main className="properties-grid">
-            {/* Tarjetas de Propiedades */}
-            <CardPropetie></CardPropetie>
+            {/* Estado de carga */}
+            {loading && (
+              <p
+                style={{ textAlign: "center", padding: "2rem", color: "#aaa" }}
+              >
+                Cargando propiedades...
+              </p>
+            )}
+
+            {/* Estado de error */}
+            {error && (
+              <p
+                style={{ textAlign: "center", padding: "2rem", color: "#f66" }}
+              >
+                Error al cargar: {error}
+              </p>
+            )}
+
+            {/* Sin resultados */}
+            {!loading && !error && properties.length === 0 && (
+              <p
+                style={{ textAlign: "center", padding: "2rem", color: "#aaa" }}
+              >
+                No hay propiedades disponibles.
+              </p>
+            )}
+
+            {/* Tarjetas de propiedades reales desde Supabase */}
+            <div className="property-cards-grid">
+              {properties.map((property) => (
+                <CardPropetie key={property.idpropiedad} property={property} />
+              ))}
+            </div>
+
             <br />
 
             {/* Paginación */}
-            <div className="button-page">
-              <button className="page-btn">« Anterior</button>
-              <button className="page-btn">1</button>
-              <button className="page-btn">2</button>
-              <button className="page-btn">3</button>
-              <button className="page-btn">Siguiente »</button>
-            </div>
+            {properties.length > 0 && (
+              <div className="button-page">
+                <button className="page-btn">« Anterior</button>
+                <button className="page-btn">1</button>
+                <button className="page-btn">2</button>
+                <button className="page-btn">3</button>
+                <button className="page-btn">Siguiente »</button>
+              </div>
+            )}
           </main>
         </div>
       </div>

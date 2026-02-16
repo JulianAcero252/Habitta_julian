@@ -70,7 +70,11 @@
 /* Icons */
 .navbar_icon {
   width: 15px;
-  margin-right: 5px;
+  margin-right: 15px;
+}
+
+.navbar_user-icon {
+  width: 30px;
 }
 
 /* Icon Hover */
@@ -176,18 +180,71 @@
 
 /* User Button */
 .navbar__user-btn {
-  padding: 6px;
-  min-width: 40px;
-  min-height: 40px;
-  border-radius: 50%;
+  padding: 4px 12px 4px 4px;
+  border-radius: 50px;
   border: 2px solid #35c8be;
-  background-color: #f0f0f0;
-  font-size: clamp(14px, 1.8vw, 18px);
+  background-color: rgba(53, 210, 219, 0.08);
+  font-size: clamp(13px, 1.4vw, 15px);
   cursor: pointer;
   display: flex;
   align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.navbar__user-btn:hover {
+  background-color: rgba(53, 210, 219, 0.15);
+  border-color: #2bb8c0;
+  transform: scale(1.02);
+}
+
+/* Círculo con iniciales del usuario */
+.navbar__user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #35d2db, #33bb9d);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Nombre del usuario */
+.navbar__user-name {
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 0.85rem;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Botón de login (cuando no está autenticado) */
+.navbar__login-btn {
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: 2px solid #35c8be;
+  background: transparent;
+  color: #35c8be;
+  font-family: "Bolt", sans-serif;
+  font-size: clamp(13px, 1.5vw, 16px);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.navbar__login-btn:hover {
+  background: linear-gradient(to right, #35d2db, #33bb9d);
+  color: #fff;
+  border-color: transparent;
 }
 
 /* Responsive Design */

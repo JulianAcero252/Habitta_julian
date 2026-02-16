@@ -5,11 +5,9 @@ import { useState, useEffect } from "react";
 
 // Imágenes de Fondo
 const backgroundImages = [
-  "/images/auth/dream_home_1.png",
-  "/images/auth/dream_home_2.png",
-  "/images/auth/dream_home_3.png",
-  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80", // Penthouse de Lujo
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80", // Villa Moderna
+  "/images/example/dream_home_1.png",
+  "/images/example/dream_home_2.png",
+  "/images/example/dream_home_3.png",
 ];
 
 export function useAuthPage() {

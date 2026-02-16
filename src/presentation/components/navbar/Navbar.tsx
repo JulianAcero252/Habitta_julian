@@ -1,13 +1,51 @@
 import "./navbar.css";
-// import logoSF from "../../assets/images/logoSF.png";
-const logoSF = "/images/logoSF.png";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-// import notificationIcon from "/public/notification-9-svgrepo-com.svg";
+import { useAuth } from "@application/context/AuthContext";
+import UserModal from "../userModal/UserModal";
+import ModalN from "../../pages/notification/Modal/ModalN";
+
+const logoSF = "/images/logoSF.png";
 const notificationIcon = "/notification-9-svgrepo-com.svg";
 
-// Navbar Component
+// Componente de Barra de Navegación
 function Navbar() {
   const location = useLocation();
+  const { usuario } = useAuth();
+
+  // Estado para controlar la visibilidad del modal de usuario
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+
+  // Estado para controlar la visibilidad del modal de notificaciones
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+
+  /**
+   * Alterna la visibilidad del modal de usuario
+   */
+  const toggleUserModal = () => {
+    setIsUserModalOpen(!isUserModalOpen);
+  };
+
+  /**
+   * Cierra el modal de usuario
+   */
+  const closeUserModal = () => {
+    setIsUserModalOpen(false);
+  };
+
+  /**
+   * Alterna la visibilidad del modal de notificaciones
+   */
+  const toggleNotificationModal = () => {
+    setIsNotificationModalOpen(!isNotificationModalOpen);
+  };
+
+  /**
+   * Cierra el modal de notificaciones
+   */
+  const closeNotificationModal = () => {
+    setIsNotificationModalOpen(false);
+  };
 
   // Renderizamos la estructura visual de la barra de navegación.
   return (
@@ -86,42 +124,61 @@ function Navbar() {
                 Herramientas
               </Link>
             </li>
-
-            {/* Promotions */}
-            <li>
-              <Link
-                className={`navbar_link ${location.pathname === "/promotion" ? "active" : ""}`}
-                to="/promotion"
-              >
-                <img
-                  className="navbar_icon"
-                  src="/icons/UI/navbaricons/star-alt-4-svgrepo-com.svg"
-                  alt="Icono de promociones"
-                />
-                Promociones
-              </Link>
-            </li>
           </ul>
         </nav>
 
         {/* Notifications */}
-        <div id="notificationButton">
-          <img
-            id="notificationIcon"
-            src={notificationIcon}
-            alt="Notificaciones"
+        <div style={{ position: "relative" }}>
+          <div
+            id="notificationButton"
+            onClick={toggleNotificationModal}
+            style={{ cursor: "pointer" }}
+          >
+            <img
+              id="notificationIcon"
+              src={notificationIcon}
+              alt="Notificaciones"
+            />
+          </div>
+          {/* Modal de Notificaciones */}
+          <ModalN
+            isOpen={isNotificationModalOpen}
+            onClose={closeNotificationModal}
           />
         </div>
 
         {/* Actions */}
         <div className="navbar__actions">
-          <Link to="/registerpropeties" className="navbar__publish-btn">
-            + Publicar
-          </Link>
-          {/* User Profile */}
-          <button className="navbar__user-btn">
-            <span>👤</span>
-          </button>
+          {usuario ? (
+            <>
+              {/* Usuario autenticado */}
+              <Link to="/registerpropeties" className="navbar__publish-btn">
+                + Publicar
+              </Link>
+              <div style={{ position: "relative" }}>
+                <button className="navbar__user-btn" onClick={toggleUserModal}>
+                  <span className="navbar__user-avatar">
+                    {usuario.nombre
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .slice(0, 2)
+                      .toUpperCase()}
+                  </span>
+                  <span className="navbar__user-name">{usuario.nombre}</span>
+                </button>
+                {/* Modal de usuario */}
+                <UserModal isOpen={isUserModalOpen} onClose={closeUserModal} />
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Usuario NO autenticado */}
+              <Link to="/auth" className="navbar__login-btn">
+                Iniciar Sesión
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

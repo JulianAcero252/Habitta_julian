@@ -2,7 +2,9 @@ import "../promotion/promotion.css";
 import { useState } from "react";
 import PublicationBasic from "./modals/publicationBasic/PublicationBasic";
 import PublicationOutstanding from "./modals/publicationOutstanding/PublicationOutstanding";
-import SuccessAlertStack, { type Alert } from "../../components/alerts/successAlert/SuccessAlertStack";
+import SuccessAlertStack, {
+  type Alert,
+} from "../../components/alerts/successAlert/SuccessAlertStack";
 
 // Componente de Promoción
 function Promotion() {
@@ -12,7 +14,7 @@ function Promotion() {
 
   const openBasicModal = () => setIsBasicModalOpen(true);
   const closeBasicModal = () => setIsBasicModalOpen(false);
-  
+
   const openOutstandingModal = () => setIsOutstandingModalOpen(true);
   const closeOutstandingModal = () => setIsOutstandingModalOpen(false);
 
@@ -30,10 +32,6 @@ function Promotion() {
     setTimeout(() => {
       setAlerts((prevAlerts) => prevAlerts.filter((a) => a.id !== newAlert.id));
     }, 3000);
-  };
-
-  const removeAlert = (id: string) => {
-    setAlerts((prevAlerts) => prevAlerts.filter((a) => a.id !== id));
   };
 
   return (
@@ -69,7 +67,9 @@ function Promotion() {
         {/* Plan Destacado */}
         <div className="promotion-card featured">
           <h2>Publicación Destacada</h2>
-          <p className="card-subtitle">Tu propiedad destacada en los resultados</p>
+          <p className="card-subtitle">
+            Tu propiedad destacada en los resultados
+          </p>
           <p className="price">$199</p>
           <p className="price-label">Por 30 días</p>
           <ul className="feature-list">
@@ -89,16 +89,25 @@ function Promotion() {
               <span className="check featured">✔</span> Etiqueta de destacado
             </li>
           </ul>
-          <button className="select-button teal" onClick={openOutstandingModal}>Seleccionar Plan</button>
+          <button className="select-button teal" onClick={openOutstandingModal}>
+            Seleccionar Plan
+          </button>
         </div>
       </div>
 
-      <PublicationBasic isOpen={isBasicModalOpen} onClose={closeBasicModal} onPublish={handlePublishSuccess} />
-      <PublicationOutstanding isOpen={isOutstandingModalOpen} onClose={closeOutstandingModal} onPublish={handlePublishSuccess} />
-      <SuccessAlertStack alerts={alerts} onRemove={removeAlert} />
+      <PublicationBasic
+        isOpen={isBasicModalOpen}
+        onClose={closeBasicModal}
+        onPublish={handlePublishSuccess}
+      />
+      <PublicationOutstanding
+        isOpen={isOutstandingModalOpen}
+        onClose={closeOutstandingModal}
+        onPublish={handlePublishSuccess}
+      />
+      <SuccessAlertStack alerts={alerts} />
     </div>
   );
 }
 
 export default Promotion;
-

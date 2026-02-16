@@ -1,0 +1,87 @@
+/* TabNavigator - Estilos del componente de navegación por pestañas */
+
+/* Contenedor principal de la navegación */
+.tab-navigator {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 40px;
+}
+
+/* Contenedor interno de las pestañas */
+.tab-navigator__container {
+  display: flex;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Botón de pestaña */
+.tab-navigator__button {
+  flex: 1;
+  padding: 16px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-family: "Bolt", sans-serif;
+  font-size: clamp(14px, 1.5vw, 16px);
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+/* Efecto hover en pestañas */
+.tab-navigator__button:hover {
+  color: #35d2db;
+  background: #f9fafb;
+}
+
+/* Pestaña activa */
+.tab-navigator__button.active {
+  color: #35d2db;
+  border-bottom-color: #35d2db;
+}
+
+/* Efecto de foco para accesibilidad */
+.tab-navigator__button:focus {
+  outline: 2px solid #35d2db;
+  outline-offset: -2px;
+}
+
+/* Responsive - Tablets */
+@media (max-width: 768px) {
+  .tab-navigator__container {
+    padding: 0 12px;
+    gap: 0;
+  }
+
+  .tab-navigator__button {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Responsive - Móviles */
+@media (max-width: 480px) {
+  .tab-navigator__container {
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE y Edge */
+  }
+
+  /* Ocultar scrollbar en Chrome, Safari y Opera */
+  .tab-navigator__container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-navigator__button {
+    padding: 12px 20px;
+    font-size: 13px;
+    flex: 0 0 auto;
+    min-width: 120px;
+  }
+}

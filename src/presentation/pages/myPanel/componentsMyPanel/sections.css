@@ -1,0 +1,566 @@
+/* Estilos de las Secciones del Panel */
+
+/* Contenido de la sección */
+.section-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+/* Fila del encabezado de sección */
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+/* Título de sección */
+.section-title {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* Botones */
+.btn-primary {
+  background: linear-gradient(
+    to right,
+    #35d2db 0%,
+    #35c8be 54%,
+    #33bb9d 83%,
+    #35d2db 100%
+  );
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-family: "Bolt", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: #35d2db;
+  border: 2px solid #35d2db;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-family: "Bolt", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-secondary:hover {
+  background: #35d2db;
+  color: #ffffff;
+}
+
+.btn-secondary:hover svg {
+  filter: brightness(0) invert(1);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #35d2db;
+  border: 2px solid #35d2db;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: "Bolt", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: #35d2db;
+  color: #ffffff;
+}
+
+/* ===== SECCIÓN PROPIEDADES ===== */
+
+/* Lista de propiedades */
+.propiedades-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Tarjeta de propiedad */
+.propiedad-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.propiedad-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Información de la propiedad */
+.propiedad-card__info {
+  flex: 1;
+}
+
+.propiedad-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.propiedad-card__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* Badge de estado */
+.estado-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.estado-badge--activo {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.estado-badge--pendiente {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* Detalles de la propiedad */
+.propiedad-card__details {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.detail-item .icon {
+  color: #35d2db;
+}
+
+/* Precio */
+.propiedad-card__price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #35d2db;
+  margin-bottom: 12px;
+}
+
+/* Estadísticas */
+.propiedad-card__stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.stat-item .icon {
+  color: #9ca3af;
+}
+
+/* Acciones */
+.propiedad-card__actions {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.action-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.action-btn--edit {
+  background: #f0f9ff;
+  color: #0369a1;
+}
+
+.action-btn--edit:hover {
+  background: #0369a1;
+  color: #ffffff;
+}
+
+.action-btn--view {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.action-btn--view:hover {
+  background: #15803d;
+  color: #ffffff;
+}
+
+.action-btn--delete {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.action-btn--delete:hover {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+/* ===== SECCIÓN FAVORITOS ===== */
+
+/* Información de favoritos */
+.favoritos-info {
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.favoritos-info__text {
+  font-size: 18px;
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+/* Estado vacío */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-state__icon {
+  color: #d1d5db;
+  margin-bottom: 24px;
+}
+
+.empty-state__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+.empty-state__description {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 24px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== SECCIÓN REPORTES ===== */
+
+/* Grid de reportes */
+.reportes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+/* Tarjeta de reporte */
+.reporte-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.reporte-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  border-color: #35d2db;
+}
+
+.reporte-card__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: #f0fdfa;
+  border-radius: 50%;
+  color: #35d2db;
+}
+
+.reporte-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+.reporte-card__description {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* ===== SECCIÓN PERFIL ===== */
+
+/* Contenedor del perfil */
+.perfil-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Tarjeta de información del perfil */
+.perfil-info-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Avatar del perfil */
+.perfil-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #35d2db, #35c8be);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+/* Datos del perfil */
+.perfil-datos {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.perfil-nombre {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+.perfil-detalle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 15px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.perfil-detalle .icon {
+  color: #35d2db;
+}
+
+/* Biografía */
+.perfil-biografia {
+  width: 100%;
+  text-align: left;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.perfil-biografia h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.perfil-biografia p {
+  font-size: 15px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* Grid de configuración */
+.configuracion-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Tarjeta de configuración */
+.configuracion-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.configuracion-card:hover {
+  background: #f9fafb;
+  border-color: #35d2db;
+}
+
+.configuracion-card__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #f0fdfa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #35d2db;
+  flex-shrink: 0;
+}
+
+.configuracion-card__content {
+  flex: 1;
+}
+
+.configuracion-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.configuracion-card__description {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.configuracion-card__arrow {
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.configuracion-card:hover .configuracion-card__arrow {
+  color: #35d2db;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .section-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .propiedad-card {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .propiedad-card__actions {
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .reportes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .perfil-info-card {
+    padding: 24px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+  .section-content {
+    padding: 0 16px 32px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .propiedad-card {
+    padding: 16px;
+  }
+
+  .propiedad-card__price {
+    font-size: 20px;
+  }
+
+  .propiedad-card__stats {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .perfil-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .perfil-nombre {
+    font-size: 24px;
+  }
+}

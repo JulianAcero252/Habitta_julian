@@ -11,6 +11,8 @@ function Login() {
     showPassword,
     togglePasswordVisibility,
     handleSubmit,
+    error,
+    loading,
   } = useLoginForm();
 
   return (
@@ -25,6 +27,7 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="correo@gmail.com"
           required
+          disabled={loading}
         />
       </div>
 
@@ -39,6 +42,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
             required
+            disabled={loading}
           />
           <button
             type="button"
@@ -50,9 +54,28 @@ function Login() {
         </div>
       </div>
 
+      {/* Mensaje de error (abajo, cerca del botón) */}
+      {error && (
+        <div
+          className="auth-error"
+          style={{
+            color: "#ff6b6b",
+            backgroundColor: "rgba(255, 107, 107, 0.1)",
+            border: "1px solid rgba(255, 107, 107, 0.3)",
+            borderRadius: "8px",
+            padding: "0.75rem 1rem",
+            marginBottom: "0.75rem",
+            fontSize: "0.9rem",
+            textAlign: "center",
+          }}
+        >
+          ⚠️ {error}
+        </div>
+      )}
+
       {/* Botón de Envío */}
-      <button type="submit" className="submit-button">
-        Iniciar Sesión
+      <button type="submit" className="submit-button" disabled={loading}>
+        {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
       </button>
     </form>
   );

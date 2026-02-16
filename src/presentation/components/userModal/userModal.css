@@ -1,0 +1,156 @@
+/* UserModal - Estilos del modal de usuario */
+
+/* Contenedor principal del modal */
+.user-modal {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1000;
+  animation: slideDown 0.2s ease-out;
+}
+
+/* Animación de aparición del modal */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Caja contenedora del modal */
+.user-modal__container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  min-width: 260px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+/* Lista del menú */
+.user-modal__menu {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+/* Elemento del menú */
+.user-modal__item {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* Remover borde del último elemento */
+.user-modal__item:last-child {
+  border-bottom: none;
+}
+
+/* Separador visual antes del logout */
+.user-modal__item--logout {
+  border-top: 2px solid #e5e7eb;
+  margin-top: 4px;
+  padding-top: 4px;
+}
+
+/* Enlace del menú */
+.user-modal__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #1f2937;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+/* Hover del enlace */
+.user-modal__link:hover {
+  background: #f9fafb;
+  padding-left: 20px;
+}
+
+/* Hover especial para logout */
+.user-modal__item--logout .user-modal__link:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Ícono del menú */
+.user-modal__icon {
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+/* Etiqueta del menú */
+.user-modal__label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .user-modal {
+    right: -10px;
+  }
+
+  .user-modal__container {
+    min-width: 240px;
+  }
+
+  .user-modal__link {
+    padding: 10px 14px;
+  }
+
+  .user-modal__icon {
+    font-size: 18px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .user-modal__label {
+    font-size: 13px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+  .user-modal {
+    right: 0;
+    left: auto;
+    transform: translateX(0);
+  }
+
+  .user-modal__container {
+    min-width: 220px;
+  }
+
+  .user-modal__link {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .user-modal__icon {
+    font-size: 16px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .user-modal__label {
+    font-size: 12px;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { type FC } from "react";
+import { type FC } from "react";
 import "./successAlertStack.css";
 
 export interface Alert {
@@ -8,10 +8,9 @@ export interface Alert {
 
 interface SuccessAlertStackProps {
   alerts: Alert[];
-  onRemove: (id: string) => void;
 }
 
-const SuccessAlertStack: FC<SuccessAlertStackProps> = ({ alerts, onRemove }) => {
+const SuccessAlertStack: FC<SuccessAlertStackProps> = ({ alerts }) => {
   return (
     <div className="success-alert-stack-container">
       {alerts.map((alert, index) => (
