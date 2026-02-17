@@ -1,0 +1,22 @@
+/* Contenedor Principal */
+.favorites-page {
+  padding: 18px 10px;
+}
+
+/* Título */
+.favorites-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* Descripción */
+#descripcionFavoritos {
+  color: #555555;
+  margin-top: -10px;
+  margin-bottom: 40px;
+  text-align: center;
+  line-height: 1.5;
+}

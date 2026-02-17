@@ -21,7 +21,7 @@ const SuccessAlert: FC<SuccessAlertProps> = ({
       }, duration);
 
       return () => clearTimeout(timer);
-    }
+    }   
   }, [isVisible, duration, onClose]);
 
   if (!isVisible) return null;

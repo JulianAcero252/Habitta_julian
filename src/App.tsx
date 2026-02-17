@@ -1,5 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+
 import Layout from "@presentation/components/layout/Layout";
 import Home from "@presentation/pages/home/Home";
 import PropertiesPage from "@presentation/pages/properties/PropertiesPage";
@@ -7,8 +8,10 @@ import RegisterPropertyPage from "@presentation/pages/registerpropeties/Register
 import Promotion from "@presentation/pages/promotion/Promotion";
 import ToolsPage from "@presentation/pages/tools/ToolsPage";
 import Auth from "@presentation/pages/auth/Auth";
-import Notification from "@presentation/pages/notification/NotificationPage/Notification";
-import MyPanel from "@presentation/pages/myPanel/MyPanel";
+import Favorites from "@presentation/pages/favorites/Favorites";
+import PropertyDetailsPage from "@presentation/pages/propertyDetails/PropertyDetailsPage";
+import Mypanel from "@presentation/pages/myPanel/MyPanel";
+import Notifications from "@presentation/pages/notification/NotificationPage/Notification";
 
 // Componente Principal de la Aplicación
 function App() {
@@ -34,11 +37,17 @@ function App() {
           {/* Autenticación */}
           <Route path="auth" element={<Auth />} />
 
-          {/* Notificaciones */}
-          <Route path="notification" element={<Notification />} />
+          {/* Mi Panel */}
+          <Route path="mypanel" element={<Mypanel />} />
 
-          {/* Panel Personal */}
-          <Route path="myPanel" element={<MyPanel />} />
+          {/* Favoritos */}
+          <Route path="favorites" element={<Favorites />} />
+
+          {/* Notificaciones */}
+          <Route path="notification" element={<Notifications />} />
+
+          {/*Detalles de Propiedad */}
+          <Route path="propertydetailspage" element={<PropertyDetailsPage />} />
         </Route>
       </Routes>
     </>
