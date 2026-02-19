@@ -198,6 +198,64 @@ button:hover {
   opacity: 0.9;
 }
 
+/* Mensajes de Error y Éxito */
+.form-error-message {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.form-success-message {
+  background: #d1fae5;
+  color: #059669;
+  border: 1px solid #6ee7b7;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+/* Indicador de campo obligatorio */
+.required {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+/* Textarea */
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  font-family: inherit;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Texto de carga */
+.loading-text {
+  color: #888;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Botón deshabilitado */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Diseño Responsivo */
 @media (max-width: 768px) {
   .register-page {

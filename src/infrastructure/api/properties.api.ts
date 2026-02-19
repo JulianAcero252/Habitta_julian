@@ -5,33 +5,20 @@ import type {
   UpdatePropertyInput,
 } from "@domain/entities/Property";
 
-/**
- * API de propiedades — operaciones CRUD contra la tabla `propiedades` en Supabase.
- * Los campos `estado_publicacion` y `fechacreacion` son gestionados automáticamente
- * por triggers en la base de datos.
- */
+/** API de propiedades — CRUD contra tabla `propiedades` */
 export const propertyApi = {
-  /**
-   * Obtiene todas las propiedades.
-   * Ordena por fecha de creación descendente (más recientes primero).
-   */
+  /** Todas las propiedades, ordenadas por fecha (recientes primero) */
   getAll: async (): Promise<Property[]> => {
     const { data, error } = await supabase
       .from("propiedades")
       .select("*")
       .order("fechacreacion", { ascending: false });
 
-    if (error) {
-      console.error("Error al obtener propiedades:", error.message);
-      throw new Error(error.message);
-    }
-
+    if (error) throw new Error(error.message);
     return data ?? [];
   },
 
-  /**
-   * Obtiene una propiedad por su ID.
-   */
+  /** Una propiedad por ID */
   getById: async (id: number): Promise<Property | null> => {
     const { data, error } = await supabase
       .from("propiedades")
@@ -39,17 +26,11 @@ export const propertyApi = {
       .eq("idpropiedad", id)
       .single();
 
-    if (error) {
-      console.error(`Error al obtener propiedad ${id}:`, error.message);
-      return null;
-    }
-
+    if (error) return null;
     return data;
   },
 
-  /**
-   * Obtiene propiedades de un usuario específico.
-   */
+  /** Propiedades de un usuario específico */
   getByUsuario: async (idusuario: number): Promise<Property[]> => {
     const { data, error } = await supabase
       .from("propiedades")
@@ -57,21 +38,11 @@ export const propertyApi = {
       .eq("idusuario", idusuario)
       .order("fechacreacion", { ascending: false });
 
-    if (error) {
-      console.error(
-        `Error al obtener propiedades del usuario ${idusuario}:`,
-        error.message,
-      );
-      throw new Error(error.message);
-    }
-
+    if (error) throw new Error(error.message);
     return data ?? [];
   },
 
-  /**
-   * Crea una nueva propiedad.
-   * No envía `estado_publicacion` ni `fechacreacion` — los triggers lo manejan.
-   */
+  /** Crear propiedad (estadoPublicacion y fechacreacion son auto-generados) */
   create: async (property: CreatePropertyInput): Promise<Property> => {
     const { data, error } = await supabase
       .from("propiedades")
@@ -79,18 +50,11 @@ export const propertyApi = {
       .select()
       .single();
 
-    if (error) {
-      console.error("Error al crear propiedad:", error.message);
-      throw new Error(error.message);
-    }
-
+    if (error) throw new Error(error.message);
     return data;
   },
 
-  /**
-   * Actualiza una propiedad existente.
-   * Solo envía los campos que se quieren cambiar.
-   */
+  /** Actualizar campos de una propiedad */
   update: async (
     id: number,
     updates: UpdatePropertyInput,
@@ -102,26 +66,17 @@ export const propertyApi = {
       .select()
       .single();
 
-    if (error) {
-      console.error(`Error al actualizar propiedad ${id}:`, error.message);
-      throw new Error(error.message);
-    }
-
+    if (error) throw new Error(error.message);
     return data;
   },
 
-  /**
-   * Elimina una propiedad por su ID.
-   */
+  /** Eliminar propiedad */
   delete: async (id: number): Promise<void> => {
     const { error } = await supabase
       .from("propiedades")
       .delete()
       .eq("idpropiedad", id);
 
-    if (error) {
-      console.error(`Error al eliminar propiedad ${id}:`, error.message);
-      throw new Error(error.message);
-    }
+    if (error) throw new Error(error.message);
   },
 };
