@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "@presentation/components/layout/Layout";
 import Home from "@presentation/pages/home/Home";
 import PropertiesPage from "@presentation/pages/properties/PropertiesPage";
-import RegisterPropertyPage from "@presentation/pages/registerpropeties/RegisterPropertyPage";
+import RegisterPropertyPage from "@presentation/pages/registerpropeties/RegisterProperty";
 import Promotion from "@presentation/pages/promotion/Promotion";
 import ToolsPage from "@presentation/pages/tools/ToolsPage";
 import Auth from "@presentation/pages/auth/Auth";
@@ -13,7 +13,6 @@ import "./presentation/pages/properties/styleProperties.css";
 import Favorites from "@presentation/pages/favorites/Favorites";
 import PropertyDetailsPage from "@presentation/pages/propertyDetails/PropertyDetailsPage";
 import Mypanel from "@presentation/pages/myPanel/MyPanel";
-
 
 // Componente Principal de la Aplicación
 function App() {
@@ -46,7 +45,10 @@ function App() {
           <Route path="mypanel" element={<Mypanel />} />
 
           {/* Ruta de Detalles de Propiedad */}
-          <Route path="propertydetailspage" element={<PropertyDetailsPage />} />
+          <Route
+            path="propertydetailspage/:id"
+            element={<PropertyDetailsPage />}
+          />
         </Route>
       </Routes>
     </>

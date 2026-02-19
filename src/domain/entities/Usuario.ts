@@ -1,7 +1,4 @@
-/**
- * Interfaz de Usuario — coincide con la tabla `usuarios` en Supabase.
- * El campo `contrasena` es gestionado por Supabase Auth internamente.
- */
+/** Usuario — tabla `usuarios` en Supabase */
 export interface Usuario {
   idusuario: number;
   correo: string;
@@ -15,10 +12,7 @@ export interface Usuario {
   fechalogin: string | null;
 }
 
-/**
- * Tipo para crear un usuario nuevo en la tabla `usuarios`.
- * Excluye `idusuario` (auto-generado) y campos gestionados por triggers.
- */
+/** Crear usuario — sin campos auto-generados */
 export type CreateUsuarioInput = Omit<
   Usuario,
   "idusuario" | "estadocuenta" | "ultimaactividad" | "fechalogin"

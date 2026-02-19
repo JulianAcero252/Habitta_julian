@@ -1,26 +1,22 @@
 import { useState, useEffect } from "react";
-// import img1 from "@presentation/assets/images/auth/dream_home_1.png";
-// import img2 from "@presentation/assets/images/auth/dream_home_2.png";
-// import img3 from "@presentation/assets/images/auth/dream_home_3.png";
 
-// Imágenes de Fondo
-const backgroundImages = [
+/** Imágenes de fondo del carrusel */
+const bgImages = [
   "/images/example/dream_home_1.png",
   "/images/example/dream_home_2.png",
   "/images/example/dream_home_3.png",
 ];
 
+/** Hook de la página de autenticación — carrusel de fondo + tabs */
 export function useAuthPage() {
   const [activeTab, setActiveTab] = useState<"login" | "register">("login");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // Rotar imagen cada 5 segundos
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % backgroundImages.length,
-      );
+      setCurrentImageIndex((i) => (i + 1) % bgImages.length);
     }, 5000);
-
     return () => clearInterval(timer);
   }, []);
 
@@ -28,6 +24,6 @@ export function useAuthPage() {
     activeTab,
     setActiveTab,
     currentImageIndex,
-    backgroundImages,
+    backgroundImages: bgImages,
   };
 }

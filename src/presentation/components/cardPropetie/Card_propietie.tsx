@@ -25,10 +25,10 @@ function CardPropetie({ property }: CardPropetieProps) {
     }).format(price);
   };
 
-  // Determinar badges según el estado de publicación
+  // Determinar badges según el estado de publicación y tipo de operación
   const badges = [];
-  if (property.estado_publicacion === "destacada") badges.push("Destacada");
-  if (property.estado) badges.push(property.estado); // "Venta", "Renta", etc.
+  if (property.estadoPublicacion === "destacada") badges.push("Destacada");
+  if (property.tipoOperacion) badges.push(property.tipoOperacion);
 
   return (
     <div className="property-card">
@@ -63,7 +63,13 @@ function CardPropetie({ property }: CardPropetieProps) {
           {property.titulo || "Sin título"}
         </h3>
         <p className="property-card__location">
-          {property.tipo || "Tipo no especificado"}
+          {/* Mostrar ubicación: ciudad, departamento */}
+          {[property.ciudad, property.departamento]
+            .filter(Boolean)
+            .join(", ") || "Ubicación no especificada"}
+        </p>
+        <p className="property-card__type">
+          {property.tipoPropiedad || "Tipo no especificado"}
         </p>
         <p className="property-card__price">{formatPrice(property.precio)}</p>
         <div className="property-card__features">
@@ -89,7 +95,7 @@ function CardPropetie({ property }: CardPropetieProps) {
         <button
           className="property-card__btn-details"
           onClick={() =>
-            navigate(`/propertydetailspage?id=${property.idpropiedad}`)
+            navigate(`/propertydetailspage/${property.idpropiedad}`)
           }
         >
           Ver detalles
