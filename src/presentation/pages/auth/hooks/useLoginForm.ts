@@ -2,10 +2,7 @@ import { useState } from "react";
 import { useAuth } from "@application/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-/**
- * Hook para el formulario de inicio de sesión.
- * Conecta con Supabase Auth a través del AuthContext.
- */
+/** Hook del formulario de login — con timeout de 15s */
 export function useLoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,20 +19,22 @@ export function useLoginForm() {
     setLoading(true);
 
     try {
-      await signIn(email, password);
-      // Redirigir al inicio después del login exitoso
+      // Timeout de 15s para evitar carga infinita (cold start de Supabase)
+      const timeout = new Promise<never>((_, reject) =>
+        setTimeout(
+          () =>
+            reject(new Error("El servidor tardó demasiado. Intenta de nuevo.")),
+          15000,
+        ),
+      );
+
+      await Promise.race([signIn(email, password), timeout]);
       navigate("/");
     } catch (err) {
-      const mensaje =
-        err instanceof Error ? err.message : "Error al iniciar sesión";
-      setError(mensaje);
+      setError(err instanceof Error ? err.message : "Error al iniciar sesión");
     } finally {
       setLoading(false);
     }
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
   };
 
   return {
@@ -44,7 +43,7 @@ export function useLoginForm() {
     password,
     setPassword,
     showPassword,
-    togglePasswordVisibility,
+    togglePasswordVisibility: () => setShowPassword(!showPassword),
     handleSubmit,
     error,
     loading,

@@ -2,18 +2,7 @@ import { useState } from "react";
 import { useAuth } from "@application/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-/**
- * Hook para el formulario de registro.
- *
- * Validaciones de frontend:
- * - Correos deben coincidir
- * - Contraseñas deben coincidir (mínimo 8 caracteres)
- * - Todos los campos requeridos
- *
- * Después de registrarse:
- * - Si necesita confirmación de email → muestra mensaje de éxito
- * - Si no → redirige a Home
- */
+/** Hook del formulario de registro — validaciones frontend + signUp */
 export function useRegisterForm() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,7 +13,6 @@ export function useRegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  // Mensaje de éxito cuando se necesita confirmación de email
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const { signUp } = useAuth();
@@ -35,52 +23,36 @@ export function useRegisterForm() {
     setError(null);
     setSuccessMessage(null);
 
-    // --- Validaciones de frontend ---
-
-    // Validar que los correos coincidan
+    // Validaciones frontend
     if (email.trim().toLowerCase() !== confirmationEmail.trim().toLowerCase()) {
       setError("Los correos electrónicos no coinciden.");
       return;
     }
-
-    // Validar que las contraseñas coincidan
     if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden.");
       return;
     }
-
-    // Validar longitud mínima de contraseña
     if (password.length < 8) {
       setError("La contraseña debe tener al menos 8 caracteres.");
       return;
     }
 
-    // --- Enviar al backend ---
     setLoading(true);
-
     try {
       const result = await signUp(email, password, fullName, phone);
 
       if (result.needsConfirmation) {
-        // Mostrar mensaje de éxito — el usuario debe revisar su correo
         setSuccessMessage(
-          "¡Cuenta creada! Revisa tu correo electrónico para confirmar tu cuenta antes de iniciar sesión.",
+          "¡Cuenta creada! Revisa tu correo para confirmar tu cuenta.",
         );
       } else {
-        // Login automático — redirigir al inicio
         navigate("/");
       }
     } catch (err) {
-      const mensaje =
-        err instanceof Error ? err.message : "Error al registrarse.";
-      setError(mensaje);
+      setError(err instanceof Error ? err.message : "Error al registrarse.");
     } finally {
       setLoading(false);
     }
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
   };
 
   return {
@@ -97,7 +69,7 @@ export function useRegisterForm() {
     confirmPassword,
     setConfirmPassword,
     showPassword,
-    togglePasswordVisibility,
+    togglePasswordVisibility: () => setShowPassword(!showPassword),
     handleSubmit,
     error,
     loading,

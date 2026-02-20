@@ -1,60 +1,193 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { propertyService } from "@application/services/propertyService";
+import type { Property } from "@domain/entities/Property";
+import type { Caracteristica } from "@domain/entities/Caracteristica";
 import "./PropertyDetailsPage.css";
 
-const mainImage = "/images/auth/dream_home_1.png";
-const thumbnails = [
-  "/images/auth/dream_home_1.png",
-  "/images/auth/dream_home_2.png",
-  "/images/auth/dream_home_3.png",
-  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80",
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80",
-];
+const fallbackImage = "/images/auth/dream_home_1.png";
 
 function PropertyDetailsPage() {
-  const [selectedImg, setSelectedImg] = useState(mainImage);
+  const { id } = useParams<{ id: string }>();
+  const [property, setProperty] = useState<Property | null>(null);
+  const [caracteristicas, setCaracteristicas] = useState<Caracteristica[]>([]);
+  const [fotos, setFotos] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [imgIndex, setImgIndex] = useState(0);
 
   // Tabs
   const [activeTab, setActiveTab] = useState("Descripción");
-  const tabNames = ["Descripción", "Características", "Ubicación", "Financiamiento"];
+  const tabNames = ["Descripción", "Características", "Ubicación"];
+
+  // Imagen seleccionada (primera foto o fallback)
+  const selectedImg = fotos.length > 0 ? fotos[imgIndex] : fallbackImage;
+
+  // Navegación de imágenes
+  const prevImg = () => setImgIndex((i) => (i > 0 ? i - 1 : fotos.length - 1));
+  const nextImg = () => setImgIndex((i) => (i < fotos.length - 1 ? i + 1 : 0));
+
+  // Cargar datos de la propiedad al montar
+  useEffect(() => {
+    const cargar = async () => {
+      if (!id) {
+        setError("ID de propiedad no proporcionado.");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const [prop, cars, imgs] = await Promise.all([
+          propertyService.getPropertyById(Number(id)),
+          propertyService.getCaracteristicasDePropiedad(Number(id)),
+          propertyService.getFotosPropiedad(Number(id)),
+        ]);
+
+        if (!prop) {
+          setError("Propiedad no encontrada.");
+        } else {
+          setProperty(prop);
+          setCaracteristicas(cars);
+          setFotos(imgs);
+        }
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Error al cargar la propiedad.",
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    cargar();
+  }, [id]);
+
+  // Formatear precio en pesos colombianos
+  const formatPrice = (price: number | null) => {
+    if (!price) return "Precio no disponible";
+    return new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0,
+    }).format(price);
+  };
+
+  // Formatear fecha relativa
+  const formatFecha = (fecha: string | null) => {
+    if (!fecha) return "Fecha no disponible";
+    const diff = Date.now() - new Date(fecha).getTime();
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    if (dias === 0) return "Hoy";
+    if (dias === 1) return "Hace 1 día";
+    return `Hace ${dias} días`;
+  };
+
+  // Estado de carga
+  if (loading) {
+    return (
+      <div className="property-details-container">
+        <p style={{ textAlign: "center", padding: "4rem", color: "#aaa" }}>
+          Cargando propiedad...
+        </p>
+      </div>
+    );
+  }
+
+  // Estado de error
+  if (error || !property) {
+    return (
+      <div className="property-details-container">
+        <p style={{ textAlign: "center", padding: "4rem", color: "#f66" }}>
+          {error || "Propiedad no encontrada."}
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="property-details-container">
       <div className="property-details-main">
+        {/* Sección de Imágenes */}
         <div className="property-details-image-section">
-          <img src={selectedImg} alt="Propiedad" className="property-details-main-img" />
-          {/* Botones de navegación (simulados) */}
-          <button className="property-details-arrow left" aria-label="Anterior">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="32" cy="32" r="32" fill="#fff"/>
-              <path d="M40 32H24M24 32l8-8M24 32l8 8" stroke="#10D6C2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <img
+            src={selectedImg}
+            alt={property.titulo || "Propiedad"}
+            className="property-details-main-img"
+          />
+          <button
+            className="property-details-arrow left"
+            aria-label="Anterior"
+            onClick={prevImg}
+          >
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 64 64"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="32" cy="32" r="32" fill="#fff" />
+              <path
+                d="M40 32H24M24 32l8-8M24 32l8 8"
+                stroke="#10D6C2"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
-          <button className="property-details-arrow right" aria-label="Siguiente">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="32" cy="32" r="32" fill="#fff"/>
-              <path d="M24 32h16M40 32l-8-8M40 32l-8 8" stroke="#10D6C2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <button
+            className="property-details-arrow right"
+            aria-label="Siguiente"
+            onClick={nextImg}
+          >
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 64 64"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="32" cy="32" r="32" fill="#fff" />
+              <path
+                d="M24 32h16M40 32l-8-8M40 32l-8 8"
+                stroke="#10D6C2"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
           <button className="property-details-expand">&#9633;</button>
           <button className="property-details-share">&#x1f517;</button>
         </div>
+
+        {/* Miniaturas */}
         <div className="property-details-thumbnails">
-          {thumbnails.map((img, idx) => (
+          {fotos.map((img, idx) => (
             <img
               key={idx}
               src={img}
               alt={`Miniatura ${idx + 1}`}
-              className={`property-details-thumbnail${selectedImg === img ? " selected" : ""}`}
-              onClick={() => setSelectedImg(img)}
+              className={`property-details-thumbnail${imgIndex === idx ? " selected" : ""}`}
+              onClick={() => setImgIndex(idx)}
             />
           ))}
         </div>
+
+        {/* Info rápida */}
         <div className="property-details-info">
-          <span className="property-details-badge">Venta</span>
-          <h2 className="property-details-price">3.200.000.000</h2>
+          <span className="property-details-badge">
+            {property.tipoOperacion || "N/A"}
+          </span>
+          <h2 className="property-details-price">
+            {formatPrice(property.precio)}
+          </h2>
         </div>
-        {/* Tabs Section */}
+
+        {/* Tabs */}
         <div className="property-details-tabs">
-          {tabNames.map(tab => (
+          {tabNames.map((tab) => (
             <button
               key={tab}
               className={`property-details-tab${activeTab === tab ? " active" : ""}`}
@@ -64,90 +197,174 @@ function PropertyDetailsPage() {
             </button>
           ))}
         </div>
+
+        {/* Contenido de Tabs */}
         <div className="property-details-tab-content">
+          {/* Tab: Descripción */}
           {activeTab === "Descripción" && (
             <div className="property-details-description-box">
-              <p>
-                Esta hermosa casa moderna ubicada en el prestigioso barrio de Polanco ofrece un diseño contemporáneo con acabados de lujo y una ubicación privilegiada.<br />
-                La propiedad cuenta con amplios espacios, iluminación natural en todas las habitaciones y un diseño funcional perfecto para familias modernas.
+              <h3>{property.titulo || "Sin título"}</h3>
+              <p style={{ color: "#666", marginBottom: "1rem" }}>
+                {property.tipoPropiedad || "Tipo no especificado"} ·{" "}
+                {property.tipoOperacion}
               </p>
-              <p>Características destacadas:</p>
-              <ul>
-                <li>Cocina integral con electrodomésticos de acero inoxidable</li>
-                <li>Sala de estar con chimenea y techos altos</li>
-                <li>Jardín privado con área de entretenimiento</li>
-                <li>Garage para 2 automóviles</li>
-                <li>Sistema de seguridad 24/7</li>
-                <li>Acabados de mármol en baños principales</li>
-              </ul>
+              <p>
+                {property.descripcion ||
+                  "No hay descripción disponible para esta propiedad."}
+              </p>
+              {property.antiguedad && (
+                <p style={{ marginTop: "1rem", color: "#888" }}>
+                  Antigüedad: {property.antiguedad}
+                </p>
+              )}
             </div>
           )}
-          {/* Puedes agregar contenido para los otros tabs aquí */}
+
+          {/* Tab: Características */}
+          {activeTab === "Características" && (
+            <div className="property-details-description-box">
+              {caracteristicas.length > 0 ? (
+                <ul>
+                  {caracteristicas.map((car) => (
+                    <li key={car.idcaracteristica}>
+                      {car.nombre}
+                      {car.descripcion && (
+                        <span style={{ color: "#888" }}>
+                          {" "}
+                          — {car.descripcion}
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No hay características adicionales registradas.</p>
+              )}
+            </div>
+          )}
+
+          {/* Tab: Ubicación */}
+          {activeTab === "Ubicación" && (
+            <div className="property-details-description-box">
+              <p>
+                <strong>Dirección:</strong> {property.direccion}
+              </p>
+              <p>
+                <strong>Ciudad:</strong> {property.ciudad}
+              </p>
+              <p>
+                <strong>Departamento:</strong> {property.departamento}
+              </p>
+              {property.barrio && (
+                <p>
+                  <strong>Barrio:</strong> {property.barrio}
+                </p>
+              )}
+              {property.codigopostal && (
+                <p>
+                  <strong>Código postal:</strong> {property.codigopostal}
+                </p>
+              )}
+            </div>
+          )}
         </div>
-        {/* Sección de información de propiedad y agente */}
+
+        {/* Sección de información de propiedad */}
         <div className="property-details-info-box">
           <div className="property-details-info-header">
-            <span className="property-details-badge">Venta</span>
+            <span className="property-details-badge">
+              {property.tipoOperacion}
+            </span>
             <button className="property-details-fav-btn" aria-label="Favorito">
-              <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="22" cy="22" r="20" fill="#fff"/>
-                <path d="M22 33s-8.5-6.7-11.5-10.9C7 17.2 8.5 13.5 12 13.5c2.38 0 3.92 1.56 4.6 3.06C17.68 15.06 19.22 13.5 21.6 13.5c3.5 0 5 3.7 2 8.6C30.5 26.3 22 33 22 33z" fill="#10D6C2"/>
+              <svg
+                width="44"
+                height="44"
+                viewBox="0 0 44 44"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="22" cy="22" r="20" fill="#fff" />
+                <path
+                  d="M22 33s-8.5-6.7-11.5-10.9C7 17.2 8.5 13.5 12 13.5c2.38 0 3.92 1.56 4.6 3.06C17.68 15.06 19.22 13.5 21.6 13.5c3.5 0 5 3.7 2 8.6C30.5 26.3 22 33 22 33z"
+                  fill="#10D6C2"
+                />
               </svg>
             </button>
-            <button className="property-details-share-btn" aria-label="Compartir">
-              <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="22" cy="22" r="20" fill="#fff"/>
-                <path d="M29.5 27.5a3.5 3.5 0 0 0-2.77 1.38l-8.46-4.23a3.5 3.5 0 0 0 0-2.3l8.46-4.23A3.5 3.5 0 1 0 27 14.5a3.5 3.5 0 0 0 0 2.3l-8.46 4.23A3.5 3.5 0 1 0 14.5 29.5a3.5 3.5 0 0 0 2.77-1.38l8.46 4.23A3.5 3.5 0 1 0 29.5 27.5z" stroke="#A78BFA" stroke-width="2.5" fill="none"/>
+            <button
+              className="property-details-share-btn"
+              aria-label="Compartir"
+            >
+              <svg
+                width="44"
+                height="44"
+                viewBox="0 0 44 44"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="22" cy="22" r="20" fill="#fff" />
+                <path
+                  d="M29.5 27.5a3.5 3.5 0 0 0-2.77 1.38l-8.46-4.23a3.5 3.5 0 0 0 0-2.3l8.46-4.23A3.5 3.5 0 1 0 27 14.5a3.5 3.5 0 0 0 0 2.3l-8.46 4.23A3.5 3.5 0 1 0 14.5 29.5a3.5 3.5 0 0 0 2.77-1.38l8.46 4.23A3.5 3.5 0 1 0 29.5 27.5z"
+                  stroke="#A78BFA"
+                  strokeWidth="2.5"
+                  fill="none"
+                />
               </svg>
             </button>
           </div>
-          <h2 className="property-details-info-price">$3.200.000.000 COP</h2>
-          <span className="property-details-info-price-m2">$12.800.000/m²</span>
+          <h2 className="property-details-info-price">
+            {formatPrice(property.precio)}
+          </h2>
+          {property.area && property.precio && (
+            <span className="property-details-info-price-m2">
+              {formatPrice(Math.round(property.precio / property.area))}/m²
+            </span>
+          )}
           <div className="property-details-info-features">
             <div>
               <span className="property-details-info-icon">&#128719;</span>
-              <span className="property-details-info-value">4</span>
+              <span className="property-details-info-value">
+                {property.habitaciones}
+              </span>
               <span className="property-details-info-label">Habitaciones</span>
             </div>
             <div>
               <span className="property-details-info-icon">&#128705;</span>
-              <span className="property-details-info-value">3</span>
-              <span className="property-details-info-label">baños</span>
+              <span className="property-details-info-value">
+                {property.banos}
+              </span>
+              <span className="property-details-info-label">Baños</span>
             </div>
-            <div>
-              <span className="property-details-info-icon">&#9632;</span>
-              <span className="property-details-info-value">250</span>
-              <span className="property-details-info-label">m²</span>
-            </div>
-          </div>
-          <button className="property-details-info-call-btn">Llamar ahora</button>
-          <button className="property-details-info-msg-btn">Enviar mensaje</button>
-        </div>
-        <div className="property-details-agent-box">
-          <h3>Agente inmobiliario</h3>
-          <div className="property-details-agent-profile">
-            <div className="property-details-agent-avatar">MG</div>
-            <div className="property-details-agent-info">
-              <span className="property-details-agent-name">María González</span>
-              <span className="property-details-agent-cert">Agente inmobiliario certificado</span>
-              <span className="property-details-agent-reviews">&#11088; (127 reseñas)</span>
-              <div className="property-details-agent-specialties">
-                <span className="property-details-agent-specialty">Venta</span>
-                <span className="property-details-agent-specialty">Venta</span>
-                <span className="property-details-agent-specialty">Venta</span>
+            {property.area && (
+              <div>
+                <span className="property-details-info-icon">&#9632;</span>
+                <span className="property-details-info-value">
+                  {property.area}
+                </span>
+                <span className="property-details-info-label">m²</span>
               </div>
-            </div>
+            )}
           </div>
-          <button className="property-details-agent-profile-btn">Ver perfil completo</button>
+          <button className="property-details-info-call-btn">
+            Llamar ahora
+          </button>
+          <button className="property-details-info-msg-btn">
+            Enviar mensaje
+          </button>
         </div>
+
+        {/* Metadatos */}
         <div className="property-details-meta-box">
           <div className="property-details-meta-row">
             <span>ID de propiedad:</span>
-            <span>#HTT-000001</span>
+            <span>#HTT-{String(property.idpropiedad).padStart(6, "0")}</span>
           </div>
           <div className="property-details-meta-row">
             <span>Publicado:</span>
-            <span>Hace 3 días</span>
+            <span>{formatFecha(property.fechacreacion)}</span>
+          </div>
+          <div className="property-details-meta-row">
+            <span>Estrato:</span>
+            <span>{property.estrato}</span>
           </div>
         </div>
       </div>
