@@ -65,7 +65,7 @@ export function usePropertyForm() {
   // Estado de imágenes
   const [imagenes, setImagenes] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
-  const maxFotos = LIMITE_FOTOS.free; // TODO: cambiar a premium cuando se implemente
+  const maxFotos = usuario?.plan === 'premium' ? LIMITE_FOTOS.premium : LIMITE_FOTOS.free;
 
   // Cargar características al montar
   useEffect(() => {
@@ -207,6 +207,7 @@ export function usePropertyForm() {
           input,
           caracteristicasSeleccionadas,
           imagenes,
+          usuario?.plan ?? 'gratuito',
         ),
         timeout,
       ])) as Awaited<

@@ -47,6 +47,7 @@ export const propertyService = {
     property: CreatePropertyInput,
     idsCaracteristicas: number[],
     imagenes: File[] = [],
+    plan: 'gratuito' | 'premium' = 'gratuito',
   ): Promise<Property> => {
     if (!property.titulo?.trim()) throw new Error("El título es obligatorio.");
     if (!property.direccion?.trim())
@@ -68,7 +69,7 @@ export const propertyService = {
 
     // Subir imágenes si las hay
     if (imagenes.length > 0) {
-      await propertyService.uploadPropertyImages(nueva.idpropiedad, imagenes);
+      await propertyService.uploadPropertyImages(nueva.idpropiedad, imagenes, plan);
     }
 
     return nueva;
@@ -77,13 +78,14 @@ export const propertyService = {
   /**
    * Subir imágenes de una propiedad.
    * Sube a Storage → inserta URLs en tabla `fotospropiedad`.
-   * Límite: LIMITE_FOTOS.free (7) — cambiar a premium cuando se implemente.
+   * Límite según plan: free = 7, premium = 15.
    */
   uploadPropertyImages: async (
     idpropiedad: number,
     files: File[],
+    plan: 'gratuito' | 'premium' = 'gratuito',
   ): Promise<void> => {
-    const limite = LIMITE_FOTOS.free; // TODO: usar premium si el usuario lo es
+    const limite = plan === 'premium' ? LIMITE_FOTOS.premium : LIMITE_FOTOS.free;
     const archivos = files.slice(0, limite);
 
     for (let i = 0; i < archivos.length; i++) {
