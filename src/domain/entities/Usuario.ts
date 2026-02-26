@@ -10,10 +10,15 @@ export interface Usuario {
   estadocuenta: string | null;
   ultimaactividad: string | null;
   fechalogin: string | null;
+  fecharegistro?: string;
 }
 
 /** Crear usuario — sin campos auto-generados */
 export type CreateUsuarioInput = Omit<
   Usuario,
-  "idusuario" | "estadocuenta" | "ultimaactividad" | "fechalogin"
+  | "idusuario"
+  | "estadocuenta"
+  | "ultimaactividad"
+  | "fechalogin"
+  | "fecharegistro"
 >;
