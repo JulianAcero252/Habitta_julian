@@ -2,8 +2,8 @@ import { useState } from "react";
 import "./styleTools.css";
 
 function ToolsPage() {
-  const [monthlyIncome, setMonthlyIncome] = useState(3000);
-  const [fixedExpenses, setFixedExpenses] = useState(0);
+  const [monthlyIncome, setMonthlyIncome] = useState<number | string>(3000);
+  const [fixedExpenses, setFixedExpenses] = useState<number | string>("");
   const [results, setResults] = useState({
     maxMonthlyPayment: 1200,
     percentageAvailable: 44,
@@ -11,7 +11,9 @@ function ToolsPage() {
   });
 
   const calculateCapacity = () => {
-    const availableIncome = monthlyIncome - fixedExpenses;
+    const income = typeof monthlyIncome === "string" ? 0 : monthlyIncome;
+    const expenses = typeof fixedExpenses === "string" ? 0 : fixedExpenses;
+    const availableIncome = income - expenses;
     const maxMonthlyPayment = availableIncome * 0.44;
     const estimatedCreditMin = maxMonthlyPayment * 120;
     const estimatedCreditMax = maxMonthlyPayment * 150;
@@ -96,7 +98,7 @@ function ToolsPage() {
             <input
               type="number"
               value={monthlyIncome}
-              onChange={(e) => setMonthlyIncome(Number(e.target.value))}
+              onChange={(e) => setMonthlyIncome(e.target.value === "" ? "" : Number(e.target.value))}
               placeholder="0"
             />
           </div>
@@ -106,7 +108,7 @@ function ToolsPage() {
             <input
               type="number"
               value={fixedExpenses}
-              onChange={(e) => setFixedExpenses(Number(e.target.value))}
+              onChange={(e) => setFixedExpenses(e.target.value === "" ? "" : Number(e.target.value))}
               placeholder="0"
             />
           </div>

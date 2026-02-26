@@ -89,6 +89,14 @@
   font-family: inherit;
   transition: border-color 0.3s ease;
   box-sizing: border-box;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.form-group input::-webkit-outer-spin-button,
+.form-group input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .form-group input:focus {
@@ -108,7 +116,8 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: auto; /* push the button to the bottom so both cards align */
+  margin-top: auto;
+  /* push the button to the bottom so both cards align */
 }
 
 .btn-calculate:hover {
@@ -207,7 +216,8 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: auto; /* align with calculator button */
+  margin-top: auto;
+  /* align with calculator button */
 }
 
 .btn-view-properties:hover {
