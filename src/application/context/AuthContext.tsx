@@ -94,42 +94,102 @@ export function AuthProvider({ children }: Props) {
 
   useEffect(() => {
     let mounted = true;
+    let dbProfileLoaded = false; // Solo cargar perfil DB una vez
 
-    const cargarPerfil = async (email: string) => {
+    /**
+     * Crea un Usuario mínimo a partir de session.user.
+     */
+    const crearUsuarioDesdeSession = (su: {
+      email?: string;
+      user_metadata?: Record<string, unknown>;
+    }): Usuario => ({
+      idusuario: 0,
+      correo: su.email ?? "",
+      nombre: (su.user_metadata?.nombre as string) ?? su.email ?? "Usuario",
+      telefono: (su.user_metadata?.telefono as string) ?? null,
+      contrasena: "managed_by_supabase_auth",
+      fotoperfil: null,
+      descripcion: null,
+      estadocuenta: null,
+      ultimaactividad: null,
+      fechalogin: null,
+      plan: "gratuito",
+    });
+
+    /**
+     * Carga perfil completo de la tabla `usuarios` UNA SOLA VEZ.
+     * Si falla, el usuario conserva los datos básicos.
+     */
+    const enriquecerConPerfilDB = async (email: string) => {
+      if (dbProfileLoaded) return;
+      dbProfileLoaded = true;
       try {
         const perfil = await authApi.getUsuarioByCorreo(email);
-        if (perfil && mounted) setUsuario(perfil);
-      } catch {
-        /* silencioso */
+        if (perfil && mounted) {
+          setUsuario(perfil);
+          console.log("[AuthContext] Perfil DB cargado:", perfil.correo);
+        }
+      } catch (err) {
+        console.warn(
+          "[AuthContext] Error cargando perfil DB (sesión intacta):",
+          err,
+        );
+        dbProfileLoaded = false; // Permitir reintento en siguiente evento
       }
     };
 
-    // onAuthStateChange dispara INITIAL_SESSION al montar → restaura sesión
+    // 1. Leer sesión existente de localStorage
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        console.log(
+          "[AuthContext] getSession:",
+          session ? session.user.email : "sin sesión",
+        );
+        if (!mounted) return;
+
+        if (session?.user?.email) {
+          setUsuario(crearUsuarioDesdeSession(session.user));
+          setLoading(false);
+          enriquecerConPerfilDB(session.user.email);
+        } else {
+          setUsuario(null);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.error("[AuthContext] Error en getSession:", err);
+        if (mounted) setLoading(false);
+      });
+
+    // 2. Escuchar solo eventos relevantes (sin loops)
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log(`[AuthContext] onAuthStateChange: ${event}`);
       if (!mounted) return;
 
       if (event === "SIGNED_OUT") {
         setUsuario(null);
+        dbProfileLoaded = false;
         setLoading(false);
-      } else if (session?.user?.email) {
-        await cargarPerfil(session.user.email);
-        if (mounted) setLoading(false);
-      } else {
-        if (mounted) setLoading(false);
+      } else if (event === "SIGNED_IN") {
+        // Login fresco — cargar todo
+        if (session?.user?.email) {
+          setUsuario(crearUsuarioDesdeSession(session.user));
+          setLoading(false);
+          dbProfileLoaded = false;
+          enriquecerConPerfilDB(session.user.email);
+        }
       }
+      // TOKEN_REFRESHED e INITIAL_SESSION: NO hacer nada.
+      // getSession() ya manejó la carga inicial.
+      // TOKEN_REFRESHED NO debe llamar a la DB para evitar el loop infinito.
     });
-
-    // Fallback: si no hay respuesta en 3s, dejar de mostrar loading
-    const fallback = setTimeout(() => {
-      if (mounted && loading) setLoading(false);
-    }, 3000);
 
     return () => {
       mounted = false;
       subscription.unsubscribe();
-      clearTimeout(fallback);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { useResetPassword } from "./hooks/useResetPassword";
+import { useToast } from "@application/context/ToastContext";
 
 /** Componente de restablecimiento de contraseña (RF05) */
 function ResetPassword() {
@@ -14,6 +16,16 @@ function ResetPassword() {
     success,
     handleSubmit,
   } = useResetPassword();
+
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    if (error) showToast(error, "error");
+  }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (success) showToast("¡Contraseña actualizada correctamente!", "success");
+  }, [success]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (success) {
     return (
@@ -88,24 +100,6 @@ function ResetPassword() {
         </div>
         <small className="password-hint">Mínimo 8 caracteres</small>
       </div>
-
-      {error && (
-        <div
-          className="auth-error"
-          style={{
-            color: "#ff6b6b",
-            backgroundColor: "rgba(255, 107, 107, 0.1)",
-            border: "1px solid rgba(255, 107, 107, 0.3)",
-            borderRadius: "8px",
-            padding: "0.75rem 1rem",
-            marginBottom: "0.75rem",
-            fontSize: "0.9rem",
-            textAlign: "center",
-          }}
-        >
-          ⚠️ {error}
-        </div>
-      )}
 
       <button type="submit" className="submit-button" disabled={loading}>
         {loading ? "Actualizando..." : "Actualizar Contraseña"}

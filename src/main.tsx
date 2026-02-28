@@ -1,15 +1,17 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@application/context/AuthContext";
+import { ToastProvider } from "@application/context/ToastContext";
+import ToastStack from "@presentation/components/alerts/toast/ToastStack";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <ToastProvider>
       <AuthProvider>
         <App />
       </AuthProvider>
-    </BrowserRouter>
+      <ToastStack />
+    </ToastProvider>
   </StrictMode>,
 );

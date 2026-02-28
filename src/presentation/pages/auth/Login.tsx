@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { useLoginForm } from "./hooks/useLoginForm";
+import { useToast } from "@application/context/ToastContext";
 import "./Login.css";
 
 // Componente de Formulario de Inicio de Sesión
@@ -14,6 +16,12 @@ function Login() {
     error,
     loading,
   } = useLoginForm();
+
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    if (error) showToast(error, "error");
+  }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
@@ -65,7 +73,6 @@ function Login() {
               padding: 0,
             }}
             onClick={() => {
-              // Emitir evento o llamar a prop para cambiar modo si Auth.tsx lo maneja
               const event = new CustomEvent("switch-auth-mode", {
                 detail: "forgot",
               });
@@ -76,25 +83,6 @@ function Login() {
           </button>
         </div>
       </div>
-
-      {/* Mensaje de error (abajo, cerca del botón) */}
-      {error && (
-        <div
-          className="auth-error"
-          style={{
-            color: "#ff6b6b",
-            backgroundColor: "rgba(255, 107, 107, 0.1)",
-            border: "1px solid rgba(255, 107, 107, 0.3)",
-            borderRadius: "8px",
-            padding: "0.75rem 1rem",
-            marginBottom: "0.75rem",
-            fontSize: "0.9rem",
-            textAlign: "center",
-          }}
-        >
-          ⚠️ {error}
-        </div>
-      )}
 
       {/* Botón de Envío */}
       <button type="submit" className="submit-button" disabled={loading}>

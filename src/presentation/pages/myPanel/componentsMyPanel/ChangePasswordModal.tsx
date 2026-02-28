@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@application/context/AuthContext";
+import { useToast } from "@application/context/ToastContext";
 import "./ChangePasswordModal.css";
 
 interface Props {
@@ -8,7 +9,6 @@ interface Props {
 }
 
 const ChangePasswordModal: React.FC<Props> = ({ isOpen, onClose }) => {
-  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,10 +16,18 @@ const ChangePasswordModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [success, setSuccess] = useState(false);
 
   const { updatePassword } = useAuth();
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    if (error) showToast(error, "error");
+  }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (success) showToast("¡Contraseña actualizada con éxito!", "success");
+  }, [success]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!isOpen) {
-      setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
       setError(null);
@@ -72,7 +80,7 @@ const ChangePasswordModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
         {success ? (
           <div className="modal-success">
-            <p>✅ ¡Contraseña actualizada con éxito!</p>
+            <p>Cerrando...</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="modal-form">
@@ -98,8 +106,6 @@ const ChangePasswordModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 disabled={loading}
               />
             </div>
-
-            {error && <div className="modal-error">⚠️ {error}</div>}
 
             <div className="modal-footer">
               <button

@@ -1,4 +1,7 @@
+import { useEffect } from "react";
 import { useRegisterForm } from "./hooks/useRegisterForm";
+import { useToast } from "@application/context/ToastContext";
+import { useWarnIfUnsavedChanges } from "@application/hooks/useWarnIfUnsavedChanges";
 import "./Register.css";
 
 // Componente de Formulario de Registro
@@ -25,6 +28,26 @@ function Register() {
     emailDisponible,
     checkingEmail,
   } = useRegisterForm();
+
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    if (error) showToast(error, "error");
+  }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (successMessage) showToast(successMessage, "success");
+  }, [successMessage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const hasUnsavedChanges = Boolean(
+    fullName ||
+    email ||
+    confirmationEmail ||
+    phone ||
+    password ||
+    confirmPassword,
+  );
+  useWarnIfUnsavedChanges(hasUnsavedChanges && !successMessage);
 
   return (
     <form className="register-form" onSubmit={handleSubmit}>
@@ -142,44 +165,6 @@ function Register() {
         </div>
         <small className="password-hint">Mínimo 8 caracteres</small>
       </div>
-
-      {/* Mensaje de éxito — confirmar correo (aparece abajo, cerca del botón) */}
-      {successMessage && (
-        <div
-          className="auth-success"
-          style={{
-            color: "#2ecc71",
-            backgroundColor: "rgba(46, 204, 113, 0.1)",
-            border: "1px solid rgba(46, 204, 113, 0.3)",
-            borderRadius: "8px",
-            padding: "0.75rem 1rem",
-            marginBottom: "0.75rem",
-            fontSize: "0.9rem",
-            textAlign: "center",
-          }}
-        >
-          ✅ {successMessage}
-        </div>
-      )}
-
-      {/* Mensaje de error (aparece abajo, cerca del botón) */}
-      {error && (
-        <div
-          className="auth-error"
-          style={{
-            color: "#ff6b6b",
-            backgroundColor: "rgba(255, 107, 107, 0.1)",
-            border: "1px solid rgba(255, 107, 107, 0.3)",
-            borderRadius: "8px",
-            padding: "0.75rem 1rem",
-            marginBottom: "0.75rem",
-            fontSize: "0.9rem",
-            textAlign: "center",
-          }}
-        >
-          ⚠️ {error}
-        </div>
-      )}
 
       {/* Botón de Envío */}
       <button type="submit" className="submit-button" disabled={loading}>

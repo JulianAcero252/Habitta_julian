@@ -2,15 +2,13 @@ import "../promotion/promotion.css";
 import { useState } from "react";
 import PublicationBasic from "./modals/publicationBasic/PublicationBasic";
 import PublicationOutstanding from "./modals/publicationOutstanding/PublicationOutstanding";
-import SuccessAlertStack, {
-  type Alert,
-} from "../../components/alerts/successAlert/SuccessAlertStack";
+import { useToast } from "@application/context/ToastContext";
 
 // Componente de Promoción
 function Promotion() {
   const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
   const [isOutstandingModalOpen, setIsOutstandingModalOpen] = useState(false);
-  const [alerts, setAlerts] = useState<Alert[]>([]);
+  const { showToast } = useToast();
 
   const openBasicModal = () => setIsBasicModalOpen(true);
   const closeBasicModal = () => setIsBasicModalOpen(false);
@@ -19,19 +17,9 @@ function Promotion() {
   const closeOutstandingModal = () => setIsOutstandingModalOpen(false);
 
   const handlePublishSuccess = () => {
-    const newAlert: Alert = {
-      id: Date.now().toString() + Math.random(),
-      message: "Propiedad publicada exitosamente",
-    };
-
-    setAlerts((prevAlerts) => [...prevAlerts, newAlert]);
+    showToast("Propiedad publicada exitosamente", "success");
     setIsBasicModalOpen(false);
     setIsOutstandingModalOpen(false);
-
-    // Auto-remove alert after 3 seconds
-    setTimeout(() => {
-      setAlerts((prevAlerts) => prevAlerts.filter((a) => a.id !== newAlert.id));
-    }, 3000);
   };
 
   return (
@@ -105,7 +93,6 @@ function Promotion() {
         onClose={closeOutstandingModal}
         onPublish={handlePublishSuccess}
       />
-      <SuccessAlertStack alerts={alerts} />
     </div>
   );
 }

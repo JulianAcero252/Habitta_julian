@@ -22,6 +22,21 @@ function traducirError(msg: string): string {
       "Límite de correos excedido. Espera unos minutos.",
     "error sending confirmation email":
       "Error al enviar correo de confirmación.",
+    "signal is aborted without reason":
+      "La solicitud fue cancelada. Intenta de nuevo.",
+    "the signal has been aborted":
+      "La solicitud fue cancelada. Intenta de nuevo.",
+    "fetch failed":
+      "Error de conexión. Verifica tu internet e intenta de nuevo.",
+    "failed to fetch":
+      "Error de conexión. Verifica tu internet e intenta de nuevo.",
+    "network request failed": "Error de conexión. Verifica tu internet.",
+    "request timeout": "El servidor tardó demasiado. Intenta de nuevo.",
+    "new password should be different from the old password":
+      "La nueva contraseña debe ser diferente a la anterior.",
+    "auth session missing": "Tu sesión ha expirado. Inicia sesión de nuevo.",
+    "invalid refresh token": "Tu sesión ha expirado. Inicia sesión de nuevo.",
+    "refresh token not found": "Tu sesión ha expirado. Inicia sesión de nuevo.",
   };
   return t[msg.toLowerCase().trim()] ?? msg;
 }
@@ -132,7 +147,10 @@ export const authApi = {
       .eq("correo", correo)
       .maybeSingle();
 
-    if (error) return null;
+    if (error) {
+      console.error("[authApi.getUsuarioByCorreo] Error Supabase DB:", error);
+      return null;
+    }
     return data;
   },
 
@@ -157,10 +175,18 @@ export const authApi = {
 
   /** RF08 — Actualizar contraseña del usuario autenticado */
   updatePassword: async (newPassword: string): Promise<void> => {
-    const { error } = await supabase.auth.updateUser({
-      password: newPassword,
-    });
-    if (error) throw new Error(traducirError(error.message));
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+      if (error) throw new Error(traducirError(error.message));
+    } catch (err) {
+      // Si ya es un Error traducido, re-lanzar
+      if (err instanceof Error) {
+        throw new Error(traducirError(err.message));
+      }
+      throw new Error("Error al actualizar la contraseña. Intenta de nuevo.");
+    }
   },
 };
 

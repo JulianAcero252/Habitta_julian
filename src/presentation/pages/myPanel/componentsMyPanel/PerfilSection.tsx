@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./sections.css";
 import { useAuth } from "@application/context/AuthContext";
+import { useToast } from "@application/context/ToastContext";
 import ChangePasswordModal from "./ChangePasswordModal";
+import { useWarnIfUnsavedChanges } from "@application/hooks/useWarnIfUnsavedChanges";
 
 /**
  * Componente que muestra el perfil del usuario y opciones de configuración
@@ -16,6 +18,13 @@ const PerfilSection: React.FC = () => {
   const [telefono, setTelefono] = useState(usuario?.telefono || "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    if (error) showToast(error, "error");
+  }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useWarnIfUnsavedChanges(isEditing && !loading);
 
   // Estado para modal de cambio de contraseña (RF08)
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
@@ -39,6 +48,7 @@ const PerfilSection: React.FC = () => {
         telefono,
       });
       setIsEditing(false);
+      showToast("Perfil actualizado correctamente.", "success");
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Error al actualizar perfil",
@@ -86,8 +96,6 @@ const PerfilSection: React.FC = () => {
           </div>
         )}
       </div>
-
-      {error && <div className="auth-error-inline">{error}</div>}
 
       <div className="perfil-container">
         {/* Información del usuario */}
