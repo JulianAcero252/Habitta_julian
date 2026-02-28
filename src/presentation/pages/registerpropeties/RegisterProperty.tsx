@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import "./styleRegisterP.css";
 import { usePropertyForm } from "./hooks/usePropertyForm";
+import { useWarnIfUnsavedChanges } from "@application/hooks/useWarnIfUnsavedChanges";
+import { useToast } from "@application/context/ToastContext";
 
 // Página de Registro de Propiedades
 function RegisterPropertyPage() {
@@ -21,6 +24,30 @@ function RegisterPropertyPage() {
     maxFotos,
     imagenes,
   } = usePropertyForm();
+
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    if (error) showToast(error, "error");
+  }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (success)
+      showToast(
+        "¡Propiedad publicada exitosamente! Redirigiendo...",
+        "success",
+      );
+  }, [success]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const hasUnsavedChanges = Boolean(
+    form.titulo ||
+    form.descripcion ||
+    form.precio ||
+    form.direccion ||
+    form.ciudad ||
+    imagenes.length > 0,
+  );
+  useWarnIfUnsavedChanges(hasUnsavedChanges && !success);
 
   return (
     <>
@@ -338,14 +365,6 @@ function RegisterPropertyPage() {
           <br />
 
           <br />
-
-          {/* Mensajes de error y éxito (cerca de los botones para que el usuario los vea) */}
-          {error && <div className="form-error-message">⚠️ {error}</div>}
-          {success && (
-            <div className="form-success-message">
-              ✅ ¡Propiedad publicada exitosamente! Redirigiendo...
-            </div>
-          )}
 
           {/* Botones de Acción */}
           <div className="card-actions">

@@ -1,5 +1,5 @@
 import "./modal.css";
-import React, { type FC } from "react";
+import { type FC, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface ModalNProps {
@@ -17,14 +17,28 @@ interface Notification {
 
 const ModalN: FC<ModalNProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      // Ignorar si hace click en el botón de notificaciones, Navbar se encarga
+      const btn = document.getElementById("notificationButton");
+      if (btn && btn.contains(e.target as Node)) {
+        return;
+      }
+      // Cerrar si hace click fuera del modal
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
-
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
 
   const handleViewAll = () => {
     onClose();
@@ -40,7 +54,6 @@ const ModalN: FC<ModalNProps> = ({ isOpen, onClose }) => {
       time: "Hace 29 minutos",
       type: "property",
     },
-
     {
       id: 2,
       title: "Mensaje Recibido",
@@ -62,33 +75,31 @@ const ModalN: FC<ModalNProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal-content">
-        <header className="modal-header">
-          <h2 className="modal-title">Notificaciones</h2>
-        </header>
+    <div className="modal-content" ref={modalRef}>
+      <header className="modal-header">
+        <h2 className="modal-title">Notificaciones</h2>
+      </header>
 
-        <section className="modal-body">
-          <div className="notifications-list">
-            {notifications.map((notif) => (
-              <div
-                key={notif.id}
-                className={`notification-card ${getNotificationTypeClass(notif.type)}`}
-              >
-                <h3 className="notification-title">{notif.title}</h3>
-                <p className="notification-description">{notif.description}</p>
-                <p className="notification-time">{notif.time}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+      <section className="modal-body">
+        <div className="notifications-list">
+          {notifications.map((notif) => (
+            <div
+              key={notif.id}
+              className={`notification-card ${getNotificationTypeClass(notif.type)}`}
+            >
+              <h3 className="notification-title">{notif.title}</h3>
+              <p className="notification-description">{notif.description}</p>
+              <p className="notification-time">{notif.time}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-        <footer className="modal-footer">
-          <button className="modal-view-all-btn" onClick={handleViewAll}>
-            Ver todas las notificaciones
-          </button>
-        </footer>
-      </div>
+      <footer className="modal-footer">
+        <button className="modal-view-all-btn" onClick={handleViewAll}>
+          Ver todas las notificaciones
+        </button>
+      </footer>
     </div>
   );
 };

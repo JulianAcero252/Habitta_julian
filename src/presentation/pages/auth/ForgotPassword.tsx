@@ -1,9 +1,17 @@
+import { useEffect } from "react";
 import { useForgotPassword } from "./hooks/useForgotPassword";
+import { useToast } from "@application/context/ToastContext";
 
 /** Componente de solicitud de recuperación de contraseña (RF05) */
 function ForgotPassword() {
   const { email, setEmail, loading, error, success, handleSubmit } =
     useForgotPassword();
+
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    if (error) showToast(error, "error");
+  }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (success) {
     return (
@@ -53,24 +61,6 @@ function ForgotPassword() {
           disabled={loading}
         />
       </div>
-
-      {error && (
-        <div
-          className="auth-error"
-          style={{
-            color: "#ff6b6b",
-            backgroundColor: "rgba(255, 107, 107, 0.1)",
-            border: "1px solid rgba(255, 107, 107, 0.3)",
-            borderRadius: "8px",
-            padding: "0.75rem 1rem",
-            marginBottom: "0.75rem",
-            fontSize: "0.9rem",
-            textAlign: "center",
-          }}
-        >
-          ⚠️ {error}
-        </div>
-      )}
 
       <button type="submit" className="submit-button" disabled={loading}>
         {loading ? "Enviando..." : "Enviar Enlace"}
