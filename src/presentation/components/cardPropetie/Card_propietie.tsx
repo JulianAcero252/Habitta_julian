@@ -22,8 +22,8 @@ function CardPropetie({
   property,
   isFav = false,
   onToggleFav,
-  isOwner = false,
-  onDelete,
+  isOwner: _isOwner = false,
+  onDelete: _onDelete,
 }: CardPropetieProps) {
   const navigate = useNavigate();
 
@@ -66,8 +66,6 @@ function CardPropetie({
         {/* Botones de acción (siempre visible) */}
         <div className="property-card__actions">
           <div style={{ display: "flex", gap: "8px" }}>
-
-
             {/* Botón de compartir */}
             <button
               className="action-btn"
@@ -79,7 +77,9 @@ function CardPropetie({
                   navigator.share({
                     title: property.titulo ?? "Propiedad",
                     text: `Mira esta propiedad: ${property.titulo ?? ""}`,
-                    url: window.location.origin + `/propertydetailspage/${property.idpropiedad}`,
+                    url:
+                      window.location.origin +
+                      `/propertydetailspage/${property.idpropiedad}`,
                   });
                 }
               }}
@@ -185,29 +185,102 @@ function CardPropetie({
         <div className="property-card__features">
           {property.habitaciones && (
             <span className="feature-item">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="feature-svg">
-                <path d="M2 13V18M2 15H22M22 13V18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M4 13V9C4 7.89543 4.89543 7 6 7H18C19.1046 7 20 7.89543 20 9V13" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M7 11H11M13 11H17" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="feature-svg"
+              >
+                <path
+                  d="M2 13V18M2 15H22M22 13V18"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M4 13V9C4 7.89543 4.89543 7 6 7H18C19.1046 7 20 7.89543 20 9V13"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M7 11H11M13 11H17"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               <span className="feature-value">{property.habitaciones}</span>
             </span>
           )}
           {property.banos && (
             <span className="feature-item">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="feature-svg">
-                <path d="M4 11H20C21.1046 11 22 11.8954 22 13V15C22 16.1046 21.1046 17 20 17H4C2.89543 17 2 16.1046 2 15V13C2 11.8954 2.89543 11 4 11Z" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M6 17V19M18 17V19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M7 11V7C7 5.89543 7.89543 5 9 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M8.5 4.5L10 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="feature-svg"
+              >
+                <path
+                  d="M4 11H20C21.1046 11 22 11.8954 22 13V15C22 16.1046 21.1046 17 20 17H4C2.89543 17 2 16.1046 2 15V13C2 11.8954 2.89543 11 4 11Z"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M6 17V19M18 17V19"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M7 11V7C7 5.89543 7.89543 5 9 5"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M8.5 4.5L10 6"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               <span className="feature-value">{property.banos}</span>
             </span>
           )}
           {property.area && (
             <span className="feature-item">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="feature-svg">
-                <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="feature-svg"
+              >
+                <rect
+                  x="4"
+                  y="4"
+                  width="16"
+                  height="16"
+                  rx="3"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               <span className="feature-value">{property.area} m²</span>
             </span>
@@ -222,8 +295,6 @@ function CardPropetie({
           Ver detalles
         </button>
       </div>
-
-
     </div>
   );
 }
