@@ -23,6 +23,8 @@ interface FormState {
   habitaciones: string;
   banos: string;
   estrato: string;
+  latitud: string;
+  longitud: string;
 }
 
 const INITIAL_FORM: FormState = {
@@ -41,6 +43,8 @@ const INITIAL_FORM: FormState = {
   habitaciones: "",
   banos: "",
   estrato: "",
+  latitud: "",
+  longitud: "",
 };
 
 /**
@@ -130,6 +134,8 @@ export function usePropertyForm(editId?: number) {
             : "",
           banos: propiedad.banos ? String(propiedad.banos) : "",
           estrato: propiedad.estrato ? String(propiedad.estrato) : "",
+          latitud: propiedad.latitud ? String(propiedad.latitud) : "",
+          longitud: propiedad.longitud ? String(propiedad.longitud) : "",
         });
 
         // Cargar características seleccionadas
@@ -175,6 +181,15 @@ export function usePropertyForm(editId?: number) {
     );
   };
 
+  /** Helper para establecer coordenadas del mapa directamente */
+  const setCoordenadas = (lat: number, lng: number) => {
+    setForm((prev) => ({
+      ...prev,
+      latitud: lat.toString(),
+      longitud: lng.toString(),
+    }));
+  };
+
   /** Manejar selección de imágenes */
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -195,11 +210,11 @@ export function usePropertyForm(editId?: number) {
       return;
     }
 
-    // Validar límite total
-    const total = imagenes.length + previews.length + files.length;
+    // Validar límite total (previews ya contiene tanto fotos de DB como locales)
+    const total = previews.length + files.length;
     if (total > maxFotos) {
       setError(
-        `Máximo ${maxFotos} fotos. Ya tienes ${imagenes.length + previews.length}.`,
+        `Máximo ${maxFotos} fotos. Ya tienes ${previews.length}.`,
       );
       return;
     }
@@ -298,6 +313,8 @@ export function usePropertyForm(editId?: number) {
         habitaciones: Number(form.habitaciones),
         banos: Number(form.banos),
         estrato: Number(form.estrato),
+        latitud: form.latitud ? parseFloat(form.latitud) : undefined,
+        longitud: form.longitud ? parseFloat(form.longitud) : undefined,
       };
 
       // Timeout de 60s (imágenes pueden tardar en subirse)
@@ -377,5 +394,6 @@ export function usePropertyForm(editId?: number) {
     maxFotos,
     isEditMode,
     loadingEdit,
+    setCoordenadas,
   };
 }

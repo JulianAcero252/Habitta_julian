@@ -5,6 +5,7 @@ import { usePropertyForm } from "./hooks/usePropertyForm";
 import { useWarnIfUnsavedChanges } from "@application/hooks/useWarnIfUnsavedChanges";
 import { useToast } from "@application/context/ToastContext";
 import SortableImageGrid from "@presentation/components/SortableImageGrid/SortableImageGrid";
+import { MapSelector } from "@presentation/components/MapSelector/MapSelector";
 
 // Página de Registro / Edición de Propiedades
 function RegisterPropertyPage() {
@@ -33,6 +34,7 @@ function RegisterPropertyPage() {
     imagenes,
     isEditMode,
     loadingEdit,
+    setCoordenadas,
   } = usePropertyForm(editId);
 
   const { showToast } = useToast();
@@ -250,6 +252,27 @@ function RegisterPropertyPage() {
                 />
               </div>
             </div>
+
+            <br />
+            
+            <div style={{ marginTop: "1rem" }}>
+              <p>
+                Precisión de Mapa (Mueve el mapa o dale clic para ajustar el punto exacto)
+              </p>
+              <MapSelector
+                initialLat={form.latitud ? parseFloat(form.latitud) : undefined}
+                initialLng={form.longitud ? parseFloat(form.longitud) : undefined}
+                city={form.ciudad}
+                department={form.departamento}
+                address={form.direccion}
+                onLocationSelect={(lat, lng) => setCoordenadas(lat, lng)}
+              />
+              {form.latitud && form.longitud && (
+                <span style={{ fontSize: "0.85rem", color: "#64748b", marginTop: "4px", display: "inline-block" }}>
+                  Coordenadas fijadas: {parseFloat(form.latitud).toFixed(5)}, {parseFloat(form.longitud).toFixed(5)}
+                </span>
+              )}
+            </div>
           </div>
 
           <br />
@@ -362,8 +385,7 @@ function RegisterPropertyPage() {
             <p>Sube hasta {maxFotos} imágenes (JPG, PNG o WebP, máx 5MB c/u)</p>
 
             <label htmlFor="fileInput" className="foto-upload-btn">
-              📷 Seleccionar fotos ({imagenes.length + previews.length}/
-              {maxFotos})
+              📷 Seleccionar fotos ({previews.length}/{maxFotos})
             </label>
             <input
               id="fileInput"

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { propertyService } from "@application/services/propertyService";
 import type { Property } from "@domain/entities/Property";
 import type { Caracteristica } from "@domain/entities/Caracteristica";
+import { MapSelector } from "@presentation/components/MapSelector/MapSelector";
 import "./PropertyDetailsPage.css";
 
 const fallbackImage = "/images/auth/dream_home_1.png";
@@ -114,6 +115,8 @@ function PropertyDetailsPage() {
             src={selectedImg}
             alt={property.titulo || "Propiedad"}
             className="property-details-main-img"
+            onClick={() => setShowLightbox(true)}
+            style={{ cursor: "zoom-in" }}
           />
           <button
             className="property-details-arrow left"
@@ -159,27 +162,7 @@ function PropertyDetailsPage() {
               />
             </svg>
           </button>
-          <button
-            className="property-details-expand"
-            aria-label="Expandir"
-            onClick={() => setShowLightbox(true)}
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9 3H5C3.89543 3 3 3.89543 3 5V9M3 15V19C3 20.1046 3.89543 21 5 21H9M15 21H19C20.1046 21 21 20.1046 21 19V15M21 9V5C21 3.89543 20.1046 3 19 3H15"
-                stroke="#1a1a1a"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+
           <button
             className="property-details-share"
             aria-label="Compartir"
@@ -348,6 +331,16 @@ function PropertyDetailsPage() {
                   <strong>Código postal:</strong> {property.codigopostal}
                 </p>
               )}
+              
+              {property.latitud && property.longitud && (
+                <div style={{ marginTop: "1rem" }}>
+                  <MapSelector
+                    initialLat={property.latitud}
+                    initialLng={property.longitud}
+                    onLocationSelect={() => {}} /* Solo lectura */
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -455,9 +448,9 @@ function PropertyDetailsPage() {
           <div className="property-details-info-features">
             <div className="detail-feature-item">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="feature-svg">
-                <path d="M2 13V18M2 15H22M22 13V18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M4 13V9C4 7.89543 4.89543 7 6 7H18C19.1046 7 20 7.89543 20 9V13" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M7 11H11M13 11H17" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M2 13V18M2 15H22M22 13V18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M4 13V9C4 7.89543 4.89543 7 6 7H18C19.1046 7 20 7.89543 20 9V13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M7 11H11M13 11H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <div className="feature-text-group">
                 <span className="property-details-info-value">{property.habitaciones}</span>
@@ -466,10 +459,10 @@ function PropertyDetailsPage() {
             </div>
             <div className="detail-feature-item">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="feature-svg">
-                <path d="M4 11H20C21.1046 11 22 11.8954 22 13V15C22 16.1046 21.1046 17 20 17H4C2.89543 17 2 16.1046 2 15V13C2 11.8954 2.89543 11 4 11Z" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M6 17V19M18 17V19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M7 11V7C7 5.89543 7.89543 5 9 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M8.5 4.5L10 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M4 11H20C21.1046 11 22 11.8954 22 13V15C22 16.1046 21.1046 17 20 17H4C2.89543 17 2 16.1046 2 15V13C2 11.8954 2.89543 11 4 11Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M6 17V19M18 17V19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M7 11V7C7 5.89543 7.89543 5 9 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M8.5 4.5L10 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <div className="feature-text-group">
                 <span className="property-details-info-value">{property.banos}</span>
@@ -479,7 +472,7 @@ function PropertyDetailsPage() {
             {property.area && (
               <div className="detail-feature-item">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="feature-svg">
-                  <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <div className="feature-text-group">
                   <span className="property-details-info-value">{property.area}</span>

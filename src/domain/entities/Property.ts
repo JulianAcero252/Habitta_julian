@@ -21,6 +21,8 @@ export interface Property {
   estrato: number;
   /** URL de la primera foto (viene de fotospropiedad, no de la tabla propiedades) */
   fotoUrl?: string | null;
+  latitud?: number;
+  longitud?: number;
 }
 
 /** Crear propiedad — sin campos auto-generados */

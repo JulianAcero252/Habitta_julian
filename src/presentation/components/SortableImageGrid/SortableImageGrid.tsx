@@ -8,6 +8,7 @@
  */
 
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import {
   DndContext,
   closestCenter,
@@ -169,7 +170,7 @@ const SortableImageGrid: React.FC<SortableImageGridProps> = ({
       </DndContext>
 
       {/* Lightbox */}
-      {lightbox && (
+      {lightbox && createPortal(
         <div className="sortable-lightbox" onClick={() => setLightbox(null)}>
           <img
             src={lightbox}
@@ -183,7 +184,8 @@ const SortableImageGrid: React.FC<SortableImageGridProps> = ({
           >
             ✕
           </button>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
