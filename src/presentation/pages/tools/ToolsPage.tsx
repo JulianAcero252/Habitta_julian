@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./styleTools.css";
 
 function ToolsPage() {
+  const navigate = useNavigate();
   const [monthlyIncome, setMonthlyIncome] = useState<number | string>(3000);
   const [fixedExpenses, setFixedExpenses] = useState<number | string>("");
   const [results, setResults] = useState({
     maxMonthlyPayment: 1200,
-    percentageAvailable: 44,
+    percentageAvailable: 40,
     estimatedCredit: { min: 144000, max: 180000 },
   });
 
@@ -14,13 +16,14 @@ function ToolsPage() {
     const income = typeof monthlyIncome === "string" ? 0 : monthlyIncome;
     const expenses = typeof fixedExpenses === "string" ? 0 : fixedExpenses;
     const availableIncome = income - expenses;
-    const maxMonthlyPayment = availableIncome * 0.44;
+    // RF72: 40% de endeudamiento máximo (estándar BanRep Colombia)
+    const maxMonthlyPayment = availableIncome * 0.40;
     const estimatedCreditMin = maxMonthlyPayment * 120;
     const estimatedCreditMax = maxMonthlyPayment * 150;
 
     setResults({
       maxMonthlyPayment: Math.round(maxMonthlyPayment),
-      percentageAvailable: 44,
+      percentageAvailable: 40,
       estimatedCredit: {
         min: Math.round(estimatedCreditMin),
         max: Math.round(estimatedCreditMax),
@@ -146,9 +149,13 @@ function ToolsPage() {
             Basado en plazo de 10 a 12.5 años
           </p>
 
-          <button className="btn-view-properties">
+          <button
+            className="btn-view-properties"
+            onClick={() => navigate(`/properties?precioMax=${results.estimatedCredit.max}`)}
+          >
             Ver Propiedades en mi Presupuesto
           </button>
+
         </div>
       </div>
 

@@ -31,11 +31,26 @@ function RegisterPropertyPage() {
     removeImage,
     reorderPreviews,
     maxFotos,
+    maxVideos,
     imagenes,
     isEditMode,
     loadingEdit,
     setCoordenadas,
   } = usePropertyForm(editId);
+
+  // Construir videoFlags para SortableImageGrid: indica cuáles URLs son videos
+  const videoFlags = previews.map((url: string) => {
+    if (url.startsWith("blob:")) {
+      const blobPreviews = previews.filter((p: string) => p.startsWith("blob:"));
+      const blobIndex = blobPreviews.indexOf(url);
+      if (blobIndex >= 0 && imagenes[blobIndex]) {
+        return imagenes[blobIndex].type === "video/mp4";
+      }
+      return false;
+    }
+    return url.includes(".mp4") || url.includes("video/");
+  });
+
 
   const { showToast } = useToast();
 
@@ -379,28 +394,29 @@ function RegisterPropertyPage() {
 
           <br />
 
-          {/* Fotografías */}
+          {/* Fotografías y Videos */}
           <div className="card">
-            <h4>Fotos de la Propiedad</h4>
-            <p>Sube hasta {maxFotos} imágenes (JPG, PNG o WebP, máx 5MB c/u)</p>
+            <h4>Fotos y Videos de la Propiedad</h4>
+            <p>Hasta {maxFotos} fotos (JPG, PNG, WebP · máx 5MB) y {maxVideos} video{maxVideos > 1 ? "s" : ""} MP4 (máx 50MB)</p>
 
             <label htmlFor="fileInput" className="foto-upload-btn">
-              📷 Seleccionar fotos ({previews.length}/{maxFotos})
+              🎞️ Seleccionar fotos/videos ({previews.length}/{maxFotos + maxVideos})
             </label>
             <input
               id="fileInput"
               type="file"
               multiple
-              accept="image/jpeg,image/png,image/webp"
+              accept="image/jpeg,image/png,image/webp,video/mp4"
               onChange={handleImageChange}
               style={{ display: "none" }}
             />
 
-            {/* Grid de previews con drag-and-drop (RF19) */}
+            {/* Grid de previews con drag-and-drop (RF19/RF20) */}
             <SortableImageGrid
               previews={previews}
               onReorder={reorderPreviews}
               onRemove={removeImage}
+              videoFlags={videoFlags}
             />
           </div>
 

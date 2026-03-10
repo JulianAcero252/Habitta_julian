@@ -4,7 +4,15 @@ import { useAuth } from "@application/context/AuthContext";
 import { propertyService } from "@application/services/propertyService";
 import type { CreatePropertyInput } from "@domain/entities/Property";
 import type { Caracteristica } from "@domain/entities/Caracteristica";
-import { LIMITE_FOTOS } from "@domain/entities/FotoPropiedad";
+import {
+  LIMITE_FOTOS,
+  LIMITE_VIDEOS,
+  TIPOS_IMAGEN,
+  TIPOS_VIDEO,
+  MAX_SIZE_IMAGEN,
+  MAX_SIZE_VIDEO,
+} from "@domain/entities/FotoPropiedad";
+
 
 /** Estado del formulario */
 interface FormState {
@@ -69,13 +77,70 @@ export function usePropertyForm(editId?: number) {
     string | null
   >(null);
 
-  // Estado de imágenes
+  // Estado de media (imágenes y videos)
   const [imagenes, setImagenes] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
-  const maxFotos =
-    usuario?.plan === "premium" ? LIMITE_FOTOS.premium : LIMITE_FOTOS.free;
 
-  // Modo edición
+  // Cálculos de límite separados por tipo
+  const maxFotos = usuario?.plan === "premium" ? LIMITE_FOTOS.premium : LIMITE_FOTOS.free;
+  const maxVideos = usuario?.plan === "premium" ? LIMITE_VIDEOS.premium : LIMITE_VIDEOS.free;
+
+
+  /** Manejar selección de imágenes y/o videos */
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    // Separar imágenes y videos ya existentes
+    const existingImages = imagenes.filter((f) => TIPOS_IMAGEN.includes(f.type));
+    const existingVideos = imagenes.filter((f) => TIPOS_VIDEO.includes(f.type));
+
+    // Tipos inválidos
+    const invalidos = files.filter((f) => !TIPOS_IMAGEN.includes(f.type) && !TIPOS_VIDEO.includes(f.type));
+    if (invalidos.length > 0) {
+      setError("Solo se permiten imágenes (JPG, PNG, WebP) o videos (MP4).");
+      e.target.value = "";
+      return;
+    }
+
+    // Validar tamaño por tipo
+    for (const f of files) {
+      if (TIPOS_IMAGEN.includes(f.type) && f.size > MAX_SIZE_IMAGEN) {
+        setError(`La imagen "${f.name}" supera el límite de 5 MB.`);
+        e.target.value = "";
+        return;
+      }
+      if (TIPOS_VIDEO.includes(f.type) && f.size > MAX_SIZE_VIDEO) {
+        setError(`El video "${f.name}" supera el límite de 50 MB.`);
+        e.target.value = "";
+        return;
+      }
+    }
+
+    // Validar límites separados
+    const newImages = files.filter((f) => TIPOS_IMAGEN.includes(f.type));
+    const newVideos = files.filter((f) => TIPOS_VIDEO.includes(f.type));
+
+    if (existingImages.length + newImages.length > maxFotos) {
+      setError(`Máximo ${maxFotos} fotos. Ya tienes ${existingImages.length}.`);
+      e.target.value = "";
+      return;
+    }
+    if (existingVideos.length + newVideos.length > maxVideos) {
+      setError(`Máximo ${maxVideos} video${maxVideos > 1 ? "s" : ""} por propiedad.`);
+      e.target.value = "";
+      return;
+    }
+
+    setError(null);
+    setImagenes((prev) => [...prev, ...files]);
+    const urls = files.map((f) => URL.createObjectURL(f));
+    setPreviews((prev) => [...prev, ...urls]);
+
+    // Resetear input para permitir seleccionar los mismos archivos
+    e.target.value = "";
+  };
+
   const isEditMode = Boolean(editId);
   const [loadingEdit, setLoadingEdit] = useState(isEditMode);
 
@@ -190,46 +255,7 @@ export function usePropertyForm(editId?: number) {
     }));
   };
 
-  /** Manejar selección de imágenes */
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    if (files.length === 0) return;
 
-    // Validar tipos permitidos
-    const tiposValidos = ["image/jpeg", "image/png", "image/webp"];
-    const invalidos = files.filter((f) => !tiposValidos.includes(f.type));
-    if (invalidos.length > 0) {
-      setError("Solo se permiten imágenes JPG, PNG o WebP.");
-      return;
-    }
-
-    // Validar tamaño (5MB máx por archivo)
-    const grandes = files.filter((f) => f.size > 5 * 1024 * 1024);
-    if (grandes.length > 0) {
-      setError("Cada imagen debe pesar menos de 5MB.");
-      return;
-    }
-
-    // Validar límite total (previews ya contiene tanto fotos de DB como locales)
-    const total = previews.length + files.length;
-    if (total > maxFotos) {
-      setError(
-        `Máximo ${maxFotos} fotos. Ya tienes ${previews.length}.`,
-      );
-      return;
-    }
-
-    setError(null);
-    const nuevas = [...imagenes, ...files];
-    setImagenes(nuevas);
-
-    // Generar previews
-    const urls = files.map((f) => URL.createObjectURL(f));
-    setPreviews((prev) => [...prev, ...urls]);
-
-    // Resetear input para permitir seleccionar las mismas fotos
-    e.target.value = "";
-  };
 
   /** Eliminar imagen por índice */
   const removeImage = (index: number) => {
@@ -392,8 +418,10 @@ export function usePropertyForm(editId?: number) {
     removeImage,
     reorderPreviews,
     maxFotos,
+    maxVideos,
     isEditMode,
     loadingEdit,
     setCoordenadas,
   };
 }
+

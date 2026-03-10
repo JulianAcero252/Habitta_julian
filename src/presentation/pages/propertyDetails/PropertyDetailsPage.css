@@ -85,30 +85,142 @@
   color: #665c5c;
 }
 
+/* Contenedor de botones de contacto (RF50/RF49) */
+.property-details-contact-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.property-details-info-whatsapp-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 11px 14px;
+  flex: 1;
+  cursor: pointer;
+  text-decoration: none;
+  justify-content: center;
+  transition: background 0.2s, transform 0.1s;
+}
+.property-details-info-whatsapp-btn:hover {
+  background: #1ebe5d;
+  transform: translateY(-1px);
+}
+
 .property-details-info-call-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   background: linear-gradient(90deg, #2dd4bf, #14b8a6);
   color: #fff;
   border: none;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  padding: 12px;
-  margin-bottom: 8px;
-  width: 100%;
+  padding: 11px 14px;
+  flex: 1;
   cursor: pointer;
+  justify-content: center;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.property-details-info-call-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 .property-details-info-msg-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   background: #fff;
   color: #2dd4bf;
   border: 1.5px solid #2dd4bf;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  padding: 12px;
-  width: 100%;
+  padding: 11px 14px;
+  flex: 1;
+  cursor: pointer;
+  justify-content: center;
+  transition: background 0.2s, transform 0.1s;
+}
+.property-details-info-msg-btn:hover {
+  background: #f0fdfb;
+  transform: translateY(-1px);
+}
+
+/* Modal de contacto */
+.contact-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+}
+
+.contact-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #666;
   cursor: pointer;
 }
+
+.contact-modal__icon {
+  margin-bottom: 16px;
+}
+
+.contact-modal h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: #1a1a1a;
+}
+
+.contact-modal p {
+  color: #555;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.contact-modal__msg-btn {
+  background: linear-gradient(90deg, #2dd4bf, #14b8a6);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  cursor: pointer;
+  margin-top: 12px;
+  width: 100%;
+  transition: opacity 0.2s;
+}
+.contact-modal__msg-btn:hover { opacity: 0.9; }
+
 
 .property-details-agent-box {
   background: #fff;
@@ -378,6 +490,39 @@
 .property-details-thumbnail.selected {
   border: 2px solid #2dd4bf;
 }
+
+/* Thumbnail de video */
+.property-details-thumbnail.video-thumb {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+}
+.property-details-thumbnail.video-thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.property-details-thumbnail.video-thumb.selected {
+  border: 2px solid #2dd4bf;
+}
+
+.thumb-play-icon {
+  position: absolute;
+  font-size: 1.1rem;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+  pointer-events: none;
+}
+
 
 .property-details-info {
   display: flex;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { propertyService } from "@application/services/propertyService";
 import type { Property } from "@domain/entities/Property";
 import type { Caracteristica } from "@domain/entities/Caracteristica";
@@ -10,20 +10,27 @@ const fallbackImage = "/images/auth/dream_home_1.png";
 
 function PropertyDetailsPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [property, setProperty] = useState<Property | null>(null);
   const [caracteristicas, setCaracteristicas] = useState<Caracteristica[]>([]);
   const [fotos, setFotos] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [imgIndex, setImgIndex] = useState(0);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   // Tabs
   const [activeTab, setActiveTab] = useState("Descripción");
   const [showLightbox, setShowLightbox] = useState(false);
   const tabNames = ["Descripción", "Características", "Ubicación"];
 
-  // Imagen seleccionada (primera foto o fallback)
+  // Imagen/video seleccionado (primera foto o fallback)
   const selectedImg = fotos.length > 0 ? fotos[imgIndex] : fallbackImage;
+
+  // Detectar si una URL es un video MP4
+  const isVideo = (url: string) =>
+    url.toLowerCase().includes(".mp4") ||
+    url.toLowerCase().includes("/video/");
 
   // Navegación de imágenes
   const prevImg = () => setImgIndex((i) => (i > 0 ? i - 1 : fotos.length - 1));
@@ -111,13 +118,30 @@ function PropertyDetailsPage() {
       <div className="property-details-main">
         {/* Sección de Imágenes */}
         <div className="property-details-image-section">
-          <img
-            src={selectedImg}
-            alt={property.titulo || "Propiedad"}
-            className="property-details-main-img"
-            onClick={() => setShowLightbox(true)}
-            style={{ cursor: "zoom-in" }}
-          />
+          {/* Imagen o Video principal */}
+          {isVideo(selectedImg) ? (
+            <video
+              src={selectedImg}
+              className="property-details-main-img"
+              controls
+              playsInline
+              style={{
+                cursor: "default",
+                background: "#000",
+                objectFit: "contain",
+                maxHeight: "480px",
+                width: "100%",
+              }}
+            />
+          ) : (
+            <img
+              src={selectedImg}
+              alt={property.titulo || "Propiedad"}
+              className="property-details-main-img"
+              onClick={() => setShowLightbox(true)}
+              style={{ cursor: "zoom-in" }}
+            />
+          )}
           <button
             className="property-details-arrow left"
             aria-label="Anterior"
@@ -230,14 +254,26 @@ function PropertyDetailsPage() {
 
         {/* Miniaturas */}
         <div className="property-details-thumbnails">
-          {fotos.map((img, idx) => (
-            <img
-              key={idx}
-              src={img}
-              alt={`Miniatura ${idx + 1}`}
-              className={`property-details-thumbnail${imgIndex === idx ? " selected" : ""}`}
-              onClick={() => setImgIndex(idx)}
-            />
+          {fotos.map((media, idx) => (
+            isVideo(media) ? (
+              <div
+                key={idx}
+                className={`property-details-thumbnail video-thumb${imgIndex === idx ? " selected" : ""}`}
+                onClick={() => setImgIndex(idx)}
+                title="Video"
+              >
+                <video src={media} muted playsInline preload="metadata" />
+                <span className="thumb-play-icon">▶</span>
+              </div>
+            ) : (
+              <img
+                key={idx}
+                src={media}
+                alt={`Miniatura ${idx + 1}`}
+                className={`property-details-thumbnail${imgIndex === idx ? " selected" : ""}`}
+                onClick={() => setImgIndex(idx)}
+              />
+            )
           ))}
         </div>
 
@@ -481,15 +517,74 @@ function PropertyDetailsPage() {
               </div>
             )}
           </div>
-          <button className="property-details-info-call-btn">
-            Llamar ahora
-          </button>
-          <button className="property-details-info-msg-btn">
-            Enviar mensaje
-          </button>
-        </div>
+          <div className="property-details-contact-buttons">
+            {/* Botón WhatsApp */}
+            <a
+              href={`https://wa.me/57?text=${encodeURIComponent(`Hola! Estoy interesado en la propiedad "${property.titulo ?? ""}". ¿Podrías darme más información? https://habitta.app/propertydetailspage/${property.idpropiedad}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="property-details-info-whatsapp-btn"
+              aria-label="Contactar por WhatsApp"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.129.555 4.13 1.527 5.862L0 24l6.302-1.504A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.375l-.36-.213-3.735.891.933-3.607-.235-.371A9.818 9.818 0 1112 21.818z"/>
+              </svg>
+              WhatsApp
+            </a>
+
+            {/* Botón Llamar */}
+            <button
+              className="property-details-info-call-btn"
+              onClick={() => setShowContactModal(true)}
+              aria-label="Llamar al vendedor"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.03 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+              Llamar
+            </button>
+
+            {/* Botón Mensaje interno */}
+            <button
+              className="property-details-info-msg-btn"
+              onClick={() => navigate(`/messages?property=${property.idpropiedad}`)}
+              aria-label="Enviar mensaje al vendedor"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+              </svg>
+              Mensaje
+            </button>
+          </div>
+
+          {/* Modal de contacto (cuando no hay teléfono registrado) */}
+          {showContactModal && (
+            <div className="contact-modal-overlay" onClick={() => setShowContactModal(false)}>
+              <div className="contact-modal" onClick={(e) => e.stopPropagation()}>
+                <button className="contact-modal__close" onClick={() => setShowContactModal(false)}>✕</button>
+                <div className="contact-modal__icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10D6C2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.03 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                  </svg>
+                </div>
+                <h3>Contactar al vendedor</h3>
+                <p>El vendedor no ha registrado un número de teléfono aún.</p>
+                <p style={{color: '#aaa', fontSize: '0.9rem'}}>Contáctalo por WhatsApp para coordinar la llamada.</p>
+                <button
+                  className="contact-modal__msg-btn"
+                  onClick={() => setShowContactModal(false)}
+                >
+                  Entendido
+                </button>
+              </div>
+            </div>
+          )}
+
+        </div>{/* /property-details-info-box */}
 
         {/* Metadatos */}
+
         <div className="property-details-meta-box">
           <div className="property-details-meta-row">
             <span>ID de propiedad:</span>
@@ -516,11 +611,23 @@ function PropertyDetailsPage() {
             >
               &times;
             </button>
-            <img
-              src={selectedImg}
-              alt={property?.titulo || "Propiedad"}
-              className="property-lightbox__img"
-            />
+            {isVideo(selectedImg) ? (
+              <video
+                src={selectedImg}
+                className="property-lightbox__img"
+                controls
+                autoPlay
+                playsInline
+                style={{ background: "#000" }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <img
+                src={selectedImg}
+                alt={property?.titulo || "Propiedad"}
+                className="property-lightbox__img"
+              />
+            )}
           </div>
         </div>
       )}
