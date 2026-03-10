@@ -1,18 +1,22 @@
 import { useState, useEffect, useCallback } from "react";
 import type { Property } from "@domain/entities/Property";
 import { propertyService } from "@application/services/propertyService";
+import type { PropertyFilters } from "@infrastructure/api/properties.api";
 
 /** Hook para consumir propiedades desde Supabase */
-export function useProperties() {
+export function useProperties(initialFilters?: PropertyFilters) {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [filters, setFilters] = useState<PropertyFilters | undefined>(initialFilters);
 
-  const fetchProperties = useCallback(async () => {
+  const fetchProperties = useCallback(async (currentFilters?: PropertyFilters) => {
     setLoading(true);
     setError(null);
     try {
-      const data = await propertyService.getProperties();
+      const data = currentFilters 
+        ? await propertyService.getFilteredProperties(currentFilters)
+        : await propertyService.getProperties();
       setProperties(data);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Error desconocido";
@@ -23,8 +27,13 @@ export function useProperties() {
   }, []);
 
   useEffect(() => {
-    fetchProperties();
-  }, [fetchProperties]);
+    fetchProperties(filters);
+  }, [filters, fetchProperties]);
 
-  return { properties, loading, error, refetch: fetchProperties };
+  // Permite actualizar los filtros de forma manual desde el componente UI
+  const updateFilters = useCallback((newFilters: PropertyFilters) => {
+    setFilters(newFilters);
+  }, []);
+
+  return { properties, loading, error, refetch: () => fetchProperties(filters), filters, updateFilters };
 }

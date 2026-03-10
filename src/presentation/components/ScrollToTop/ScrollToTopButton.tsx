@@ -1,0 +1,45 @@
+import { useState, useEffect } from "react";
+import "./ScrollToTopButton.css";
+
+function ScrollToTopButton() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      // Mostrar el botón cuando se ha scrolleado más de 300px
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <button 
+      className="scroll-to-top-btn" 
+      onClick={scrollToTop}
+      aria-label="Volver arriba"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+  );
+}
+
+export default ScrollToTopButton;

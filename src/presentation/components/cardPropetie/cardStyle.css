@@ -1,11 +1,11 @@
 /* Grid container */
 .property-cards-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
   width: 100%;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 10px 0;
 }
 
 /* Card */
@@ -86,11 +86,11 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 16px;
+  padding: 16px 20px 20px 16px; /* Más padding para que el botón no se corte por el fondo blanco */
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
 }
 
 /* Action Button */
@@ -316,9 +316,49 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .property-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .property-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .property-lightbox__close {
     top: -50px;
     right: 0;
+  }
+  .property-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Soporte para Dispositivos Táctiles (Sin Hover) */
+@media (hover: none) and (pointer: coarse) {
+  .property-card__expandable {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    padding: 10px 20px 24px;
+    box-shadow: none;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  .property-card__body {
+     border-radius: 0 0 16px 16px;
+  }
+  .property-card:hover {
+     transform: none;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  .property-card:hover .property-card__img {
+    transform: none;
   }
 }

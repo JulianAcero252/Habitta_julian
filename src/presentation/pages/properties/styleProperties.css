@@ -20,192 +20,160 @@
   text-align: center;
 }
 
-/* Barra de Búsqueda */
-.search-bar {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 16px 20px;
-  align-items: center;
-  background: #fff;
-  border: 1px solid #dbeff6;
-  padding: 20px;
+/* --- NUEVOS ESTILOS FIGMA SEARCH BAR --- */
+.search-bar-figma {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
+  padding: 24px;
+  margin-top: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
-/* Campo de Búsqueda */
-.search-input {
+.search-top-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  border: 1px solid #e6eef3;
-  padding: 10px 14px;
-  border-radius: 12px;
-  background: #fff;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-.search-input input {
+.search-input-wrapper {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0 16px;
+  background: #ffffff;
+  height: 48px;
+}
+
+.search-icon-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-right: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-wrapper > div {
+  flex: 1;
+  width: 100%;
+}
+
+.search-input-wrapper input {
+  width: 100%;
   border: none;
   outline: none;
-  font-size: 15px;
-  width: 100%;
-  color: #667085;
-}
-
-.search-icon {
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  color: #94a3b8;
-}
-
-/* Contenedor de Filtros */
-.filters {
-  display: flex;
-  gap: 12px;
-}
-
-/* Desplegables */
-.filter-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Botón de Filtro Píldora */
-.filter-dropdown .filter.pill {
-  background: #fff;
-  border: 1px solid #e6eef3;
-  padding: 10px 16px;
-  border-radius: 12px;
-  font-weight: 600;
-  color: #0f172a;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.filter-dropdown:hover .filter.pill {
-  background: #f8fafc;
-  border-color: #cbd5e1;
-}
-
-/* Menú Desplegable */
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #fff;
-  border: 1px solid #e6eef3;
-  border-radius: 12px;
-  margin-top: 8px;
-  min-width: 180px;
-  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.08);
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.2s ease,
-    visibility 0.2s ease;
-  z-index: 10;
-}
-
-/* Mostrar menú al pasar el mouse */
-.filter-dropdown:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Elementos del Desplegable */
-.dropdown-item {
-  display: block;
-  width: 100%;
-  padding: 12px 16px;
-  background: transparent;
-  border: none;
-  text-align: left;
-  color: #0f172a;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.dropdown-item:hover {
-  background: #f1f5f9;
-}
-
-/* Esquinas Redondeadas */
-.dropdown-item:first-child {
-  border-radius: 11px 11px 0 0;
-}
-
-.dropdown-item:last-child {
-  border-radius: 0 0 11px 11px;
-}
-
-/* Grupo de Acciones */
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Botón de Búsqueda */
-.btn-search {
-  background: linear-gradient(90deg, #35d2db 0%, #33bb9d 100%);
-  color: white;
-  border: none;
-  padding: 14px 26px;
-  border-radius: 12px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Alternadores de Vista */
-.view-toggles {
-  display: flex;
-  gap: 8px;
-}
-
-.view-toggles .icon {
-  background: #fb8f58;
-  border: none;
-  color: white;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 14px;
-}
-
-/* Parte Inferior de Búsqueda (Ordenar) */
-.search-bottom {
-  margin-top: 14px;
   background: transparent;
-  display: flex;
-  align-items: center;
 }
 
-.search-bottom .sort {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-/* Desplegable de Ordenamiento */
-.sort-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.sort-dropdown .pill {
+.select-tipo-figma {
+  height: 48px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0 16px;
+  background: #ffffff;
+  color: #1e293b;
+  font-weight: 600;
   cursor: pointer;
+  outline: none;
+}
+
+.select-tipo-figma:focus {
+  border-color: #35d2db;
+}
+
+.btn-search-figma {
+  height: 48px;
+  background: #35d2db;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 32px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-search-figma:hover {
+  opacity: 0.9;
+}
+
+.view-toggles-figma {
+  display: flex;
+  gap: 8px;
+}
+
+.grid-icon-btn {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background: #f97316;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.grid-icon-btn.active, .grid-icon-btn:hover {
+  opacity: 1;
+}
+
+.search-mid-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.sort-label-figma {
+  font-size: 14px;
+  color: #475569;
+}
+
+.sort-select-figma {
+  padding: 8px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
+  outline: none;
+}
+
+.clear-filters-figma {
+  background: #fee2e2;
+  color: #ef4444;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  height: 38px;
+}
+
+.clear-filters-figma:hover {
+  background: #fca5a5;
+  color: white;
+}
+
+.search-bottom-row-figma {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  align-items: center;
 }
 
 .sort-dropdown:hover .pill {
@@ -213,72 +181,27 @@
   border-color: #cbd5e1;
 }
 
-.sort-dropdown .dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #fff;
-  border: 1px solid #e6eef3;
-  border-radius: 12px;
-  margin-top: 8px;
-  min-width: 200px;
-  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.08);
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.2s ease,
-    visibility 0.2s ease;
-  z-index: 10;
+.inline-select:focus {
+  outline: none;
+  background: #f1f5f9;
 }
 
-.sort-dropdown:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-}
-
-.pill {
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid #e6eef3;
-  background: #fff;
-  font-weight: 600;
-}
-
-.pill.current {
-  background: #f8fafc;
-  box-shadow: inset 0 0 0 1px rgba(16, 24, 40, 0.03);
-}
-
-/* Barra de Búsqueda Responsiva */
-@media (max-width: 1000px) {
-  .properties-page {
-    padding: 12px 20px;
-  }
-  .search-bar {
-    grid-template-columns: 1fr;
-  }
-  .actions {
-    justify-content: space-between;
-  }
-}
-
-/* Diseño Principal */
-.content-wrapper {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 24px;
+/* Contenedor sin Sidebar */
+.full-width-wrapper {
+  display: block;
   margin-top: 24px;
 }
 
-/* Barra Lateral de Filtros */
-.filters-sidebar {
-  background: #fff;
-  border: 1px solid #dbeff6;
-  border-radius: 12px;
-  padding: 20px;
-  height: fit-content;
-  position: sticky;
-  top: 20px;
+/* Modificar la barra de scroll para que no sea intrusiva (Chrome/Safari) */
+.filters-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.filters-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.filters-sidebar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
 }
 
 .filters-header {
@@ -297,146 +220,113 @@
   color: #0f172a;
 }
 
-.clear-filters {
-  background: transparent;
-  border: none;
-  color: #35d2db;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.clear-filters:hover {
-  text-decoration: underline;
-}
-
-.filter-group {
-  margin-bottom: 20px;
-}
-
-.filter-group label {
-  display: block;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.filter-group select {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #e6eef3;
-  border-radius: 8px;
-  background: #fff;
-  color: #667085;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.filter-group select:focus {
-  outline: none;
-  border-color: #35d2db;
-}
-
-/* Deslizadores */
-.range-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.range-slider {
-  width: 100%;
-  height: 6px;
-  border-radius: 3px;
-  background: #e6eef3;
-  outline: none;
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-}
-
-/* Botón del Deslizador */
-.range-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #35d2db;
-  cursor: pointer;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.range-slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #35d2db;
-  cursor: pointer;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.range-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #667085;
-}
-
-/* Grupo de Botones de Opción */
-.button-group {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-
-.option-btn {
-  padding: 10px 8px;
-  background: #fff;
-  border: 1px solid #e6eef3;
-  border-radius: 8px;
-  font-weight: 600;
-  color: #0f172a;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-.option-btn:hover {
-  border-color: #35d2db;
-  color: #35d2db;
-}
-
-.option-btn.active {
-  background: #35d2db;
-  color: white;
-  border-color: #35d2db;
-}
-
-/* Botón de Aplicar Filtros */
-.btn-apply-filters {
-  width: 100%;
-  padding: 12px 20px;
-  background: #35d2db;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 12px;
-  transition: opacity 0.2s ease;
-}
-
-.btn-apply-filters:hover {
-  opacity: 0.9;
-}
-
 /* Grilla de Resultados */
 .properties-grid {
   width: 100%;
+}
+
+
+
+.filter-group-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 140px;
+  background: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.filter-group-inline label {
+  font-weight: 700;
+  color: #334155;
+  font-size: 12px;
+  margin: 0;
+}
+
+.range-slider-inline {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: #cbd5e1;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.range-slider-inline::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #35d2db;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.button-group-inline {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.button-group-inline .option-btn {
+  padding: 6px 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.button-group-inline .option-btn:hover {
+  border-color: #35d2db;
+  color: #35d2db;
+}
+
+.button-group-inline .option-btn.active {
+  background: #1e293b;
+  border-color: #1e293b;
+  color: #ffffff;
+}
+
+.btn-apply-filters-inline {
+  background: #35d2db;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  height: 42px;
+  align-self: flex-end; /* Alinear abajo junto a los inputs */
+}
+
+.btn-apply-filters-inline:hover {
+  opacity: 0.9;
+}
+
+.inline-select {
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 2px;
 }
 
 /* Paginación */
@@ -448,6 +338,45 @@
 }
 
 /* Ajustes Responsivos */
+@media (max-width: 1000px) {
+  .properties-page {
+    padding: 12px 20px;
+  }
+  .search-bar-figma {
+    padding: 16px;
+  }
+  .search-top-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .search-input-wrapper {
+    min-width: unset;
+    width: 100%;
+  }
+  .select-tipo-figma,
+  .btn-search-figma {
+    width: 100%;
+  }
+  .view-toggles-figma {
+    width: 100%;
+    justify-content: center;
+  }
+  .search-mid-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .search-bottom-row-figma {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .clear-filters-figma {
+    width: 100%;
+  }
+}
+
 @media (max-width: 1200px) {
   .content-wrapper {
     grid-template-columns: 220px 1fr;

@@ -3,8 +3,11 @@ import CardPropetie from "../../components/cardPropetie/Card_propietie";
 import { useProperties } from "@application/hooks/useProperties";
 import { useFavorites } from "@application/hooks/useFavorites";
 import { useAuth } from "@application/context/AuthContext";
+import { useBusquedas } from "@application/hooks/useBusquedas";
+import { LocationAutocomplete } from "../../components/LocationAutocomplete/LocationAutocomplete";
 import "./home.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import ScrollToTopButton from "../../components/ScrollToTop/ScrollToTopButton";
 const shieldIcon = "/icons/UI/heroIcons/shield-alt-1-svgrepo-com.svg";
 const medallIcon = "/icons/UI/heroIcons/medal-ribbon-svgrepo-com.svg";
 const peopleIcon = "/icons/UI/heroIcons/peoples-svgrepo-com.svg";
@@ -24,6 +27,24 @@ function Home() {
   const { properties, loading } = useProperties();
   const { usuario } = useAuth();
   const { isFavorito, toggleFavorito } = useFavorites();
+  const { busquedas } = useBusquedas(usuario?.idusuario?.toString());
+  const navigate = useNavigate();
+
+  // Estados para el buscador
+  const [tipoOperacion, setTipoOperacion] = useState("Comprar");
+  const [tipoPropiedad, setTipoPropiedad] = useState("");
+  const [ubicacion, setUbicacion] = useState("");
+
+  const handleSearchClick = () => {
+    const params = new URLSearchParams();
+    if (tipoPropiedad) params.append("tipoPropiedad", tipoPropiedad);
+    if (ubicacion) params.append("searchTerm", ubicacion);
+    navigate(`/properties?${params.toString()}`);
+  };
+
+  const handleQuickSearch = (keyword: string) => {
+    navigate(`/properties?searchTerm=${encodeURIComponent(keyword)}`);
+  };
 
   // Estado de rotación de imágenes
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -73,9 +94,9 @@ function Home() {
             <div className="search-card">
               {/* Pestañas de Tipo */}
               <div className="search-tabs">
-                <button className="tab active">Comprar</button>
-                <button className="tab">Alquilar</button>
-                <button className="tab">Vender</button>
+                <button className={`tab ${tipoOperacion === 'Comprar' ? 'active' : ''}`} onClick={() => setTipoOperacion('Comprar')}>Comprar</button>
+                <button className={`tab ${tipoOperacion === 'Alquilar' ? 'active' : ''}`} onClick={() => setTipoOperacion('Alquilar')}>Alquilar</button>
+                <button className={`tab ${tipoOperacion === 'Vender' ? 'active' : ''}`} onClick={() => setTipoOperacion('Vender')}>Vender</button>
               </div>
 
               {/* Campos de Entrada */}
@@ -83,31 +104,31 @@ function Home() {
                 {/* Tipo de Propiedad */}
                 <div className="input-group">
                   <label htmlFor="propertyType">Tipo de propiedad</label>
-                  <select id="propertyType" name="propertyType" defaultValue="">
-                    <option value="" disabled>
-                      Selecciona
-                    </option>
-                    <option value="apartment">Apartamento</option>
-                    <option value="house">Casa</option>
-                    <option value="lot">Lote</option>
+                  <select id="propertyType" value={tipoPropiedad} onChange={(e) => setTipoPropiedad(e.target.value)}>
+                    <option value="">Selecciona</option>
+                    <option value="Apartamento">Apartamento</option>
+                    <option value="Casa">Casa</option>
+                    <option value="Lote">Lote</option>
+                    <option value="Finca">Finca</option>
                   </select>
                 </div>
 
                 {/* Divisor */}
                 <div className="divider"></div>
 
-                {/* Campo de Ubicación */}
+                {/* Campo de Ubicación con Autocompletado */}
                 <div className="input-group flex-grow">
                   <label>Ubicación</label>
-                  <input
-                    id="location"
-                    type="text"
-                    placeholder="Ciudad, zona o código"
+                  <LocationAutocomplete 
+                    value={ubicacion}
+                    onChange={setUbicacion}
+                    onSelect={handleSearchClick}
+                    onKeyDown={(e) => { if (e.key === "Enter") handleSearchClick(); }}
                   />
                 </div>
 
                 {/* Botón de Búsqueda */}
-                <button className="search-btn">
+                <button className="search-btn" onClick={handleSearchClick}>
                   <img
                     src={searchIcon}
                     alt="Search"
@@ -121,14 +142,27 @@ function Home() {
                 </button>
               </div>
 
-              {/* Búsquedas Populares */}
+              {/* Búsquedas Populares o de Usuario */}
               <div className="popular-searches">
-                <span className="label">Búsquedas populares:</span>
+                <span className="label">
+                  {usuario ? "Tus Búsquedas Recientes:" : "Búsquedas Populares:"}
+                </span>
                 <div className="tags">
-                  <button>Apartamentos en Bogotá</button>
-                  <button>Casas en Medellín</button>
-                  <button>Oficinas Santiago</button>
-                  <button>Casas Medellín</button>
+                  {!usuario && (
+                    <>
+                      <button onClick={() => handleQuickSearch("Apartamentos en Bogotá")}>Apartamentos en Bogotá</button>
+                      <button onClick={() => handleQuickSearch("Casas en Medellín")}>Casas en Medellín</button>
+                      <button onClick={() => handleQuickSearch("Oficinas Santiago")}>Oficinas Santiago</button>
+                    </>
+                  )}
+                  {usuario && busquedas.length === 0 && (
+                    <span style={{color: "#aaa", fontSize: "0.85rem"}}>No tienes búsquedas guardadas.</span>
+                  )}
+                  {usuario && busquedas.map((b) => (
+                    <button key={b.id} onClick={() => handleQuickSearch(b.titulo)}>
+                      {b.titulo}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
@@ -328,9 +362,9 @@ function Home() {
               </div>
             </div>
           </div>
-          client
         </section>
       </main>
+      <ScrollToTopButton />
     </>
   );
 }

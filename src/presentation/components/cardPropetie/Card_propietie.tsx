@@ -96,7 +96,7 @@ function CardPropetie({
                   cy="5"
                   r="3"
                   stroke="#1a1a1a"
-                  strokeWidth="2.5"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
@@ -105,7 +105,7 @@ function CardPropetie({
                   cy="12"
                   r="3"
                   stroke="#1a1a1a"
-                  strokeWidth="2.5"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
@@ -114,21 +114,21 @@ function CardPropetie({
                   cy="19"
                   r="3"
                   stroke="#1a1a1a"
-                  strokeWidth="2.5"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
                 <path
                   d="M8.59 13.51L15.42 17.49"
                   stroke="#1a1a1a"
-                  strokeWidth="2.5"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
                 <path
                   d="M15.41 6.51L8.59 10.49"
                   stroke="#1a1a1a"
-                  strokeWidth="2.5"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
@@ -158,11 +158,12 @@ function CardPropetie({
             >
               <path
                 d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                fill={isFav ? "#ec4899" : "none"}
-                stroke="#1a1a1a"
-                strokeWidth="2.5"
+                fill={isFav ? "#ff3040" : "none"}
+                stroke={isFav ? "#ff3040" : "#1a1a1a"}
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                style={{ transition: "all 0.2s ease-in-out" }}
               />
             </svg>
           </button>
@@ -197,21 +198,21 @@ function CardPropetie({
                   <path
                     d="M2 13V18M2 15H22M22 13V18"
                     stroke="currentColor"
-                    strokeWidth="2.5"
+                    strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   <path
                     d="M4 13V9C4 7.89543 4.89543 7 6 7H18C19.1046 7 20 7.89543 20 9V13"
                     stroke="currentColor"
-                    strokeWidth="2.5"
+                    strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   <path
                     d="M7 11H11M13 11H17"
                     stroke="currentColor"
-                    strokeWidth="2.5"
+                    strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
@@ -231,28 +232,28 @@ function CardPropetie({
                   <path
                     d="M4 11H20C21.1046 11 22 11.8954 22 13V15C22 16.1046 21.1046 17 20 17H4C2.89543 17 2 16.1046 2 15V13C2 11.8954 2.89543 11 4 11Z"
                     stroke="currentColor"
-                    strokeWidth="2.5"
+                    strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   <path
                     d="M6 17V19M18 17V19"
                     stroke="currentColor"
-                    strokeWidth="2.5"
+                    strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   <path
                     d="M7 11V7C7 5.89543 7.89543 5 9 5"
                     stroke="currentColor"
-                    strokeWidth="2.5"
+                    strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   <path
                     d="M8.5 4.5L10 6"
                     stroke="currentColor"
-                    strokeWidth="2.5"
+                    strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
@@ -276,7 +277,7 @@ function CardPropetie({
                     height="16"
                     rx="3"
                     stroke="currentColor"
-                    strokeWidth="2.5"
+                    strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />

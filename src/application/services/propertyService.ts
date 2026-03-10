@@ -6,6 +6,7 @@ import type {
 import type { Caracteristica } from "@domain/entities/Caracteristica";
 import { LIMITE_FOTOS } from "@domain/entities/FotoPropiedad";
 import { propertyApi } from "@infrastructure/api/properties.api";
+import type { PropertyFilters } from "@infrastructure/api/properties.api";
 import { caracteristicasApi } from "@infrastructure/api/caracteristicas.api";
 import { storageApi } from "@infrastructure/api/storage.api";
 import { supabase } from "@infrastructure/supabase/client";
@@ -16,6 +17,11 @@ export const propertyService = {
   /** Obtener todas las propiedades */
   getProperties: async (): Promise<Property[]> => {
     return await propertyApi.getAll();
+  },
+
+  /** Obtener propiedades con filtros dinámicos */
+  getFilteredProperties: async (filters: PropertyFilters): Promise<Property[]> => {
+    return await propertyApi.getFiltered(filters);
   },
 
   /** Obtener propiedad por ID */
@@ -58,6 +64,10 @@ export const propertyService = {
       throw new Error("El departamento es obligatorio.");
     if (!property.tipoOperacion)
       throw new Error("El tipo de operación es obligatorio.");
+    if (property.precio === undefined || property.precio === null || property.precio <= 0)
+      throw new Error("El precio debe ser un valor válido y mayor a 0.");
+    if (property.area === undefined || property.area === null || property.area <= 0)
+      throw new Error("El área debe ser un valor válido y mayor a 0.");
 
     const nueva = await propertyApi.create(property);
 
@@ -118,6 +128,10 @@ export const propertyService = {
   /** Crear propiedad sin características */
   createProperty: async (property: CreatePropertyInput): Promise<Property> => {
     if (!property.titulo?.trim()) throw new Error("El título es obligatorio.");
+    if (property.precio === undefined || property.precio === null || property.precio <= 0)
+      throw new Error("El precio debe ser un valor válido y mayor a 0.");
+    if (property.area === undefined || property.area === null || property.area <= 0)
+      throw new Error("El área debe ser un valor válido y mayor a 0.");
     return await propertyApi.create(property);
   },
 

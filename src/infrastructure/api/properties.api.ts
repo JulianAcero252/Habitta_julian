@@ -5,6 +5,21 @@ import type {
   UpdatePropertyInput,
 } from "@domain/entities/Property";
 
+export interface PropertyFilters {
+  searchTerm?: string;
+  tipoPropiedad?: string;
+  precioMin?: number;
+  precioMax?: number;
+  areaMin?: number;
+  areaMax?: number;
+  habitaciones?: number;
+  habitacionesExacta?: boolean; // false = 'o mas'
+  banos?: number;
+  banosExacta?: boolean;
+  estrato?: number;
+  sortBy?: "Relevancia" | "Mayor a menor precio" | "Menor a mayor precio";
+}
+
 /** API de propiedades — CRUD contra tabla `propiedades` */
 export const propertyApi = {
   /** Todas las propiedades, ordenadas por fecha (recientes primero) */
@@ -27,6 +42,77 @@ export const propertyApi = {
       const { fotospropiedad: _fotos, ...rest } = p;
       return { ...rest, fotoUrl: primeraFoto?.url ?? null } as Property;
     });
+  },
+
+  /** Todas las propiedades aplicando filtros dinámicos */
+  getFiltered: async (filters: PropertyFilters): Promise<Property[]> => {
+    let query = supabase
+      .from("propiedades")
+      .select(`*, fotospropiedad(url, orden)`);
+
+    // Only show active properties in search
+    query = query.eq("estadoPublicacion", "Activa");
+
+    if (filters.searchTerm) {
+      // Supabase text search
+      const term = `%${filters.searchTerm}%`;
+      query = query.or(`titulo.ilike.${term},descripcion.ilike.${term},direccion.ilike.${term},ciudad.ilike.${term},departamento.ilike.${term},barrio.ilike.${term}`);
+    }
+
+    if (filters.tipoPropiedad) {
+      // Usaremos comillas dobles enviando las strings literal a PostgREST para forzar el Case Sensitivity de la DB
+      query = query.eq('"tipoPropiedad"', filters.tipoPropiedad);
+    }
+    
+    if (filters.precioMin !== undefined) query = query.gte("precio", filters.precioMin);
+    if (filters.precioMax !== undefined) query = query.lte("precio", filters.precioMax);
+    if (filters.areaMin !== undefined) query = query.gte("area", filters.areaMin);
+    if (filters.areaMax !== undefined) query = query.lte("area", filters.areaMax);
+    
+    if (filters.habitaciones !== undefined) {
+      if (filters.habitacionesExacta) {
+        query = query.eq("habitaciones", filters.habitaciones);
+      } else {
+        query = query.gte("habitaciones", filters.habitaciones);
+      }
+    }
+
+    if (filters.banos !== undefined) {
+      if (filters.banosExacta) {
+        query = query.eq("banos", filters.banos);
+      } else {
+        query = query.gte("banos", filters.banos);
+      }
+    }
+
+    if (filters.estrato !== undefined) {
+      query = query.eq("estrato", filters.estrato);
+    }
+
+    // Ordenamiento por relevancia (por defecto) en BD
+    // Los ordenamientos por precio los haremos post-fetch para castear correctamente a Número.
+    query = query.order("fechacreacion", { ascending: false });
+
+    const { data, error } = await query;
+
+    if (error) throw new Error(error.message);
+
+    let formattedData = (data ?? []).map((p: Record<string, unknown>) => {
+      const fotos = (p.fotospropiedad as { url: string; orden: number }[]) || [];
+      const primeraFoto = fotos.sort((a, b) => (a.orden ?? 99) - (b.orden ?? 99))[0];
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { fotospropiedad: _fotos, ...rest } = p;
+      return { ...rest, fotoUrl: primeraFoto?.url ?? null } as Property;
+    });
+
+    // Ordenamiento Post-Fetch para asegurar cast Numérico real de JSONs
+    if (filters.sortBy === "Mayor a menor precio") {
+      formattedData = formattedData.sort((a, b) => Number(b.precio || 0) - Number(a.precio || 0));
+    } else if (filters.sortBy === "Menor a mayor precio") {
+      formattedData = formattedData.sort((a, b) => Number(a.precio || 0) - Number(b.precio || 0));
+    }
+
+    return formattedData;
   },
 
   /** Una propiedad por ID */
