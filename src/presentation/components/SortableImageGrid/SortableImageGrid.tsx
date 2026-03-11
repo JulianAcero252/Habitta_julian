@@ -76,9 +76,6 @@ function SortableMedia({
     opacity: isDragging ? 0.5 : 1,
     zIndex: isDragging ? 10 : 1,
   };
-
-  const isVideo = url.toLowerCase().includes(".mp4") || url.toLowerCase().includes("/video/");
-
   return (
     <div
       ref={setNodeRef}

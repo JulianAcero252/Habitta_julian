@@ -38,7 +38,6 @@ function RegisterPropertyPage() {
     setCoordenadas,
     // Video
     videoPreviews,
-    maxVideos,
     handleVideoChange,
     removeVideo,
   } = usePropertyForm(editId);
@@ -448,7 +447,7 @@ function RegisterPropertyPage() {
 
             {videoPreviews.length > 0 && (
               <div className="video-previews-grid">
-                {videoPreviews.map((url, idx) => (
+                {videoPreviews.map((url: string, idx: number) => (
                   <div key={url} className="video-preview-item">
                     <video src={url} controls style={{ width: "100%", borderRadius: "8px", maxHeight: "160px", objectFit: "contain", background: "#000" }} />
                     <button

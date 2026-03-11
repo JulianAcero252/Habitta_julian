@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { propertyService } from "@application/services/propertyService";
-import { usuariosApi } from "@infrastructure/api/usuarios.api";
 import type { Property } from "@domain/entities/Property";
 import type { Caracteristica } from "@domain/entities/Caracteristica";
-import type { Usuario } from "@domain/entities/Usuario";
 import { MapSelector } from "@presentation/components/MapSelector/MapSelector";
 import "./PropertyDetailsPage.css";
 
@@ -14,7 +12,6 @@ function PropertyDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [property, setProperty] = useState<Property | null>(null);
-  const [vendedor, setVendedor] = useState<Usuario | null>(null);
   const [caracteristicas, setCaracteristicas] = useState<Caracteristica[]>([]);
   const [fotos, setFotos] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,10 +58,6 @@ function PropertyDetailsPage() {
           setProperty(prop);
           setCaracteristicas(cars);
           setFotos(imgs);
-          // Cargar el perfil del vendedor (para leer su teléfono)
-          if (prop.idusuario) {
-            usuariosApi.getById(prop.idusuario).then(setVendedor).catch(() => {});
-          }
         }
       } catch (err) {
         setError(
@@ -611,6 +604,19 @@ function PropertyDetailsPage() {
       {/* Lightbox / Imagen Completa */}
       {showLightbox && (
         <div className="property-lightbox" onClick={() => setShowLightbox(false)}>
+          {/* Prev arrow */}
+          {fotos.length > 1 && (
+            <button
+              className="property-lightbox__nav property-lightbox__nav--prev"
+              onClick={(e) => { e.stopPropagation(); prevImg(); }}
+              aria-label="Anterior"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+          )}
+
           <div className="property-lightbox__content" onClick={(e) => e.stopPropagation()}>
             <button
               className="property-lightbox__close"
@@ -636,6 +642,19 @@ function PropertyDetailsPage() {
               />
             )}
           </div>
+
+          {/* Next arrow */}
+          {fotos.length > 1 && (
+            <button
+              className="property-lightbox__nav property-lightbox__nav--next"
+              onClick={(e) => { e.stopPropagation(); nextImg(); }}
+              aria-label="Siguiente"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          )}
         </div>
       )}
     </div>
