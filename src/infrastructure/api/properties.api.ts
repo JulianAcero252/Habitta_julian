@@ -5,6 +5,15 @@ import type {
   UpdatePropertyInput,
 } from "@domain/entities/Property";
 
+/* Maps a raw Supabase row (with joined fotospropiedad) to a Property with fotoUrl */
+function mapPropertyWithPhoto(row: Record<string, unknown>): Property {
+  const fotos = (row.fotospropiedad as { url: string; orden: number }[]) || [];
+  const firstPhoto = fotos.sort((a, b) => (a.orden ?? 99) - (b.orden ?? 99))[0];
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { fotospropiedad: _fotos, ...rest } = row;
+  return { ...rest, fotoUrl: firstPhoto?.url ?? null } as Property;
+}
+
 export interface PropertyFilters {
   searchTerm?: string;
   tipoPropiedad?: string;
@@ -33,18 +42,7 @@ export const propertyApi = {
       .order("fechacreacion", { ascending: false });
 
     if (error) throw new Error(error.message);
-
-    // Mapear: sacar la primera foto de cada propiedad
-    return (data ?? []).map((p: Record<string, unknown>) => {
-      const fotos =
-        (p.fotospropiedad as { url: string; orden: number }[]) || [];
-      const primeraFoto = fotos.sort(
-        (a, b) => (a.orden ?? 99) - (b.orden ?? 99),
-      )[0];
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { fotospropiedad: _fotos, ...rest } = p;
-      return { ...rest, fotoUrl: primeraFoto?.url ?? null } as Property;
-    });
+    return (data ?? []).map(mapPropertyWithPhoto);
   },
 
   /** Todas las propiedades aplicando filtros dinámicos */
@@ -100,13 +98,7 @@ export const propertyApi = {
 
     if (error) throw new Error(error.message);
 
-    let formattedData = (data ?? []).map((p: Record<string, unknown>) => {
-      const fotos = (p.fotospropiedad as { url: string; orden: number }[]) || [];
-      const primeraFoto = fotos.sort((a, b) => (a.orden ?? 99) - (b.orden ?? 99))[0];
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { fotospropiedad: _fotos, ...rest } = p;
-      return { ...rest, fotoUrl: primeraFoto?.url ?? null } as Property;
-    });
+    let formattedData = (data ?? []).map(mapPropertyWithPhoto);
 
     // Filtro post-fetch por características (AND lógico)
     if (filters.caracteristicas && filters.caracteristicas.length > 0) {
@@ -160,17 +152,7 @@ export const propertyApi = {
       .order("fechacreacion", { ascending: false });
 
     if (error) throw new Error(error.message);
-
-    return (data ?? []).map((p: Record<string, unknown>) => {
-      const fotos =
-        (p.fotospropiedad as { url: string; orden: number }[]) || [];
-      const primeraFoto = fotos.sort(
-        (a, b) => (a.orden ?? 99) - (b.orden ?? 99),
-      )[0];
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { fotospropiedad: _fotos, ...rest } = p;
-      return { ...rest, fotoUrl: primeraFoto?.url ?? null } as Property;
-    });
+    return (data ?? []).map(mapPropertyWithPhoto);
   },
 
   /** Crear propiedad — se publica como «activa» automáticamente (RF22) */

@@ -1,4 +1,4 @@
-/** FotoPropiedad — tabla `fotospropiedad` en Supabase */
+/* Property photo entity — maps to `fotospropiedad` table in Supabase */
 export interface FotoPropiedad {
   idfoto: number;
   idpropiedad: number;
@@ -7,20 +7,20 @@ export interface FotoPropiedad {
   fechasubida: string | null;
 }
 
-/** Crear foto — sin campo auto-generado */
+/* Input type for creating a new photo record */
 export type CreateFotoInput = Omit<FotoPropiedad, "idfoto" | "fechasubida">;
 
-/** Límite de fotos por tipo de cuenta */
-export const LIMITE_FOTOS = {
+/* Max photos per account plan */
+export const PHOTO_LIMIT = {
   free: 7,
   premium: 15,
 } as const;
 
-/** Límite de videos por tipo de cuenta */
-export const LIMITE_VIDEOS = {
+/* Max videos per account plan */
+export const VIDEO_LIMIT = {
   free: 1,
   premium: 3,
 } as const;
 
-/** Tipos MIME de video permitidos */
-export const TIPOS_VIDEO = ["video/mp4"] as const;
+/* Allowed video MIME types */
+export const VIDEO_TYPES = ["video/mp4"] as const;

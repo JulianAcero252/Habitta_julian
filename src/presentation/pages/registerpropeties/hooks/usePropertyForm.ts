@@ -4,7 +4,7 @@ import { useAuth } from "@application/context/AuthContext";
 import { propertyService } from "@application/services/propertyService";
 import type { CreatePropertyInput } from "@domain/entities/Property";
 import type { Caracteristica } from "@domain/entities/Caracteristica";
-import { LIMITE_FOTOS, LIMITE_VIDEOS, TIPOS_VIDEO } from "@domain/entities/FotoPropiedad";
+import { PHOTO_LIMIT, VIDEO_LIMIT, VIDEO_TYPES } from "@domain/entities/FotoPropiedad";
 
 /** Estado del formulario */
 interface FormState {
@@ -73,13 +73,13 @@ export function usePropertyForm(editId?: number) {
   const [imagenes, setImagenes] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const maxFotos =
-    usuario?.plan === "premium" ? LIMITE_FOTOS.premium : LIMITE_FOTOS.free;
+    usuario?.plan === "premium" ? PHOTO_LIMIT.premium : PHOTO_LIMIT.free;
 
   // Estado de videos (RF20)
   const [videoFiles, setVideoFiles] = useState<File[]>([]);
   const [videoPreviews, setVideoPreviews] = useState<string[]>([]);
   const maxVideos =
-    usuario?.plan === "premium" ? LIMITE_VIDEOS.premium : LIMITE_VIDEOS.free;
+    usuario?.plan === "premium" ? VIDEO_LIMIT.premium : VIDEO_LIMIT.free;
 
   // Modo edición
   const isEditMode = Boolean(editId);
@@ -242,8 +242,8 @@ export function usePropertyForm(editId?: number) {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
-    const invalidos = files.filter((f) => !TIPOS_VIDEO.includes(f.type as typeof TIPOS_VIDEO[number]));
-    if (invalidos.length > 0) {
+    const invalidFiles = files.filter((f) => !VIDEO_TYPES.includes(f.type as typeof VIDEO_TYPES[number]));
+    if (invalidFiles.length > 0) {
       setError("Solo se permiten videos en formato MP4.");
       return;
     }

@@ -4,7 +4,7 @@ import type {
   UpdatePropertyInput,
 } from "@domain/entities/Property";
 import type { Caracteristica } from "@domain/entities/Caracteristica";
-import { LIMITE_FOTOS } from "@domain/entities/FotoPropiedad";
+import { PHOTO_LIMIT } from "@domain/entities/FotoPropiedad";
 import { propertyApi } from "@infrastructure/api/properties.api";
 import type { PropertyFilters } from "@infrastructure/api/properties.api";
 import { caracteristicasApi } from "@infrastructure/api/caracteristicas.api";
@@ -101,7 +101,7 @@ export const propertyService = {
     plan: "gratuito" | "premium" = "gratuito",
   ): Promise<void> => {
     const limite =
-      plan === "premium" ? LIMITE_FOTOS.premium : LIMITE_FOTOS.free;
+      plan === "premium" ? PHOTO_LIMIT.premium : PHOTO_LIMIT.free;
     const archivos = files.slice(0, limite);
 
     for (let i = 0; i < archivos.length; i++) {
@@ -150,15 +150,6 @@ export const propertyService = {
     }
   },
 
-  /** Crear propiedad sin características */
-  createProperty: async (property: CreatePropertyInput): Promise<Property> => {
-    if (!property.titulo?.trim()) throw new Error("El título es obligatorio.");
-    if (property.precio === undefined || property.precio === null || property.precio <= 0)
-      throw new Error("El precio debe ser un valor válido y mayor a 0.");
-    if (property.area === undefined || property.area === null || property.area <= 0)
-      throw new Error("El área debe ser un valor válido y mayor a 0.");
-    return await propertyApi.create(property);
-  },
 
   /** Actualizar propiedad */
   updateProperty: async (
