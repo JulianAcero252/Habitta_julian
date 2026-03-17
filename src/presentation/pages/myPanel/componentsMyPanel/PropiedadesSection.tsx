@@ -123,8 +123,7 @@ const PropiedadesSection: React.FC = () => {
             { key: "todas", label: "Todas" },
             { key: "activa", label: "Activas" },
             { key: "pending_manual", label: "En Revisión" },
-            { key: "pausada", label: "Pausadas" },
-            { key: "archivada", label: "Archivadas" },
+            { key: "rechazada", label: "Rechazadas" },
           ].map((f) => (
             <button
               key={f.key}
@@ -222,7 +221,9 @@ const PropiedadesSection: React.FC = () => {
                 <span
                   className={`estado-badge estado-badge--${(propiedad.estadoPublicacion || "pendiente").toLowerCase() === "pending_manual" ? "pending_manual" : (propiedad.estadoPublicacion || "pendiente").toLowerCase()}`}
                 >
-                  {(propiedad.estadoPublicacion || "pendiente") === "pending_manual" ? "En revisión" : (propiedad.estadoPublicacion || "Pendiente")}
+                  {(propiedad.estadoPublicacion || "pendiente") === "pending_manual" 
+                    ? "En revisión" 
+                    : (propiedad.estadoPublicacion || "Pendiente")}
                 </span>
               </div>
 

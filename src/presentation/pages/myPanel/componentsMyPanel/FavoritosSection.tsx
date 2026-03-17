@@ -116,7 +116,7 @@ const FavoritosSection: React.FC = () => {
       {/* Tarjetas de favoritos */}
       {!isLoading && properties.length > 0 && (
         <div className="property-cards-grid" style={{ marginTop: "1rem" }}>
-          {properties.map((property) => (
+          {properties.slice(0, 4).map((property) => (
             <CardPropetie
               key={property.idpropiedad}
               property={property}

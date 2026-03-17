@@ -127,13 +127,15 @@ function PropertiesPage() {
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
               </button>
-              <LocationAutocomplete 
-                value={localFilters.searchTerm}
-                onChange={(val) => setLocalFilters({ ...localFilters, searchTerm: val })}
-                onSelect={handleApplyFilters}
-                onKeyDown={handleKeyDown}
-                placeholder="Escribe la ciudad, zona, barrio o palabras cla..."
-              />
+              <div style={{ flex: 1 }}>
+                <LocationAutocomplete 
+                  value={localFilters.searchTerm}
+                  onChange={(val) => setLocalFilters({ ...localFilters, searchTerm: val })}
+                  onSelect={handleApplyFilters}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Escribe la ciudad, zona, barrio o palabras cla..."
+                />
+              </div>
             </div>
 
             <div className="filter-dropdown-figma">
@@ -159,7 +161,7 @@ function PropertiesPage() {
             </div>
           </div>
 
-          {/* Fila 2: Orden y Limpieza */}
+          {/* Fila 2: Orden */}
           <div className="search-mid-row">
             <span className="sort-label-figma">Ordenar por:</span>
             <select
@@ -168,7 +170,6 @@ function PropertiesPage() {
               onChange={(e) => {
                 const newSort = e.target.value as any;
                 setLocalFilters({...localFilters, sortBy: newSort});
-                // setTimeout wrapper is not strictly needed if we just call updateFilters manually, but using apply avoids drift
                 setTimeout(() => updateFilters({ ...localFilters, sortBy: newSort }), 0);
               }}
             >
@@ -176,8 +177,6 @@ function PropertiesPage() {
               <option value="Mayor a menor precio">Mayor a menor precio</option>
               <option value="Menor a mayor precio">Menor a mayor precio</option>
             </select>
-            
-            <button className="clear-filters-figma" onClick={handleClearFilters}>Limpiar Filtros</button>
           </div>
 
           {/* Fila 3: Filtros Avanzados (Pills) */}
@@ -309,9 +308,12 @@ function PropertiesPage() {
               </div>
             )}
 
-            <button className="btn-apply-filters-inline" onClick={handleApplyFilters}>
-              Aplicar filtros
-            </button>
+            <div className="filter-actions-group">
+              <button className="btn-apply-filters-inline" onClick={handleApplyFilters}>
+                Aplicar filtros
+              </button>
+              <button className="clear-filters-figma-inline" onClick={handleClearFilters}>Limpiar Filtros</button>
+            </div>
           </div>
         </section>
 

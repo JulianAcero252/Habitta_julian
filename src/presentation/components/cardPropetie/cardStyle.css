@@ -153,7 +153,8 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  word-break: break-word;
+  overflow-wrap: break-word; /* Rompe solo si la palabra es demasiado larga */
+  word-break: normal; /* No parte palabras comunes a la mitad */
 }
 
 .property-card__location {

@@ -168,7 +168,9 @@ export const propertyService = {
       .from("propiedades_caracteristicas")
       .delete()
       .eq("idpropiedad", id);
-    // 3. Eliminar la propiedad en sí
+    // 3. Eliminar favoritos (Para evitar error de FK)
+    await supabase.from("favoritos").delete().eq("idpropiedad", id);
+    // 4. Eliminar la propiedad en sí
     return await propertyApi.delete(id);
   },
 

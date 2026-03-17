@@ -269,9 +269,10 @@ const PerfilSection: React.FC = () => {
               {loading ? "Guardando..." : "Guardar Cambios"}
             </button>
             <button
-              className="btn-text"
+              className="btn-outline-red"
               onClick={() => setIsEditing(false)}
               disabled={loading}
+              style={{ marginLeft: '12px' }}
             >
               Cancelar
             </button>
@@ -388,13 +389,7 @@ const PerfilSection: React.FC = () => {
                   }}
                   placeholder="Cuéntanos un poco sobre ti..."
                   maxLength={800}
-                  rows={4}
-                  style={{ 
-                    resize: "vertical", 
-                    maxHeight: "220px",
-                    minHeight: "120px",
-                    marginBottom: "8px" 
-                  }}
+                  rows={6}
                 />
                 <span style={{ fontSize: "0.78rem", color: "#aaa", display: "block", textAlign: "right", marginTop: "-6px" }}>
                   {(biografia || "").length}/800 caracteres

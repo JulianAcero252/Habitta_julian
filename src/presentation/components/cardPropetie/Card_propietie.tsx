@@ -83,6 +83,7 @@ function CardPropetie({
               <span
                 key={i}
                 className={`badge badge--${badge === "Destacada" ? "featured" : "type"}`}
+                style={{ textTransform: 'capitalize' }}
               >
                 {badge}
               </span>
@@ -196,10 +197,10 @@ function CardPropetie({
         </div>
       </div>
       <div className="property-card__body">
-        <h3 className="property-card__title">
+        <h3 className="property-card__title" style={{ textTransform: 'capitalize' }}>
           {property.titulo || "Sin título"}
         </h3>
-        <p className="property-card__location">
+        <p className="property-card__location" style={{ textTransform: 'capitalize' }}>
           {[property.ciudad, property.departamento]
             .filter(Boolean)
             .join(", ") || "Ubicación no especificada"}
@@ -207,7 +208,7 @@ function CardPropetie({
 
         {/* Contenido expandible en hover */}
         <div className="property-card__expandable">
-          <p className="property-card__type">
+          <p className="property-card__type" style={{ textTransform: 'capitalize' }}>
             {property.tipoPropiedad || "Tipo no especificado"}
           </p>
           <p className="property-card__price">{formatPrice(property.precio)}</p>
