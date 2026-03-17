@@ -2,6 +2,7 @@ import "./navbar.css";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@application/context/AuthContext";
+import { useNotificaciones } from "@application/hooks/useNotificaciones";
 import UserModal from "../userModal/UserModal";
 import ModalN from "../../pages/notification/Modal/ModalN";
 
@@ -18,6 +19,9 @@ function Navbar() {
 
   // Estado para controlar la visibilidad del modal de notificaciones
   const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+
+  // Contador de notificaciones no leídas (Realtime)
+  const { noLeidasCount } = useNotificaciones(usuario?.idusuario);
 
   /**
    * Alterna la visibilidad del modal de usuario
@@ -135,13 +139,36 @@ function Navbar() {
             <div
               id="notificationButton"
               onClick={toggleNotificationModal}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", position: "relative", display: "inline-flex" }}
             >
               <img
                 id="notificationIcon"
                 src={notificationIcon}
                 alt="Notificaciones"
               />
+              {/* Badge de no leídas */}
+              {noLeidasCount > 0 && (
+                <span style={{
+                  position: "absolute",
+                  top: "-6px",
+                  right: "-6px",
+                  background: "#e74c3c",
+                  color: "#fff",
+                  borderRadius: "50%",
+                  width: "18px",
+                  height: "18px",
+                  fontSize: "0.65rem",
+                  fontWeight: 700,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  lineHeight: 1,
+                  pointerEvents: "none",
+                  border: "2px solid #fff",
+                }}>
+                  {noLeidasCount > 9 ? "9+" : noLeidasCount}
+                </span>
+              )}
             </div>
             {/* Modal de Notificaciones */}
             <ModalN

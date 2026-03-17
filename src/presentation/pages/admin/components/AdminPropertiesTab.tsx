@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { propertyService } from "@application/services/propertyService";
 import type { Property } from "@domain/entities/Property";
 import { useToast } from "@application/context/ToastContext";
-// Supabase para poder hacer el join con los nombres de usuarios
+import { notificacionesApi } from "@infrastructure/api/notificaciones.api";
 import { supabase } from "@infrastructure/supabase/client";
 
 // Tipo extendido para la tabla de Admin
@@ -58,12 +58,29 @@ function AdminPropertiesTab() {
   }, []);
 
   const handleUpdateStatus = async (id: number, status: "activa" | "rechazada") => {
+    const prop = properties.find((p) => p.idpropiedad === id);
     if (!window.confirm(`¿Estás seguro de que quieres ${status === "activa" ? "aprobar" : "rechazar"} esta propiedad?`)) return;
 
     try {
       await propertyService.updateProperty(id, { estadoPublicacion: status });
       showToast(`Propiedad ${status === "activa" ? "aprobada" : "rechazada"} con éxito`, "success");
       setProperties((prev) => prev.filter((p) => p.idpropiedad !== id));
+
+      // Notificar al dueño de la propiedad
+      if (prop?.idusuario) {
+        const titulo = status === "activa"
+          ? `Tu propiedad "${prop.titulo || 'Sin título'}" fue aprobada`
+          : `Tu propiedad "${prop.titulo || 'Sin título'}" fue rechazada`;
+        const descripcion = status === "activa"
+          ? "Tu publicación ya es visible para todos los usuarios en Habitta."
+          : "Tu publicación no cumple los criterios de publicación. Puedes editarla y volver a enviarla.";
+        await notificacionesApi.crear(
+          prop.idusuario,
+          titulo,
+          "estado_propiedad",
+          descripcion
+        );
+      }
     } catch (err: any) {
       showToast(err.message || "Error al actualizar la propiedad", "error");
     }
