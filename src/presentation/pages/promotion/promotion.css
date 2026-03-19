@@ -1,165 +1,289 @@
-/* Contenedor Principal */
+/* ── Variables ───────────────────────────────────────────── */
+:root {
+  --promo-teal: #35d2db;
+  --promo-teal-dark: #1fb8c0;
+  --promo-orange: #f08248;
+  --promo-bg: #f5f7fa;
+  --promo-card-bg: #ffffff;
+  --promo-text: #1a2a35;
+  --promo-muted: #6b7684;
+  --promo-border: #e4e8ec;
+}
+
+/* ── Página completa ────────────────────────────────────── */
 .promotion-container {
-  text-align: center;
-  padding: 2rem;
-  font-family: sans-serif;
-}
-
-/* Título */
-.promotion-title {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Subtítulo */
-.promotion-subtitle {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 2rem;
-}
-
-/* Contenedor de Tarjetas */
-.promotion-cards {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-/* Estilo de Tarjeta */
-.promotion-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  width: 280px;
-  text-align: center;
-}
-
-.promotion-card h2 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-  color: #1a1a1a;
-}
-
-.plan-icon-container {
-  width: 110px;
-  height: 110px;
-  background-color: #E6F9F8;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.8rem auto;
-  box-shadow: 0 12px 35px rgba(0, 213, 185, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 20px;
-}
-
-.plan-icon {
-  color: #00d5b9;
-}
-
-/* Subtítulo de Tarjeta */
-.card-subtitle {
-  font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 1.2rem;
-  margin-top: 0;
-  line-height: 1.4;
-}
-
-
-/* Precio */
-.price {
-  font-weight: bold;
-  font-size: 2.2rem;
-  margin: 0.6rem 0 0.1rem 0;
-  color: #333;
-  line-height: 1;
-}
-
-.price-label {
-  font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 1.5rem;
-  margin-top: 0;
-}
-
-/* Lista de Características */
-.feature-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.8rem 0;
+  min-height: 90vh;
+  background: var(--promo-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 56px 24px 80px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  box-sizing: border-box;
+}
+
+.promotion-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--promo-teal);
+  margin-bottom: 12px;
+}
+
+.promotion-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--promo-text);
+  margin: 0 0 12px;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.promotion-subtitle {
+  font-size: 1.05rem;
+  color: var(--promo-muted);
+  margin-bottom: 52px;
+  text-align: center;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* ── Grid de tarjetas ───────────────────────────────────── */
+.promotion-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 860px;
+  width: 100%;
+}
+
+/* ── Tarjeta base ───────────────────────────────────────── */
+.promotion-card {
+  background: var(--promo-card-bg);
+  border-radius: 20px;
+  padding: 36px 32px;
+  border: 1.5px solid var(--promo-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+
+.promotion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.09);
+}
+
+/* ── Card premium destacada ─────────────────────────────── */
+.promotion-card.featured {
+  border-color: var(--promo-teal);
+  box-shadow: 0 4px 28px rgba(53, 210, 219, 0.18);
+}
+
+.promotion-card.featured:hover {
+  box-shadow: 0 12px 40px rgba(53, 210, 219, 0.28);
+}
+
+/* ── Badge "Popular" ────────────────────────────────────── */
+.promo-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(53, 210, 219, 0.12);
+  color: var(--promo-teal-dark);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(53, 210, 219, 0.3);
+}
+
+/* ── Plan name & icon ───────────────────────────────────── */
+.plan-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.plan-icon-container {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #f0fbfc;
+}
+
+.plan-icon-container.premium {
+  background: rgba(53, 210, 219, 0.1);
+}
+
+.promotion-card h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--promo-text);
+  margin: 0;
+}
+
+.card-subtitle {
+  font-size: 0.88rem;
+  color: var(--promo-muted);
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+/* ── Precio ─────────────────────────────────────────────── */
+.price-block {
+  margin-bottom: 28px;
+}
+
+.price {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--promo-text);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.price sup {
+  font-size: 1.1rem;
+  font-weight: 700;
+  vertical-align: top;
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.price-label {
+  font-size: 0.83rem;
+  color: var(--promo-muted);
+  margin: 6px 0 0;
+}
+
+/* ── Divisor ────────────────────────────────────────────── */
+.promo-divider {
+  border: none;
+  border-top: 1px solid var(--promo-border);
+  margin: 0 0 24px;
+}
+
+.features-heading {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--promo-muted);
+  margin: 0 0 16px;
+}
+
+/* ── Lista de características ───────────────────────────── */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  flex: 1;
 }
 
 .feature-list li {
   display: flex;
   align-items: flex-start;
-  gap: 0.8rem;
-  margin-bottom: 0.8rem;
-  font-size: 0.95rem;
-  font-weight: 500;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.4;
+}
+
+/* Checkmark ✓ */
+.feat-check {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
-/* Icono de Chequeo */
-
-.check {
-  font-weight: bold;
-  color: #87ceeb;
+.feat-check.yes {
+  background: rgba(53, 210, 219, 0.15);
+  color: var(--promo-teal-dark);
 }
 
-/* Variantes */
-.check.basic {
-  color: #87ceeb;
+.feat-check.no {
+  background: #f3f4f6;
+  color: #9ca3af;
 }
 
-.check.featured {
-  color: #87ceeb;
+.feat-label {
+  flex: 1;
 }
 
-/* Variantes */
-.check.basic {
-  color: #87ceeb;
+.feat-value {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--promo-teal-dark);
+  white-space: nowrap;
 }
 
-.check.featured {
-  color: #87ceeb;
+.feat-check.no + .feat-label {
+  color: var(--promo-muted);
 }
 
-/* Botones de Selección */
+/* ── Botones ─────────────────────────────────────────────── */
 .select-button {
   border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 600;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
   width: 100%;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  letter-spacing: 0.2px;
 }
 
-/* Botón Naranja */
-.select-button.orange {
-  background-color: #ff7043;
-  color: white;
+.select-button.free {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1.5px solid var(--promo-border);
 }
 
-.select-button.orange:hover {
-  background-color: #f44336;
+.select-button.free:hover {
+  background: #e9ebee;
 }
 
-/* Botón Turquesa */
-.select-button.teal {
-  background-color: #00bfa5;
-  color: white;
+.select-button.premium-btn {
+  background: linear-gradient(135deg, var(--promo-teal), var(--promo-teal-dark));
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(53, 210, 219, 0.35);
 }
 
-.select-button.teal:hover {
-  background-color: #009688;
+.select-button.premium-btn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 10px 28px rgba(53, 210, 219, 0.45);
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .promotion-cards {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+
+  .promotion-title {
+    font-size: 1.8rem;
+  }
 }
