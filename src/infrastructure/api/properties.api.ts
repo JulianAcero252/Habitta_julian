@@ -166,6 +166,13 @@ export const propertyApi = {
       formattedData = formattedData.sort((a, b) => Number(a.precio || 0) - Number(b.precio || 0));
     }
 
+    // Ordenamiento final definitivo: ¡Las propiedades destacadas siempre deben ir primero!
+    formattedData = formattedData.sort((a, b) => {
+      const aFeatured = a.estadoPublicacion === "destacada" ? 1 : 0;
+      const bFeatured = b.estadoPublicacion === "destacada" ? 1 : 0;
+      return bFeatured - aFeatured; // Si b es destacada(1) y a no(0), b va primero (resultado > 0)
+    });
+
     return formattedData;
   },
 
@@ -192,6 +199,18 @@ export const propertyApi = {
 
     if (error) throw new Error(error.message);
     return (data ?? []).map(mapPropertyWithPhoto);
+  },
+
+  /** Contar propiedades activas o en revisión de un usuario (para límites) */
+  countActivasByUsuario: async (idusuario: number): Promise<number> => {
+    const { count, error } = await supabase
+      .from("propiedades")
+      .select("*", { count: "exact", head: true })
+      .eq("idusuario", idusuario)
+      .in("estadoPublicacion", ["activa", "destacada", "pending_manual"]);
+
+    if (error) throw new Error(error.message);
+    return count ?? 0;
   },
 
   /** Obtener propiedades en revisión (pending_manual) para administradores */

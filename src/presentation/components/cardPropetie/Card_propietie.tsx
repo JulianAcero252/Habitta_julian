@@ -47,8 +47,13 @@ function CardPropetie({
 
   return (
     <div className="property-card">
+<<<<<<< Updated upstream
+      {/* Listón de Destacada (Premium Obligatorio) - Efecto 3D */}
+      {(property.estadoPublicacion === "destacada" && property.ownerPlan === "premium") && (
+=======
       {/* Listón de Destacada (Premium o Manual) - Efecto 3D */}
-      {(property.ownerPlan === "premium" || property.estadoPublicacion === "destacada") && (
+      {property.estadoPublicacion === "destacada" && (
+>>>>>>> Stashed changes
         <div className="premium-ribbon">
           <span>Destacada</span>
         </div>

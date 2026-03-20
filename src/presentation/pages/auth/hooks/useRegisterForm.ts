@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@application/context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { authApi } from "@infrastructure/api/auth.api";
 
 /** Hook del formulario de registro — validaciones frontend + signUp */
@@ -13,6 +12,10 @@ export function useRegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Modal promocional pos-registro
+  const [showPromoModal, setShowPromoModal] = useState(false);
+  const [registeredUserId, setRegisteredUserId] = useState<string | null>(null);
 
   // Validación de contraseña en tiempo real
   const passwordValidation = {
@@ -50,7 +53,6 @@ export function useRegisterForm() {
   const [checkingEmail, setCheckingEmail] = useState(false);
 
   const { signUp } = useAuth();
-  const navigate = useNavigate();
 
   // RF02 — Lógica de validación con debounce (500ms)
   useEffect(() => {
@@ -101,12 +103,18 @@ export function useRegisterForm() {
     try {
       const result = await signUp(email, password, fullName, phone);
 
+      // Guardamos el ID del usuario recién creado
+      if (result.userId) {
+        setRegisteredUserId(result.userId);
+      }
+
+      // Mostrar el modal siempre al registrarse con éxito
+      setShowPromoModal(true);
+
       if (result.needsConfirmation) {
         setSuccessMessage(
-          "¡Cuenta creada! Revisa tu correo para confirmar tu cuenta.",
+          "Revisa tu correo para confirmar tu cuenta y empezar a disfrutar de Habitta.",
         );
-      } else {
-        navigate("/");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error al registrarse.");
@@ -139,5 +147,8 @@ export function useRegisterForm() {
     passwordValidation,
     isPasswordValid,
     passwordsMatch,
+    showPromoModal,
+    setShowPromoModal,
+    registeredUserId,
   };
 }

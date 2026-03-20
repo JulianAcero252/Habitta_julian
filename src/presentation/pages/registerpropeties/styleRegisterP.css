@@ -406,3 +406,58 @@ button:disabled {
   align-items: center;
   justify-content: center;
 }
+
+/* Drag and Drop Zone */
+.dropzone-container {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  background-color: #f8fafc;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.dropzone-container:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.dropzone-container.dragging {
+  border-color: #35d2db;
+  background-color: #e0fcfd;
+}
+
+.dropzone-container.video-dropzone.dragging {
+  border-color: #10b981;
+  background-color: #d1fae5;
+}
+
+.dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #64748b;
+}
+
+.dropzone-content p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #334155;
+}
+
+.dropzone-icon {
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.dropzone-subtext {
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  color: #64748b !important;
+}

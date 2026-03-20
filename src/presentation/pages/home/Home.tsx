@@ -3,7 +3,7 @@ import CardPropetie from "../../components/cardPropetie/Card_propietie";
 import { useProperties } from "@application/hooks/useProperties";
 import { useFavorites } from "@application/hooks/useFavorites";
 import { useAuth } from "@application/context/AuthContext";
-import { useBusquedas } from "@application/hooks/useBusquedas";
+
 import { LocationAutocomplete } from "../../components/LocationAutocomplete/LocationAutocomplete";
 import "./home.css";
 import { Link, useNavigate, Navigate } from "react-router-dom";
@@ -28,7 +28,6 @@ function Home() {
   const { properties, loading: loadingProperties } = useProperties();
   const { usuario, loading: loadingAuth } = useAuth();
   const { isFavorito, toggleFavorito } = useFavorites();
-  const { busquedas } = useBusquedas(usuario?.idusuario?.toString());
   const navigate = useNavigate();
 
   // Estados para el buscador
@@ -44,10 +43,6 @@ function Home() {
     if (tipoPropiedad) params.append("tipoPropiedad", tipoPropiedad);
     if (ubicacion) params.append("searchTerm", ubicacion);
     navigate(`/properties?${params.toString()}`);
-  };
-
-  const handleQuickSearch = (keyword: string) => {
-    navigate(`/properties?searchTerm=${encodeURIComponent(keyword)}`);
   };
 
   // Estado de rotación de imágenes
@@ -158,29 +153,6 @@ function Home() {
                 </button>
               </div>
 
-              {/* Búsquedas Populares o de Usuario */}
-              <div className="popular-searches">
-                <span className="label">
-                  {usuario ? "Tus Búsquedas Recientes:" : "Búsquedas Populares:"}
-                </span>
-                <div className="tags">
-                  {!usuario && (
-                    <>
-                      <button onClick={() => handleQuickSearch("Apartamentos en Bogotá")}>Apartamentos en Bogotá</button>
-                      <button onClick={() => handleQuickSearch("Casas en Medellín")}>Casas en Medellín</button>
-                      <button onClick={() => handleQuickSearch("Oficinas Santiago")}>Oficinas Santiago</button>
-                    </>
-                  )}
-                  {usuario && busquedas.length === 0 && (
-                    <span style={{color: "#aaa", fontSize: "0.85rem"}}>No tienes búsquedas guardadas.</span>
-                  )}
-                  {usuario && busquedas.map((b) => (
-                    <button key={b.id} onClick={() => handleQuickSearch(b.titulo)}>
-                      {b.titulo}
-                    </button>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* Estadísticas Rápidas */}

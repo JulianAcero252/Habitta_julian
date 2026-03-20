@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import "./styleRegisterP.css";
 import { usePropertyForm } from "./hooks/usePropertyForm";
@@ -6,6 +6,7 @@ import { useWarnIfUnsavedChanges } from "@application/hooks/useWarnIfUnsavedChan
 import { useToast } from "@application/context/ToastContext";
 import SortableImageGrid from "@presentation/components/SortableImageGrid/SortableImageGrid";
 import { MapSelector } from "@presentation/components/MapSelector/MapSelector";
+import PremiumPromoModal from "@presentation/components/premiumPromoModal/PremiumPromoModal";
 
 // Página de Registro / Edición de Propiedades
 function RegisterPropertyPage() {
@@ -42,6 +43,10 @@ function RegisterPropertyPage() {
     videoPreviews,
     handleVideoChange,
     removeVideo,
+    // Premium Limits
+    showLimitModal,
+    setShowLimitModal,
+    hasReachedFreeLimit = false,
   } = usePropertyForm(editId);
 
   // Construir videoFlags para SortableImageGrid: indica cuáles URLs son videos
@@ -57,6 +62,46 @@ function RegisterPropertyPage() {
     return url.includes(".mp4") || url.includes("video/");
   });
 
+  // Estados visuales para Drag and Drop
+  const [isThumbDragging, setIsThumbDragging] = useState(false);
+  const [isVideoDragging, setIsVideoDragging] = useState(false);
+
+  // Funciones Drop Imágenes
+  const handleThumbDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsThumbDragging(true);
+  };
+  const handleThumbDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsThumbDragging(false);
+  };
+  const handleThumbDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsThumbDragging(false);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      // Reutiliza handleImageChange pasando un falso evento
+      const fakeEvent = { target: { files: e.dataTransfer.files } } as unknown as React.ChangeEvent<HTMLInputElement>;
+      handleImageChange(fakeEvent);
+    }
+  };
+
+  // Funciones Drop Videos
+  const handleVideoDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsVideoDragging(true);
+  };
+  const handleVideoDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsVideoDragging(false);
+  };
+  const handleVideoDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsVideoDragging(false);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const fakeEvent = { target: { files: e.dataTransfer.files } } as unknown as React.ChangeEvent<HTMLInputElement>;
+      handleVideoChange(fakeEvent);
+    }
+  };
 
   const { showToast } = useToast();
 
@@ -415,9 +460,23 @@ function RegisterPropertyPage() {
             <h4>Fotos de la Propiedad</h4>
             <p>Sube al menos 3 fotos (máx {maxFotos}). Formatos: JPG, PNG, WebP · máx 5MB.</p>
 
-            <label htmlFor="fileInput" className="foto-upload-btn">
-              📷 Seleccionar fotos ({previews.length}/{maxFotos})
-            </label>
+            {/* Dropzone Fotos */}
+            <div 
+              className={`dropzone-container ${isThumbDragging ? 'dragging' : ''}`}
+              onDragOver={handleThumbDragOver}
+              onDragLeave={handleThumbDragLeave}
+              onDrop={handleThumbDrop}
+              onClick={() => document.getElementById('fileInput')?.click()}
+            >
+              <div className="dropzone-content">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="dropzone-icon">
+                  <path d="M12 16V4M12 4L8 8M12 4L16 8M4 20H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <p>Click para seleccionar imágenes</p>
+                <p className="dropzone-subtext">o arrastra tus archivos aquí ({previews.length}/{maxFotos})</p>
+              </div>
+            </div>
+
             <input
               id="fileInput"
               type="file"
@@ -440,9 +499,23 @@ function RegisterPropertyPage() {
             <h4>Videos de la Propiedad</h4>
             <p>Sube hasta <strong>{maxVideos}</strong> video(s) MP4 (máx 50MB c/u). Los videos nunca serán la portada.</p>
 
-            <label htmlFor="videoInput" className="foto-upload-btn" style={{ background: "#10b981" }}>
-              🎬 Seleccionar videos ({videoPreviews.length}/{maxVideos})
-            </label>
+            {/* Dropzone Videos */}
+            <div 
+              className={`dropzone-container video-dropzone ${isVideoDragging ? 'dragging' : ''}`}
+              onDragOver={handleVideoDragOver}
+              onDragLeave={handleVideoDragLeave}
+              onDrop={handleVideoDrop}
+              onClick={() => document.getElementById('videoInput')?.click()}
+            >
+              <div className="dropzone-content">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="dropzone-icon">
+                  <path d="M15 10L19 7V17L15 14V17H5V7H15V10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <p>Click para seleccionar videos</p>
+                <p className="dropzone-subtext">o arrastra tus archivos aquí ({videoPreviews.length}/{maxVideos})</p>
+              </div>
+            </div>
+
             <input
               id="videoInput"
               type="file"
@@ -518,6 +591,20 @@ function RegisterPropertyPage() {
           </div>
         </form>
       </div>
+
+      {/* Modal Promocional pos-límite */}
+      <PremiumPromoModal
+        isOpen={showLimitModal}
+        onClose={() => {
+          setShowLimitModal(false);
+          if (hasReachedFreeLimit && !isEditMode) {
+            window.history.back(); // Obligar a salir si alcanzó el límite
+          }
+        }}
+        title="¡Haz alcanzado el límite gratuito!"
+        subtitle="Los usuarios del plan Gratis solo pueden tener 3 propiedades activas simultáneamente. ¡Obtén Premium para publicar ilimitado!"
+        fromAction="limit_reached"
+      />
     </>
   );
 }

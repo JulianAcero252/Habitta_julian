@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useRegisterForm } from "./hooks/useRegisterForm";
 import { useToast } from "@application/context/ToastContext";
 import { useWarnIfUnsavedChanges } from "@application/hooks/useWarnIfUnsavedChanges";
+import PremiumPromoModal from "@presentation/components/premiumPromoModal/PremiumPromoModal";
 import "./Register.css";
 
 // Componente de Formulario de Registro
@@ -27,6 +28,8 @@ function Register() {
     successMessage,
     emailDisponible,
     checkingEmail,
+    showPromoModal,
+    setShowPromoModal,
     passwordValidation,
     passwordsMatch,
   } = useRegisterForm();
@@ -194,6 +197,15 @@ function Register() {
       <button type="submit" className="submit-button" disabled={loading}>
         {loading ? "Creando cuenta..." : "Crear Cuenta"}
       </button>
+
+      {/* Modal Promocional pos-registro */}
+      <PremiumPromoModal
+        isOpen={showPromoModal}
+        onClose={() => setShowPromoModal(false)}
+        title="¡Bienvenido a Habitta!"
+        subtitle="Antes de continuar, elige cómo quieres destacar tus propiedades."
+        fromAction="register"
+      />
     </form>
   );
 }

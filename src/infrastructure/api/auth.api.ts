@@ -44,6 +44,7 @@ function traducirError(msg: string): string {
 /** Resultado de registro */
 export interface SignUpResult {
   needsConfirmation: boolean;
+  userId?: string;
 }
 
 /**
@@ -76,7 +77,10 @@ export const authApi = {
     const tieneSession = data.session !== null;
     if (tieneSession) await crearRegistroUsuario(email, nombre, telefono);
 
-    return { needsConfirmation: !tieneSession };
+    return { 
+      needsConfirmation: !tieneSession,
+      userId: data.user.id
+    };
   },
 
   /** Iniciar sesión — crea perfil en `usuarios` si es primer login */
