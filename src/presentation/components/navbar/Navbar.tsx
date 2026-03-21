@@ -187,6 +187,7 @@ function Navbar() {
                 <UserModal isOpen={isUserModalOpen} onClose={closeUserModal} />
               </div>
             </div>
+          ) : (
             <Link to="/auth" className="navbar__login-btn" style={{ whiteSpace: "nowrap" }}>
               Iniciar Sesión
             </Link>
