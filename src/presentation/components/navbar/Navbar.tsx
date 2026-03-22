@@ -46,7 +46,7 @@ function Navbar() {
             <Link to={usuario?.rol === "admin" ? "/admin" : "/"}>
               <div className="navbar__logo-container">
                 <img
-                  src="/images/logo_mobile.png"
+                  src="/images/logoSF.png"
                   alt="Logo Habitta"
                   className="navbar__logo-img"
                 />

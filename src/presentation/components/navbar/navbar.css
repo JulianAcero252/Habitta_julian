@@ -41,23 +41,22 @@
 .navbar__logo-container {
   display: flex;
   align-items: center;
-  gap: 12px;
   cursor: pointer;
 }
 
 .navbar__logo-img {
-  max-width: 25%;
-  max-height: 80%;
-  width: auto;
-  height: auto;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
+  flex-shrink: 0;
+  display: block;
 }
 
 .navbar__logo-text {
   font-family: "Bolt", sans-serif;
   font-size: 1.6rem;
   font-weight: 800;
-  color: #35d2db;
+  color: #111827;
   letter-spacing: -0.5px;
   display: block;
 }
@@ -375,7 +374,8 @@
   }
 
   .navbar__logo-img {
-    max-width: min(45px, 8vw);
+    width: 60px;
+    height: 60px;
   }
 
   .navbar__links {
@@ -421,7 +421,8 @@
   }
 
   .navbar__logo-img {
-    max-width: 40px;
+    width: 40px;
+    height: 40px;
   }
 
   .navbar__logo-text {
@@ -487,7 +488,8 @@
   }
 
   .navbar__logo-img {
-    max-width: 36px;
+    width: 36px;
+    height: 36px;
   }
 
   .navbar__actions {
@@ -513,7 +515,8 @@
   }
 
   .navbar__logo-img {
-    max-width: 30px;
+    width: 32px;
+    height: 32px;
   }
 
   .navbar__hamburger {

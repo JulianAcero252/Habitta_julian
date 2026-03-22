@@ -188,7 +188,7 @@ span.text-primary {
 /* Filas de Entrada */
 .search-inputs {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 16px;
 }
 
@@ -228,7 +228,7 @@ span.text-primary {
 }
 
 .input-group select:hover {
-  color: var(--primary);
+  color: var(--text-dark);
   opacity: 0.9;
 }
 

@@ -8,6 +8,7 @@ import {
 // import logoHabitta from "../../assets/images/logoCF.png";
 const logoHabitta = "/images/logoCF.png";
 
+
 // Footer Component
 function Footer() {
   return (
