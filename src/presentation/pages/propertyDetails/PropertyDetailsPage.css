@@ -618,4 +618,25 @@
     box-sizing: border-box;
     word-break: break-word;
   }
+
+  /* Ajustes a botones en móvil */
+  .property-details-contact-buttons {
+    gap: 4px;
+  }
+  
+  .property-details-info-whatsapp-btn,
+  .property-details-info-call-btn,
+  .property-details-info-msg-btn {
+    font-size: 0.75rem;
+    padding: 10px 4px;
+    white-space: nowrap;
+    gap: 4px;
+  }
+
+  .property-details-info-whatsapp-btn svg,
+  .property-details-info-call-btn svg,
+  .property-details-info-msg-btn svg {
+    width: 16px;
+    height: 16px;
+  }
 }
