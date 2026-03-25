@@ -30,6 +30,8 @@ const PropertyDetailsPage = lazy(() => import("@presentation/pages/propertyDetai
 const Mypanel = lazy(() => import("@presentation/pages/myPanel/MyPanel"));
 const NotificationPage = lazy(() => import("@presentation/pages/notification/NotificationPage/Notification"));
 const AdminPage = lazy(() => import("@presentation/pages/admin/AdminPage"));
+const TermsPage = lazy(() => import("@presentation/pages/legal/TermsPage"));
+const PrivacyPage = lazy(() => import("@presentation/pages/legal/PrivacyPage"));
 const ErrorPage = lazy(() => import("@presentation/components/error/ErrorPage"));
 
 const PageLoader = () => (
@@ -65,6 +67,10 @@ const router = createBrowserRouter(
       <Route element={<AdminRoute />}>
         <Route path="admin" element={<Suspense fallback={<PageLoader />}><AdminPage /></Suspense>} />
       </Route>
+
+      {/* Páginas Legales */}
+      <Route path="terms" element={<Suspense fallback={<PageLoader />}><TermsPage /></Suspense>} />
+      <Route path="privacy" element={<Suspense fallback={<PageLoader />}><PrivacyPage /></Suspense>} />
 
       <Route path="*" element={<Suspense fallback={<PageLoader />}><ErrorPage code={404} /></Suspense>} />
     </Route>

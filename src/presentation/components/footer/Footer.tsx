@@ -1,4 +1,5 @@
 import "./footer.css";
+import { Link } from "react-router-dom";
 import {
   footerSections,
   countries,
@@ -98,13 +99,13 @@ function Footer() {
         </div>
 
         <div className="footer__legal">
-          <a href="#" className="footer__legal-link">
+          <Link to="/privacy" className="footer__legal-link">
             Política de privacidad
-          </a>
+          </Link>
           <span className="footer__legal-separator">|</span>
-          <a href="#" className="footer__legal-link">
+          <Link to="/terms" className="footer__legal-link">
             Términos de uso
-          </a>
+          </Link>
           <span className="footer__legal-separator">|</span>
           <a href="#" className="footer__legal-link">
             Cookies

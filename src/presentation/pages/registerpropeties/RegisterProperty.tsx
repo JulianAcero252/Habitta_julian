@@ -569,6 +569,10 @@ function RegisterPropertyPage() {
           </div>
 
           <br />
+          
+          <p style={{ fontSize: "0.85rem", color: "#666", textAlign: "center", marginBottom: "1rem" }}>
+            Al hacer clic en el botón de abajo, usted confirma que ha leído y acepta nuestros <a href="/terms" target="_blank" rel="noopener noreferrer" style={{ color: "#35d2db", textDecoration: "underline" }}>Términos y Condiciones</a> y nuestra <a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "#35d2db", textDecoration: "underline" }}>Política de Privacidad</a>.
+          </p>
 
           {/* Botones de Acción */}
           <div className="card-actions">
