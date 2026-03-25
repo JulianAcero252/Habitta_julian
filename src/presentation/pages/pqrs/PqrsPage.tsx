@@ -249,8 +249,8 @@ const PqrsPage: React.FC = () => {
               />
               <span className="checkbox-custom"></span>
               <div className="terms-text">
-                He leído y autorizo el tratamiento de mis datos personales de acuerdo con la <strong>Política de Datos Personales</strong> y la <strong>Política de Datos de Navegación/Cookies</strong>.<br/>
-                He leído y acepto los <strong>Términos y Condiciones</strong> del portal.
+                He leído y autorizo el tratamiento de mis datos personales de acuerdo con la <strong><a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>Política de Privacidad y Tratamiento de Datos</a></strong> y la <strong><a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>Política de Datos de Navegación/Cookies</a></strong>.<br/>
+                He leído y acepto los <strong><a href="/terms" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>Términos y Condiciones de Uso</a></strong> del portal.
               </div>
             </label>
           </div>

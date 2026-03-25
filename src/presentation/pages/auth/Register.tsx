@@ -193,6 +193,21 @@ function Register() {
         )}
       </div>
 
+      {/* Términos y Condiciones */}
+      <div className="form-group terms-checkbox-group" style={{ marginBottom: "1.5rem" }}>
+        <label className="checkbox-label" style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
+          <input 
+            type="checkbox" 
+            required
+            disabled={loading}
+            style={{ marginTop: "4px", accentColor: "#35d2db", width: "18px", height: "18px", flexShrink: 0, cursor: 'pointer' }}
+          />
+          <span style={{ fontSize: '0.85rem', color: '#666', lineHeight: '1.4' }}>
+            He leído y acepto los <a href="/terms" target="_blank" rel="noopener noreferrer" style={{ color: "#35d2db", textDecoration: "underline", fontWeight: "600" }}>Términos de uso</a> y la <a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "#35d2db", textDecoration: "underline", fontWeight: "600" }}>Política de privacidad</a>.
+          </span>
+        </label>
+      </div>
+
       {/* Botón de Envío */}
       <button type="submit" className="submit-button" disabled={loading}>
         {loading ? "Creando cuenta..." : "Crear Cuenta"}

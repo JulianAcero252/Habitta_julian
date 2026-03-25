@@ -101,7 +101,8 @@ function ToolsPage() {
             <input
               type="number"
               value={monthlyIncome}
-              onChange={(e) => setMonthlyIncome(e.target.value === "" ? "" : Number(e.target.value))}
+              min="0"
+              onChange={(e) => setMonthlyIncome(e.target.value === "" ? "" : Math.max(0, Number(e.target.value)))}
               placeholder="0"
             />
           </div>
@@ -111,7 +112,8 @@ function ToolsPage() {
             <input
               type="number"
               value={fixedExpenses}
-              onChange={(e) => setFixedExpenses(e.target.value === "" ? "" : Number(e.target.value))}
+              min="0"
+              onChange={(e) => setFixedExpenses(e.target.value === "" ? "" : Math.max(0, Number(e.target.value)))}
               placeholder="0"
             />
           </div>

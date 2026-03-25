@@ -155,7 +155,6 @@ function RegisterPropertyPage() {
               : "Datos Principales de la Propiedad"}
           </p>
 
-          <br />
 
           {/* Información Básica */}
           <div className="card">
@@ -189,7 +188,6 @@ function RegisterPropertyPage() {
             <div>
               {/* Tipo de Propiedad */}
               <label htmlFor="tipoPropiedad">Tipo de propiedad</label>
-              <br />
               <select
                 id="tipoPropiedad"
                 name="tipoPropiedad"
@@ -203,13 +201,11 @@ function RegisterPropertyPage() {
                 <option value="casa">Casa</option>
                 <option value="lote">Lote</option>
               </select>
-              <br />
 
               {/* Tipo de Operación */}
               <label htmlFor="tipoOperacion">
                 Tipo de operación <span className="required">*</span>
               </label>
-              <br />
               <select
                 id="tipoOperacion"
                 name="tipoOperacion"
@@ -224,9 +220,7 @@ function RegisterPropertyPage() {
               </select>
             </div>
 
-            <br />
 
-            <br />
 
             {/* Precio y Área */}
             <div className="two-col">
@@ -255,9 +249,7 @@ function RegisterPropertyPage() {
             </div>
           </div>
 
-          <br />
 
-          <br />
 
           {/* Ubicación */}
           <div className="card">
@@ -301,7 +293,6 @@ function RegisterPropertyPage() {
               </div>
             </div>
 
-            <br />
 
             <div className="two-col">
               <div>
@@ -326,7 +317,6 @@ function RegisterPropertyPage() {
               </div>
             </div>
 
-            <br />
             
             <div style={{ marginTop: "1rem" }}>
               <p>
@@ -348,9 +338,7 @@ function RegisterPropertyPage() {
             </div>
           </div>
 
-          <br />
 
-          <br />
 
           {/* Características */}
           <div className="card">
@@ -385,7 +373,6 @@ function RegisterPropertyPage() {
               </div>
             </div>
 
-            <br />
 
             <div className="two-col">
               <div>
@@ -413,9 +400,7 @@ function RegisterPropertyPage() {
               </div>
             </div>
 
-            <br />
 
-            <br />
 
             {/* Características adicionales (dinámicas desde BD) */}
             <fieldset>
@@ -451,9 +436,7 @@ function RegisterPropertyPage() {
             </fieldset>
           </div>
 
-          <br />
 
-          <br />
 
           {/* Fotografías */}
           <div className="card">
@@ -570,9 +553,7 @@ function RegisterPropertyPage() {
             </p>
           </div>
 
-          <br />
-          
-          <p style={{ fontSize: "0.85rem", color: "#666", textAlign: "center", marginBottom: "1rem" }}>
+          <p style={{ fontSize: "0.85rem", color: "#fff", textAlign: "center", marginBottom: "1rem" }}>
             Al hacer clic en el botón de abajo, usted confirma que ha leído y acepta nuestros <a href="/terms" target="_blank" rel="noopener noreferrer" style={{ color: "#35d2db", textDecoration: "underline" }}>Términos y Condiciones</a> y nuestra <a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "#35d2db", textDecoration: "underline" }}>Política de Privacidad</a>.
           </p>
 

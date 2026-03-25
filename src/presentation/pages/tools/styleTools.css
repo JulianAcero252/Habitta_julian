@@ -1,5 +1,5 @@
 .tools-page {
-  padding: 30px 16px;
+  padding: 16px;
   max-width: 1100px;
   margin: 0 auto;
   min-height: calc(100vh - 260px);
@@ -17,7 +17,7 @@
   font-size: 1rem;
   color: #666;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   line-height: 1.5;
 }
 
@@ -25,7 +25,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  align-items: stretch;
+  align-items: start;
 }
 
 /* ========== Sección de calculadora ========== */
@@ -33,11 +33,10 @@
   background: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
-  padding: 22px;
+  padding: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .calculator-header {
@@ -64,12 +63,12 @@
 .calculator-subtitle {
   color: #666;
   font-size: 0.95rem;
-  margin: 0 0 25px 0;
+  margin: 0 0 16px 0;
   line-height: 1.5;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .form-group label {
@@ -82,7 +81,7 @@
 
 .form-group input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 8px 10px;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 0.92rem;
@@ -116,8 +115,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: auto;
-  /* push the button to the bottom so both cards align */
+  margin-top: 10px;
 }
 
 .btn-calculate:hover {
@@ -133,18 +131,18 @@
   background: #fff;
   border: 2px solid #e0e0e0;
   border-radius: 14px;
-  padding: 22px;
+  padding: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .results-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+  justify-content: flex-start;
 }
 
 .results-icon {
@@ -157,6 +155,7 @@
   font-size: 1.4rem;
   color: #1a1a1a;
   font-weight: 600;
+  text-align: left;
 }
 
 .results-subtitle {
@@ -176,19 +175,17 @@
 .result-percentage {
   color: #999;
   font-size: 0.9rem;
-  margin: 0 0 25px 0;
+  margin: 0;
 }
 
 .divider {
-  border: none;
-  border-top: 1px solid #e0e0e0;
-  margin: 25px 0;
+  display: none;
 }
 
 .result-label {
   color: #555;
   font-size: 0.9rem;
-  margin: 0 0 8px 0;
+  margin: 4px 0 4px 0;
   font-weight: 400;
 }
 
@@ -202,7 +199,7 @@
 .result-note {
   color: #999;
   font-size: 0.85rem;
-  margin: 0 0 28px 0;
+  margin: 0 0 16px 0;
 }
 
 .btn-view-properties {
@@ -282,8 +279,8 @@
   background: #fff;
   border: 2px solid #e0e0e0;
   border-radius: 14px;
-  padding: 22px;
-  margin-top: 32px;
+  padding: 16px;
+  margin-top: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 

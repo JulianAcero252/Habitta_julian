@@ -4,7 +4,7 @@
   width: 100%;
   background-color: #182134;
   color: #ffffff;
-  padding: 60px 20px 40px;
+  padding: 30px 20px 20px;
   box-sizing: border-box;
 }
 
@@ -12,11 +12,11 @@
 .footer__container {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 32px;
+  gap: 20px;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   padding: 0 20px;
 }
 
@@ -24,7 +24,7 @@
 .footer__left {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
 }
 
 .footer__logo-section {
@@ -57,7 +57,7 @@
 .footer__contact {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 .footer__contact-item {
@@ -95,7 +95,7 @@
 .footer__section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .footer__section-title {
@@ -123,10 +123,10 @@
 .footer__countries-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   align-items: center;
-  margin-bottom: 40px;
-  padding: 24px 16px;
+  margin-bottom: 20px;
+  padding: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -172,7 +172,7 @@
   align-items: center;
   max-width: 1200px;
   width: 100%;
-  margin: 0 auto 30px;
+  margin: 0 auto 15px;
   gap: 12px;
   padding: 0 20px;
 }
@@ -244,7 +244,7 @@
 .footer__copyright {
   text-align: center;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 30px;
+  padding-top: 15px;
 }
 
 .footer__copyright p {
