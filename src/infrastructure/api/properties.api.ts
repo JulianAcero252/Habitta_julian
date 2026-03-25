@@ -242,6 +242,23 @@ export const propertyApi = {
       .single();
 
     if (error) throw new Error(error.message);
+
+    // SOLUCIÓN: Si la propiedad debió ser 'destacada' pero un Trigger de base de datos forces it a 'pending_manual',
+    // hacemos un UPDATE inmediato para restablecer su estado correcto (ya que los triggers de auto-estado 
+    // suelen ser BEFORE INSERT y no BEFORE UPDATE).
+    if (isFeatured && data.estadoPublicacion !== "destacada") {
+      const { data: updatedData, error: updateError } = await supabase
+        .from("propiedades")
+        .update({ estadoPublicacion: "destacada" })
+        .eq("idpropiedad", data.idpropiedad)
+        .select()
+        .single();
+        
+      if (!updateError) {
+        return updatedData;
+      }
+    }
+
     return data;
   },
 

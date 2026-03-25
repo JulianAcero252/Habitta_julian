@@ -140,20 +140,46 @@ function PropertyDetailsPage() {
 
   // Handler para compartir
   const handleShare = async () => {
-    const shareData = {
-      title: `${property?.titulo || 'Propiedad'} - Habitta`,
-      text: `Usuario te envió algo que te podría gustar: "${property?.titulo}"`,
-      url: window.location.href
-    };
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-      } catch (err) {
-        console.error("Error al compartir", err);
+    try {
+      let fileToShare: File | null = null;
+      let shareData: any = {
+        title: `${property?.titulo || 'Propiedad'} - Habitta`,
+        text: `¡Hola! un usuario te envió algo que te podría gustar: "${property?.titulo}"`,
+        url: window.location.href
+      };
+
+      // Intentar obtener la imagen principal para adjuntarla
+      if (property?.fotoUrl && !isVideo(property.fotoUrl)) {
+        try {
+          const response = await fetch(property.fotoUrl);
+          const blob = await response.blob();
+          
+          // Detectar la extensión a partir del tipo MIME
+          const mimeType = blob.type || 'image/jpeg';
+          const extension = mimeType.split('/')[1] || 'jpg';
+          
+          const file = new File([blob], `propiedad-habitta.${extension}`, { type: mimeType });
+          
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            fileToShare = file;
+          }
+        } catch (e) {
+          console.warn("No se pudo adjuntar la imagen para compartir natively:", e);
+        }
       }
-    } else {
-      navigator.clipboard.writeText(shareData.url);
-      alert("Enlace copiado al portapapeles.");
+
+      if (fileToShare) {
+        shareData.files = [fileToShare];
+      }
+
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        navigator.clipboard.writeText(`${shareData.text} \n${shareData.url}`);
+        alert("Enlace copiado al portapapeles.");
+      }
+    } catch (err) {
+      console.error("Error al compartir", err);
     }
   };
 

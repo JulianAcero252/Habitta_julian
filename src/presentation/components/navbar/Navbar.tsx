@@ -1,5 +1,5 @@
 import "./navbar.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@application/context/AuthContext";
 import { useNotificaciones } from "@application/hooks/useNotificaciones";
@@ -15,6 +15,23 @@ function Navbar() {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  // Cerrar menú móvil al hacer click afuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        mobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        !(event.target as Element).closest('.navbar__hamburger')
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [mobileMenuOpen]);
 
   // Única instancia del hook — se comparte con ModalN via props
   const { notificaciones, noLeidasCount, marcarTodasLeidas } =
@@ -208,7 +225,7 @@ function Navbar() {
 
       {/* Menú móvil desplegable */}
       {usuario?.rol !== "admin" && (
-        <div className={`navbar__mobile-menu ${mobileMenuOpen ? 'navbar__mobile-menu--open' : ''}`}>
+        <div ref={mobileMenuRef} className={`navbar__mobile-menu ${mobileMenuOpen ? 'navbar__mobile-menu--open' : ''}`}>
           <Link
             className={`navbar_link ${location.pathname === "/" ? "active" : ""}`}
             to="/"

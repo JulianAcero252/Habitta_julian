@@ -17,6 +17,13 @@ export default function PaymentSuccess() {
         return;
       }
 
+      // Si ya es premium, no hacer nada
+      if (usuario.plan === "premium") {
+        setUpgraded(true);
+        setUpgrading(false);
+        return;
+      }
+
       try {
         // Actualizar directamente en Supabase
         const { error } = await supabase
@@ -36,7 +43,7 @@ export default function PaymentSuccess() {
             idusuario: usuario.idusuario,
             titulo: "¡Bienvenido a Premium! 🚀",
             descripcion:
-              "Tu pago ha sido procesado exitosamente. Gracias por confiar en Habitta. Ahora disfrutas de todos los beneficios del plan Premium.",
+              "Gracias por confiar en Habitta. Tu plan Premium ya está activo. ¡Disfruta de todos los beneficios!",
             tipo: "cuenta",
             leido: false,
             fechaEnvio: new Date().toISOString(),
@@ -63,86 +70,57 @@ export default function PaymentSuccess() {
   }, [upgrading, navigate]);
 
   return (
-    <div
-      className="promo-page-container"
-      style={{
-        minHeight: "80vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        className="promo-card premium"
-        style={{
-          textAlign: "center",
-          padding: "4rem 2rem",
-          maxWidth: "600px",
-          margin: "0 auto",
-        }}
-      >
+    <div className="promotion-container" style={{ minHeight: "80vh", justifyContent: "center" }}>
+      <div className="promotion-card featured" style={{ textAlign: "center", padding: "48px 32px", maxWidth: "560px", width: "100%" }}>
+
         {upgrading ? (
           <>
             <div
               style={{
-                width: 48,
-                height: 48,
-                border: "4px solid #e5e7eb",
-                borderTop: "4px solid #35d2db",
-                borderRadius: "50%",
-                animation: "spin 0.8s linear infinite",
+                width: 48, height: 48,
+                border: "4px solid #e5e7eb", borderTop: "4px solid #35d2db",
+                borderRadius: "50%", animation: "spin 0.8s linear infinite",
                 margin: "0 auto 1.5rem",
               }}
             />
-            <h2 className="promo-title">Activando tu plan Premium...</h2>
-            <p className="promo-subtitle" style={{ color: "#6b7280" }}>
+            <h2 style={{ fontSize: "1.4rem", fontWeight: 800, color: "#1a2a35", marginBottom: "0.5rem" }}>
+              Activando tu plan Premium...
+            </h2>
+            <p style={{ color: "#6b7684", fontSize: "0.95rem" }}>
               Estamos procesando tu pago. No cierres esta ventana.
             </p>
           </>
         ) : (
           <>
             <svg
-              stroke="#2dd4bf"
-              fill="none"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              height="80px"
-              width="80px"
-              xmlns="http://www.w3.org/2000/svg"
+              stroke="#35d2db" fill="none" strokeWidth="2"
+              viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round"
+              height="72px" width="72px" xmlns="http://www.w3.org/2000/svg"
               style={{ marginBottom: "1.5rem" }}
             >
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
             </svg>
 
-            <div className="promo-header">
-              <span className="promo-badge">¡Pago Exitoso!</span>
-              <h2 className="promo-title">¡Bienvenido a Premium!</h2>
-            </div>
+            <p className="promotion-eyebrow">¡Pago Exitoso!</p>
+            <h2 style={{ fontSize: "1.8rem", fontWeight: 800, color: "#1a2a35", margin: "0 0 16px" }}>
+              ¡Bienvenido a Premium!
+            </h2>
 
-            <p className="promo-subtitle" style={{ color: "#374151" }}>
+            <p style={{ color: "#374151", fontSize: "1rem", lineHeight: 1.6, marginBottom: "8px" }}>
               {upgraded
                 ? "Muchísimas gracias por confiar en Habitta. Tu cuenta ha sido actualizada a Premium exitosamente. ¡Ya puedes disfrutar de todos los beneficios!"
                 : "Tu pago se ha registrado. Si tu cuenta no aparece como Premium de inmediato, espera unos minutos y recarga la página."}
             </p>
 
-            <p
-              className="promo-subtitle"
-              style={{
-                fontSize: "0.85rem",
-                color: "#9ca3af",
-                marginTop: "1rem",
-              }}
-            >
+            <p style={{ fontSize: "0.85rem", color: "#9ca3af", marginTop: "12px", marginBottom: "24px" }}>
               Serás redirigido a tu panel en 5 segundos...
             </p>
 
             <button
-              className="promo-btn premium-btn"
+              className="select-button premium-btn"
               onClick={() => navigate("/mypanel", { replace: true })}
-              style={{ marginTop: "2rem", width: "100%", maxWidth: "300px" }}
+              style={{ maxWidth: "300px", margin: "0 auto" }}
             >
               Ir a tu Panel →
             </button>

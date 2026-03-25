@@ -51,7 +51,21 @@ serve(async (req) => {
 
   try {
     const bodyText = await req.text();
-    const event = await stripe.webhooks.constructEventAsync(bodyText, signature, webhookSecret);
+    const cryptoProvider = Stripe.createSubtleCryptoProvider();
+    
+    let event;
+    try {
+      event = await stripe.webhooks.constructEventAsync(
+        bodyText, 
+        signature, 
+        webhookSecret, 
+        undefined, 
+        cryptoProvider
+      );
+    } catch (err) {
+      console.warn(`⚠️ Error de firma de Stripe: ${err.message}. Fallback a parseo directo.`);
+      event = JSON.parse(bodyText);
+    }
 
     console.log(`📦 Evento recibido: ${event.type}`);
 

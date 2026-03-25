@@ -104,6 +104,33 @@ const PropiedadesSection: React.FC = () => {
     }
   };
 
+  // Convertir propiedad a destacada (Exclusivo Premium)
+  const handleToggleDestacada = async (id: number, isDestacada: boolean) => {
+    if (usuario?.plan !== "premium") {
+      showToast("Solo los usuarios Premium pueden destacar propiedades", "error");
+      return;
+    }
+
+    try {
+      const nuevoEstado = !isDestacada;
+      // El 3er parámetro isFeatured en updateProperty() automáticamente setea el estado a "destacada" o "activa"
+      await propertyService.updateProperty(id, {}, nuevoEstado);
+      
+      setPropiedades(prev => prev.map(p => 
+        p.idpropiedad === id 
+          ? { ...p, estadoPublicacion: nuevoEstado ? "destacada" : "activa" } 
+          : p
+      ));
+      
+      showToast(nuevoEstado ? "Propiedad destacada con éxito" : "Propiedad removida de destacadas", "success");
+    } catch (err) {
+      showToast(
+        err instanceof Error ? err.message : "Error al actualizar la propiedad.",
+        "error"
+      );
+    }
+  };
+
   // Propiedades filtradas
   const propiedadesFiltradas =
     filtroEstado === "todas"
@@ -320,6 +347,32 @@ const PropiedadesSection: React.FC = () => {
                   <path d="M8 3.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zM8 10a2 2 0 110-4 2 2 0 010 4z" />
                 </svg>
               </button>
+
+              {/* Destacar (Solo Premium) */}
+              {usuario?.plan === "premium" && (
+                <button
+                  className="action-btn"
+                  title={(propiedad.estadoPublicacion === "destacada") ? "Quitar Destacado" : "Destacar Propiedad"}
+                  onClick={() => handleToggleDestacada(propiedad.idpropiedad!, propiedad.estadoPublicacion === "destacada")}
+                  style={{
+                    color: propiedad.estadoPublicacion === "destacada" ? "#f1b307" : "#aaa",
+                    borderColor: "transparent"
+                  }}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill={propiedad.estadoPublicacion === "destacada" ? "currentColor" : "none"}
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                </button>
+              )}
 
               {/* Eliminar */}
               <button
