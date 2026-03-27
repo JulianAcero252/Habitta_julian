@@ -344,6 +344,7 @@ const PropiedadesSection: React.FC = () => {
                 }
               >
                 <svg
+                  xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
                   viewBox="0 0 16 16"
@@ -362,6 +363,7 @@ const PropiedadesSection: React.FC = () => {
                 }
               >
                 <svg
+                  xmlns="http://www.w3.org/2000/svg"
                   width="18"
                   height="18"
                   viewBox="0 0 16 16"
@@ -383,6 +385,7 @@ const PropiedadesSection: React.FC = () => {
                   }}
                 >
                   <svg
+                    xmlns="http://www.w3.org/2000/svg"
                     width="18"
                     height="18"
                     viewBox="0 0 24 24"
@@ -404,6 +407,7 @@ const PropiedadesSection: React.FC = () => {
                 onClick={() => handleDeleteClick(propiedad.idpropiedad)}
               >
                 <svg
+                  xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"

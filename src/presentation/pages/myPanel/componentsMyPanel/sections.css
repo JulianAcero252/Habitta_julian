@@ -342,6 +342,13 @@
   transition: all 0.2s ease;
 }
 
+.action-btn svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 .action-btn--edit {
   background: #f0f9ff;
   color: #0369a1;
