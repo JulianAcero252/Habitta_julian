@@ -106,11 +106,11 @@ function Home() {
             <div className="search-card">
               {/* Pestañas de Tipo */}
               <p className="search-tabs-description" style={{ fontSize: '0.95rem', color: '#555', marginBottom: '12px', fontWeight: '600' }}>
-                ¿Qué tipo de operación buscas?
+                Busca en propiedades destacadas el mejor inmueble para ti
               </p>
               <div className="search-tabs">
                 <button className={`tab ${tipoOperacion === 'Todos' ? 'active' : ''}`} onClick={() => setTipoOperacion('Todos')}>Todos</button>
-                <button className={`tab ${tipoOperacion === 'alquiler' ? 'active' : ''}`} onClick={() => setTipoOperacion('alquiler')}>Alquilar</button>
+                <button className={`tab ${tipoOperacion === 'alquiler' ? 'active' : ''}`} onClick={() => setTipoOperacion('alquiler')}>Alquiler</button>
                 <button className={`tab ${tipoOperacion === 'venta' ? 'active' : ''}`} onClick={() => setTipoOperacion('venta')}>Venta</button>
               </div>
 
@@ -118,7 +118,7 @@ function Home() {
               <div className="search-inputs">
                 {/* Tipo de Propiedad */}
                 <div className="input-group">
-                  <label htmlFor="propertyType">Tipo de propiedad</label>
+                  <label htmlFor="propertyType">Tipo de inmueble</label>
                   <select id="propertyType" value={tipoPropiedad} onChange={(e) => setTipoPropiedad(e.target.value)}>
                     <option value="">Selecciona</option>
                     <option value="Apartamento">Apartamento</option>
@@ -142,7 +142,10 @@ function Home() {
                 </div>
 
                 {/* Botón de Búsqueda */}
-                <button className="search-btn" onClick={handleSearchClick}>
+                <button className="search-btn" onClick={() => {
+                   const element = document.querySelector(".properties-section");
+                   if (element) element.scrollIntoView({ behavior: 'smooth' });
+                }}>
                   <img
                     src={searchIcon}
                     alt="Search"
@@ -152,7 +155,7 @@ function Home() {
                       filter: "brightness(0) invert(1)",
                     }}
                   />
-                  Buscar
+                  Buscar ahora
                 </button>
               </div>
 
@@ -181,13 +184,17 @@ function Home() {
                   tipoOperacion === "Todos" || 
                   (tipoOperacion === "alquiler" && (op === "alquiler" || op === "arriendo")) ||
                   (tipoOperacion === "venta" && op === "venta");
-                
                 const matchesType = !tipoPropiedad || p.tipoPropiedad?.toLowerCase() === tipoPropiedad.toLowerCase();
 
                 // Solo propiedades marcadas como destacadas
                 const isDestacada = p.estadoPublicacion === "destacada";
                 
-                return isDestacada && matchesOp && matchesType;
+                const matchesLocation = !ubicacion || 
+                  (p.ciudad?.toLowerCase().includes(ubicacion.toLowerCase()) || 
+                   p.barrio?.toLowerCase().includes(ubicacion.toLowerCase()) ||
+                   p.departamento?.toLowerCase().includes(ubicacion.toLowerCase()));
+
+                return isDestacada && matchesOp && matchesType && matchesLocation;
               })
               .slice(0, 8)
               .map((property) => (
@@ -336,14 +343,18 @@ function Home() {
             {/* Tarjetas de App */}
             <div className="app-cards-grid">
               <div className="app-card">
-                <div className="app-icon"></div>
+                <div className="app-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                </div>
                 <div className="app-info">
                   <strong>Versión Web</strong>
                   <span>Accede desde cualquier navegador</span>
                 </div>
               </div>
               <div className="app-card">
-                <div className="app-icon"></div>
+                <div className="app-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+                </div>
                 <div className="app-info">
                   <strong>App Móvil</strong>
                   <span>Próximamente en App Store y Google Play</span>

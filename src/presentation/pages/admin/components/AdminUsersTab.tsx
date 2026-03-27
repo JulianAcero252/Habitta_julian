@@ -27,30 +27,6 @@ export default function AdminUsersTab() {
     cargarUsuarios();
   }, []);
 
-  const handleCambiarPlan = async (usuario: Usuario) => {
-    try {
-      const planActual = usuario.plan || "gratuito";
-      const nuevoPlan = planActual === "gratuito" ? "premium" : "gratuito";
-      await usuariosApi.cambiarPlan(usuario.idusuario, nuevoPlan);
-      
-      showToast(`Plan cambiado a ${nuevoPlan} para ${usuario.nombre}.`, "success");
-      
-      // Auditoría
-      if (adminUsuario) {
-         await auditService.logAction(
-           "modificar_plan",
-           "usuario",
-           usuario.idusuario,
-           `El administrador ${adminUsuario.nombre} cambió el plan de ${usuario.nombre} a ${nuevoPlan}`,
-           adminUsuario.idusuario
-         );
-      }
-
-      cargarUsuarios(); // Recargar datos
-    } catch (error: any) {
-      showToast(error.message, "error");
-    }
-  };
 
   const handleCambiarEstado = async (usuario: Usuario) => {
     try {
@@ -107,7 +83,8 @@ export default function AdminUsersTab() {
                 <th>Contacto</th>
                 <th>Plan</th>
                 <th>Estado</th>
-                <th>Última Actividad</th>
+                <th>Registro</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Última Actividad</th>
                 <th>Acciones Rápidas</th>
               </tr>
             </thead>
@@ -155,6 +132,11 @@ export default function AdminUsersTab() {
                     </span>
                   </td>
                   <td style={{ fontSize: "0.85rem", color: "#6b7280" }}>
+                    {user.created_at 
+                        ? new Date(user.created_at).toLocaleDateString() 
+                        : "N/A"}
+                  </td>
+                  <td style={{ fontSize: "0.85rem", color: "#6b7280" }}>
                     {user.ultimaactividad 
                         ? new Date(user.ultimaactividad).toLocaleDateString() 
                         : "Nunca"}
@@ -163,26 +145,6 @@ export default function AdminUsersTab() {
                     <div className="action-buttons" style={{ display: "flex", gap: "8px" }}>
                       {user.rol !== "admin" && (
                         <>
-                          <button
-                            onClick={() => handleCambiarPlan(user)}
-                            style={{
-                              padding: "6px 12px",
-                              fontSize: "0.80rem",
-                              fontWeight: 500,
-                              borderRadius: "6px",
-                              border: "1px solid",
-                              cursor: "pointer",
-                              width: "115px",
-                              transition: "all 0.2s",
-                              backgroundColor: user.plan === "premium" ? "#fff" : "#14b8a6",
-                              color: user.plan === "premium" ? "#4b5563" : "#fff",
-                              borderColor: user.plan === "premium" ? "#d1d5db" : "#14b8a6",
-                            }}
-                            onMouseOver={(e) => e.currentTarget.style.opacity = "0.85"}
-                            onMouseOut={(e) => e.currentTarget.style.opacity = "1"}
-                          >
-                            {user.plan === "premium" ? "Bajar a Gratis" : "Hacer Premium"}
-                          </button>
                           
                           <button
                             onClick={() => handleCambiarEstado(user)}

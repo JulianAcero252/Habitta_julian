@@ -1,1 +1,0 @@
-UPDATE propiedades SET estadoPublicacion = 'destacada' WHERE idpropiedad = 125;

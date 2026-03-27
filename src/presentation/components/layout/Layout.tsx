@@ -13,6 +13,10 @@ export default function Layout() {
   const isAdminPage = location.pathname.startsWith("/admin");
   const isAdminRole = usuario?.rol === "admin";
   const hideLayout = isAuthPage || isAdminPage || isAdminRole;
+  
+  const noFooterRoutes = ["/registerpropeties", "/notification", "/mypanel", "/promotion"];
+  const isNoFooterRoute = noFooterRoutes.includes(location.pathname);
+  const hideFooter = hideLayout || isNoFooterRoute;
 
   if (loading) {
     return (
@@ -36,7 +40,7 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {!hideLayout && <Footer />}
+      {!hideFooter && <Footer />}
     </>
   );
 }

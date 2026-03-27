@@ -96,7 +96,6 @@ const ModalN: FC<ModalNProps> = ({
     <div className={`modal-content modal-animated ${isOpen ? "open" : ""}`} ref={modalRef}>
       <header className="modal-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <h2 className="modal-title">Notificaciones</h2>
-        {notificaciones.length > 0 && (
           <button
             onClick={handleVerTodas}
             style={{
@@ -111,7 +110,6 @@ const ModalN: FC<ModalNProps> = ({
           >
             Ver todas →
           </button>
-        )}
       </header>
 
       <section className="modal-body">

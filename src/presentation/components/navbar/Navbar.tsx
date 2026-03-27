@@ -131,8 +131,8 @@ function Navbar() {
                 </li>
                 <li>
                   <Link className={`navbar_link ${location.pathname === "/tools" ? "active" : ""}`} to={usuario ? "/tools" : "/auth"}>
-                    <img className="navbar_icon" src="/icons/UI/navbaricons/coin-dollar-svgrepo-com.svg" alt="Calculadora financiera" />
-                    Calculadora financiera
+                    <img className="navbar_icon" src="/icons/UI/navbaricons/coin-dollar-svgrepo-com.svg" alt="Calculadora" />
+                    Calculadora
                   </Link>
                 </li>
               </ul>
@@ -149,7 +149,7 @@ function Navbar() {
              </Link>
           )}
           {/* Notifications */}
-          {usuario?.rol !== "admin" && (
+          {usuario && usuario.rol !== "admin" && (
             <div style={{ position: "relative" }}>
               <div
                 id="notificationButton"
@@ -260,8 +260,8 @@ function Navbar() {
             to={usuario ? "/tools" : "/auth"}
             onClick={() => setMobileMenuOpen(false)}
           >
-            <img className="navbar_icon" src="/icons/UI/navbaricons/coin-dollar-svgrepo-com.svg" alt="Calculadora financiera" />
-            Calculadora financiera
+            <img className="navbar_icon" src="/icons/UI/navbaricons/coin-dollar-svgrepo-com.svg" alt="Calculadora" />
+            Calculadora
           </Link>
         </div>
       )}
