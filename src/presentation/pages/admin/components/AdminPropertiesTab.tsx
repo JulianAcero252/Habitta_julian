@@ -25,10 +25,11 @@ function AdminPropertiesTab() {
     setLoading(true);
     try {
       // Hacemos el fetch directamente aquí para aprovechar el join con 'usuarios'
+      // Incluimos 'pending_destacada' en el filtro
       const { data, error } = await supabase
         .from("propiedades")
         .select(`*, fotospropiedad(url, orden), usuarios!inner(nombre, telefono)`)
-        .or("estadoPublicacion.eq.pending_manual,estadoPublicacion.ilike.pendiente,estadoPublicacion.is.null")
+        .or("estadoPublicacion.eq.pending_manual,estadoPublicacion.eq.pending_destacada,estadoPublicacion.ilike.pendiente,estadoPublicacion.is.null")
         .order("fechacreacion", { ascending: false });
 
       if (error) throw new Error(error.message);
@@ -65,7 +66,13 @@ function AdminPropertiesTab() {
     if (!window.confirm(`¿Estás seguro de que quieres ${status === "activa" ? "aprobar" : "rechazar"} esta propiedad?`)) return;
 
     try {
-      await propertyService.updateProperty(id, { estadoPublicacion: status });
+      // Si aprobamos y era 'pending_destacada', el estado final debe ser 'destacada'
+      let finalStatus: string = status;
+      if (status === "activa" && prop?.estadoPublicacion === "pending_destacada") {
+        finalStatus = "destacada";
+      }
+
+      await propertyService.updateProperty(id, { estadoPublicacion: finalStatus });
       showToast(`Propiedad ${status === "activa" ? "aprobada" : "rechazada"} con éxito`, "success");
       setProperties((prev) => prev.filter((p) => p.idpropiedad !== id));
 

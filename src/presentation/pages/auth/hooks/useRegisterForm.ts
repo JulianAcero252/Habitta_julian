@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@application/context/AuthContext";
 import { authApi } from "@infrastructure/api/auth.api";
+import { validatePassword, isPasswordValid } from "@application/utils/validation.utils";
 
 /** Hook del formulario de registro — validaciones frontend + signUp */
 export function useRegisterForm() {
@@ -18,32 +19,8 @@ export function useRegisterForm() {
   const [registeredUserId, setRegisteredUserId] = useState<string | null>(null);
 
   // Validación de contraseña en tiempo real
-  const passwordValidation = {
-    hasLength: password.length >= 8,
-    hasUpper: /[A-Z]/.test(password),
-    hasLower: /[a-z]/.test(password),
-    hasNumberAndSafe: (() => {
-      if (!/[0-9]/.test(password)) return false;
-      if (/(\d)\1{2,}/.test(password)) return false; // Repetidos como 222
-
-      // Secuenciales como 123 o 321
-      for (let i = 0; i < password.length - 2; i++) {
-        const c1 = password.charCodeAt(i);
-        const c2 = password.charCodeAt(i + 1);
-        const c3 = password.charCodeAt(i + 2);
-
-        if (c1 >= 48 && c1 <= 57 && c2 >= 48 && c2 <= 57 && c3 >= 48 && c3 <= 57) {
-          if ((c2 === c1 + 1 && c3 === c2 + 1) || (c2 === c1 - 1 && c3 === c2 - 1)) {
-            return false;
-          }
-        }
-      }
-      return true;
-    })(),
-    hasSpecial: /[^A-Za-z0-9]/.test(password),
-  };
-
-  const isPasswordValid = Object.values(passwordValidation).every(Boolean);
+  const passwordValidation = validatePassword(password);
+  const isPasswordValidField = isPasswordValid(passwordValidation);
   const passwordsMatch = password.length > 0 && confirmPassword.length > 0 && password === confirmPassword;
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -90,7 +67,7 @@ export function useRegisterForm() {
       setError("Los correos electrónicos no coinciden.");
       return;
     }
-    if (!isPasswordValid) {
+    if (!isPasswordValidField) {
       setError("La contraseña no cumple con los requisitos de seguridad.");
       return;
     }
@@ -145,7 +122,7 @@ export function useRegisterForm() {
     emailDisponible,
     checkingEmail,
     passwordValidation,
-    isPasswordValid,
+    isPasswordValid: isPasswordValidField,
     passwordsMatch,
     showPromoModal,
     setShowPromoModal,

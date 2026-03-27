@@ -234,7 +234,9 @@ export const propertyApi = {
 
   /** Crear propiedad — pasa a revisión (RF22 modificado) */
   create: async (property: CreatePropertyInput, isFeatured: boolean = false): Promise<Property> => {
-    const estado = isFeatured ? "destacada" : "pending_manual";
+    // Si es destacada, entra en estado de revisión especial para no perder el flag
+    const estado = isFeatured ? "pending_destacada" : "pending_manual";
+    
     const { data, error } = await supabase
       .from("propiedades")
       .insert({ ...property, estadoPublicacion: estado })
@@ -242,23 +244,6 @@ export const propertyApi = {
       .single();
 
     if (error) throw new Error(error.message);
-
-    // SOLUCIÓN: Si la propiedad debió ser 'destacada' pero un Trigger de base de datos forces it a 'pending_manual',
-    // hacemos un UPDATE inmediato para restablecer su estado correcto (ya que los triggers de auto-estado 
-    // suelen ser BEFORE INSERT y no BEFORE UPDATE).
-    if (isFeatured && data.estadoPublicacion !== "destacada") {
-      const { data: updatedData, error: updateError } = await supabase
-        .from("propiedades")
-        .update({ estadoPublicacion: "destacada" })
-        .eq("idpropiedad", data.idpropiedad)
-        .select()
-        .single();
-        
-      if (!updateError) {
-        return updatedData;
-      }
-    }
-
     return data;
   },
 

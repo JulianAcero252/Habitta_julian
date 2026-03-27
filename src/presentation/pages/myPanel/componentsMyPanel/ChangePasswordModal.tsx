@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@application/context/AuthContext";
 import { useToast } from "@application/context/ToastContext";
+import { validatePassword, isPasswordValid } from "@application/utils/validation.utils";
 import "./ChangePasswordModal.css";
 
 interface Props {
@@ -19,32 +20,8 @@ const ChangePasswordModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [success, setSuccess] = useState(false);
 
   // Validación de contraseña en tiempo real
-  const passwordValidation = {
-    hasLength: newPassword.length >= 8,
-    hasUpper: /[A-Z]/.test(newPassword),
-    hasLower: /[a-z]/.test(newPassword),
-    hasNumberAndSafe: (() => {
-      if (!/[0-9]/.test(newPassword)) return false;
-      if (/(\d)\1{2,}/.test(newPassword)) return false; // Repetidos como 222
-
-      // Secuenciales como 123 o 321
-      for (let i = 0; i < newPassword.length - 2; i++) {
-        const c1 = newPassword.charCodeAt(i);
-        const c2 = newPassword.charCodeAt(i + 1);
-        const c3 = newPassword.charCodeAt(i + 2);
-
-        if (c1 >= 48 && c1 <= 57 && c2 >= 48 && c2 <= 57 && c3 >= 48 && c3 <= 57) {
-          if ((c2 === c1 + 1 && c3 === c2 + 1) || (c2 === c1 - 1 && c3 === c2 - 1)) {
-            return false;
-          }
-        }
-      }
-      return true;
-    })(),
-    hasSpecial: /[^A-Za-z0-9]/.test(newPassword),
-  };
-
-  const isPasswordValid = Object.values(passwordValidation).every(Boolean);
+  const passwordValidation = validatePassword(newPassword);
+  const isPasswordValidField = isPasswordValid(passwordValidation);
   const passwordsMatch = newPassword.length > 0 && confirmPassword.length > 0 && newPassword === confirmPassword;
 
   const { usuario, updatePassword } = useAuth();
@@ -92,7 +69,7 @@ const ChangePasswordModal: React.FC<Props> = ({ isOpen, onClose }) => {
       return;
     }
 
-    if (!isPasswordValid) {
+    if (!isPasswordValidField) {
       setError("La nueva contraseña no cumple con los requisitos de seguridad.");
       return;
     }
